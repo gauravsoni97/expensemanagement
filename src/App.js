@@ -4,8 +4,9 @@ import TopBox from './Components/TopBox/TopBox'
 
 const App = () => {
   return (
-    <div className="w-full w-screen-xl h-screen mx-auto py-24  bg-indigo-800" >
+    <div className="Project_Parent bg-gradient-to-r from-blue-400 via-blue-400 to-blue-400 " >
     <TopBox />
+    <br/>
     <BottomBox/>
     </div>
   )
