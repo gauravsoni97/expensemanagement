@@ -13,6 +13,7 @@ const Main = () => {
   const [investAmountFromSalary, setInvestAmountFromSalary] = useState(0);
 
   // right side states --------------
+
   const [addNeeds, setAddNeeds] = useState({
     name:"",
     price:""
@@ -56,7 +57,7 @@ const Main = () => {
 
           <button
             type="submit"
-            class=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+            className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
           >
             Manage Amount
           </button>
@@ -98,13 +99,13 @@ const Main = () => {
             </div>
             <button
               type="submit"
-              class=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
             >
               Use Amount
             </button>
           </form>
           <div className="balence_left_box ">
-            <p class=" w-full bg-red-50 p-2 rounded-lg text-gray-800 text-center my-2 ">
+            <p className=" w-full bg-red-50 p-2 rounded-lg text-gray-800 text-center my-2 ">
               Balance left: 234
             </p>
           </div>
@@ -115,10 +116,10 @@ const Main = () => {
             </div>
             <div className="all_lists_parent">
               <div className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50">
-                <p className="listed_item_name">{addNeeds.name}</p>
-                <p className="listed_item_price"> {addNeeds.price}</p>
+                <p className="listed_item_name"></p>
+                <p className="listed_item_price"> </p>
                 <p className="listed_item_edit">
-                  <i class="ri-edit-box-line"></i>
+                  <i className="ri-edit-box-line"></i>
                 </p>
               </div>
             </div>
