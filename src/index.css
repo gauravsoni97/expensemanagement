@@ -23,7 +23,7 @@ body {
   width: 100%;
   min-height: 100vh;
   overflow: auto;
-  background-color: rgb(255, 181, 157);
+  background-color: rgb(70, 64, 63);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -54,3 +54,7 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: #775959; 
   }
+
+
+
+  /* button styling  */

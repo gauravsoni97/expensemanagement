@@ -1,0 +1,52 @@
+.Main_Box{
+    width: 100%;
+    min-width: 45vw;
+    flex-wrap: wrap;
+    border-radius: 2rem;
+}
+
+.mainBox-leftside,.mainBox-rightside {
+    width: 50%;
+    padding: 2rem;
+}
+.mainBox-leftside{
+    border-radius: 2rem;
+}
+
+@media screen and (max-width:600px) {
+ 
+    .mainBox-leftside,.mainBox-rightside {
+        width: 100%;
+        padding: 1rem;
+    }
+    
+}
+
+
+
+.mainheading_topleft{
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.inputfield {
+    margin: 1rem 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+
+}
+.inputfield label {
+    width: 100%;
+    margin-bottom: .5rem;
+    
+}
+.inputfield input {
+    width: 100%;
+    margin-bottom: .5rem;
+    padding: .5rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: .3rem;
+}
