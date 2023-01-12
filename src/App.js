@@ -3,7 +3,7 @@ import Main from './Components/Main'
 
 const App = () => {
   return (
-    <div><Main/></div>
+    <div className='p-2'><Main/></div>
   )
 }
 
