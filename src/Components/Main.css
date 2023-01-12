@@ -50,3 +50,20 @@
     background-color: rgb(255, 255, 255);
     border-radius: .3rem;
 }
+
+
+.inputfield_rightside input{
+  background-color: rgb(241, 241, 241);
+}
+
+.all_lists_parent{
+    max-height: 150px ;
+    overflow: auto;
+    padding-right: .2rem;
+    margin-top: .5rem;
+}
+
+.balence_left_box{
+    border-bottom: 1px solid rgb(255, 229, 212);
+    margin: .5rem 0;
+}
