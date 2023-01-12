@@ -14,6 +14,9 @@ const Main = () => {
 
   // right side states --------------
 
+  const [itemName, setItemName]=useState()
+  const [itemPrice, setItemPrice]=useState()
+
   const [addNeeds, setAddNeeds] = useState({
     name:"",
     price:""
@@ -34,6 +37,9 @@ const Main = () => {
 
   const handleBudgetForm = (e) => {
     e.preventDefault();
+    setItemName(addNeeds.name)
+    setItemPrice(addNeeds.price)
+    setAddNeeds({name:"" , price:""})
   };
 
   return (
@@ -116,8 +122,8 @@ const Main = () => {
             </div>
             <div className="all_lists_parent">
               <div className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50">
-                <p className="listed_item_name"></p>
-                <p className="listed_item_price"> </p>
+                <p className="listed_item_name">{itemName}</p>
+                <p className="listed_item_price">{itemPrice}</p>
                 <p className="listed_item_edit">
                   <i className="ri-edit-box-line"></i>
                 </p>
