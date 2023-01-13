@@ -14,17 +14,17 @@ const Main = () => {
 
   // right side states --------------
 
-  const [listItem, setListItem] = useState([])
+  const [listItem, setListItem] = useState([]);
 
   const addListItem = (nameOfItem, priceOfItem) => {
-    setListItem((prevVal)=>{
-return [...prevVal, {name:nameOfItem , price:priceOfItem}]
-    })
-  }
+    setListItem((prevVal) => {
+      return [...prevVal, { name: nameOfItem, price: priceOfItem }];
+    });
+  };
 
   const [addNeeds, setAddNeeds] = useState({
-    name:"",
-    price:""
+    name: "",
+    price: "",
   });
 
   // const [addWants, setAddWants] = useState();
@@ -42,10 +42,9 @@ return [...prevVal, {name:nameOfItem , price:priceOfItem}]
 
   const handleBudgetForm = (e) => {
     e.preventDefault();
-    setAddNeeds({name:"" , price:""})
+    setAddNeeds({ name: "", price: "" });
 
-    addListItem(addNeeds.name, addNeeds.price)
-
+    addListItem(addNeeds.name, addNeeds.price);
 
     console.log(listItem);
   };
@@ -105,11 +104,25 @@ return [...prevVal, {name:nameOfItem , price:priceOfItem}]
           <form onSubmit={handleBudgetForm}>
             <div className="inputfield inputfield_rightside">
               <label>Enter Name</label>
-              <input type="text" placeholder="Sugar" value={addNeeds.name} onChange={(e)=>setAddNeeds({...addNeeds, name:e.target.value})} />
+              <input
+                type="text"
+                placeholder="Sugar"
+                value={addNeeds.name}
+                onChange={(e) =>
+                  setAddNeeds({ ...addNeeds, name: e.target.value })
+                }
+              />
             </div>
             <div className="inputfield inputfield_rightside">
               <label>Enter Amount</label>
-              <input type="number" placeholder="10000"  value={addNeeds.price} onChange={(e)=>setAddNeeds({...addNeeds, price:e.target.value})}  />
+              <input
+                type="number"
+                placeholder="10000"
+                value={addNeeds.price}
+                onChange={(e) =>
+                  setAddNeeds({ ...addNeeds, price: e.target.value })
+                }
+              />
             </div>
             <button
               type="submit"
@@ -129,20 +142,17 @@ return [...prevVal, {name:nameOfItem , price:priceOfItem}]
               <span>Dropdown</span>
             </div>
             <div className="all_lists_parent">
-
-{listItem?.map((e)=>{
-  return(
-    <div className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50">
-    <p className="listed_item_name">{e.name}</p>
-    <p className="listed_item_price">{e.price}</p>
-    <p className="listed_item_edit">
-      <i className="ri-edit-box-line"></i>
-    </p>
-  </div>
-  )
-})}
-
-           
+              {listItem?.map((e) => {
+                return (
+                  <div className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50">
+                    <p className="listed_item_name">{e.name}</p>
+                    <p className="listed_item_price">{e.price}</p>
+                    <p className="listed_item_edit">
+                      <i className="ri-edit-box-line"></i>
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
