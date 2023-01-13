@@ -45,13 +45,16 @@ const Main = () => {
   const handleBudgetForm = (e) => {
     e.preventDefault();
     setAddNeeds({ name: "", price: "" });
-
     addListItem(addNeeds.name, addNeeds.price);
-
     console.log(listItem);
   };
 
-  const onDeleteListItem = () => {};
+  const onDeleteListItem = (ind) => {
+    const updatedList = listItem.filter((currVal, currInd) => {
+      return ind !== currInd;
+    });
+    setListItem(updatedList);
+  };
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
@@ -64,16 +67,13 @@ const Main = () => {
         investAmountFromSalary={investAmountFromSalary}
       />
       {/* ------------------------- Right Side --------------------- */}
-      <ExpenseListRight 
-      handleBudgetForm={handleBudgetForm}
-      addNeeds={addNeeds}
-      setAddNeeds={setAddNeeds}
-      listItem={listItem}
-      onDeleteListItem={onDeleteListItem}
+      <ExpenseListRight
+        handleBudgetForm={handleBudgetForm}
+        addNeeds={addNeeds}
+        setAddNeeds={setAddNeeds}
+        listItem={listItem}
+        onDeleteListItem={onDeleteListItem}
       />
-
-
-
     </div>
   );
 };
