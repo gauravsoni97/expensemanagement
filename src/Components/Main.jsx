@@ -14,8 +14,13 @@ const Main = () => {
 
   // right side states --------------
 
-  const [itemName, setItemName]=useState()
-  const [itemPrice, setItemPrice]=useState()
+  const [listItem, setListItem] = useState([])
+
+  const addListItem = (nameOfItem, priceOfItem) => {
+    setListItem((prevVal)=>{
+return [...prevVal, {name:nameOfItem , price:priceOfItem}]
+    })
+  }
 
   const [addNeeds, setAddNeeds] = useState({
     name:"",
@@ -37,9 +42,12 @@ const Main = () => {
 
   const handleBudgetForm = (e) => {
     e.preventDefault();
-    setItemName(addNeeds.name)
-    setItemPrice(addNeeds.price)
     setAddNeeds({name:"" , price:""})
+
+    addListItem(addNeeds.name, addNeeds.price)
+
+
+    console.log(listItem);
   };
 
   return (
@@ -121,13 +129,20 @@ const Main = () => {
               <span>Dropdown</span>
             </div>
             <div className="all_lists_parent">
-              <div className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50">
-                <p className="listed_item_name">{itemName}</p>
-                <p className="listed_item_price">{itemPrice}</p>
-                <p className="listed_item_edit">
-                  <i className="ri-edit-box-line"></i>
-                </p>
-              </div>
+
+{listItem?.map((e)=>{
+  return(
+    <div className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50">
+    <p className="listed_item_name">{e.name}</p>
+    <p className="listed_item_price">{e.price}</p>
+    <p className="listed_item_edit">
+      <i className="ri-edit-box-line"></i>
+    </p>
+  </div>
+  )
+})}
+
+           
             </div>
           </div>
         </div>
