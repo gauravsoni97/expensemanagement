@@ -6,6 +6,8 @@ const ExpenseListRight = ({
   setAddNeeds,
   listItem,
   onDeleteListItem,
+  needsAmountFromSalary,
+  // balance,
 }) => {
   return (
     <div className="mainBox-rightside p-3 ">
@@ -47,7 +49,7 @@ const ExpenseListRight = ({
         </form>
         <div className="balence_left_box ">
           <p className=" w-full bg-red-50 p-2 rounded-lg text-gray-800 text-center my-2 ">
-            Balance left: 234
+            Balance left: {needsAmountFromSalary}
           </p>
         </div>
         <div className="list_amount_parent">
@@ -56,7 +58,7 @@ const ExpenseListRight = ({
             <span>Dropdown</span>
           </div>
           <div className="all_lists_parent">
-            {listItem?.map((e, ind) => {
+            { listItem.map((e, ind) => {
               return (
                 <div
                   className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
@@ -66,7 +68,7 @@ const ExpenseListRight = ({
                   <p className="listed_item_price">{e.price}</p>
                   <p className="listed_item_edit">
                     <i
-                      className="ri-edit-box-line"
+                      className="ri-delete-bin-line"
                       onClick={() => onDeleteListItem(ind)}
                     ></i>
                   </p>

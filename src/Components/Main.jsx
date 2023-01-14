@@ -32,7 +32,15 @@ const Main = () => {
   // const [addWants, setAddWants] = useState();
   // const [addInvest, setAddInvest] = useState();
 
-  // ----- handlers
+
+const [balance, setBalance] = useState(0)
+
+const balanceLeft = () =>{
+
+}
+
+
+  // ----- left side form handler
 
   const handleSalary = (e) => {
     e.preventDefault();
@@ -40,14 +48,19 @@ const Main = () => {
     setWantsAmountFromSalary(Math.round((thirtyPercent / 100) * salaryInput));
     setInvestAmountFromSalary(Math.round((twentyPercent / 100) * salaryInput));
     setSalaryInput("");
+    setBalance(needsAmountFromSalary);
   };
+
+  // right side form
 
   const handleBudgetForm = (e) => {
     e.preventDefault();
     setAddNeeds({ name: "", price: "" });
     addListItem(addNeeds.name, addNeeds.price);
-    console.log(listItem);
   };
+
+
+  // on delete list  from lists of Array 
 
   const onDeleteListItem = (ind) => {
     const updatedList = listItem.filter((currVal, currInd) => {
@@ -56,6 +69,7 @@ const Main = () => {
     setListItem(updatedList);
   };
 
+  
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
       <SalaryBoxLeft
@@ -73,6 +87,7 @@ const Main = () => {
         setAddNeeds={setAddNeeds}
         listItem={listItem}
         onDeleteListItem={onDeleteListItem}
+        balance={balance}
       />
     </div>
   );
