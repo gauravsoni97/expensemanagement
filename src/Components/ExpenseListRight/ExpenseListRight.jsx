@@ -58,7 +58,7 @@ const ExpenseListRight = ({
             <span>Dropdown</span>
           </div>
           <div className="all_lists_parent">
-            { listItem.map((e, ind) => {
+            { listItem.length>0 &&  listItem.map((e, ind) => {
               return (
                 <div
                   className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
