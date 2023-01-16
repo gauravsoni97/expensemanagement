@@ -22,10 +22,7 @@ const ExpenseListRight = ({
         <div>Filter By:</div>
         <div>
           <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <Select
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-            >
+            <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
               <MenuItem value="needs">Needs</MenuItem>
               <MenuItem value="wants">Wants</MenuItem>
               <MenuItem value="invest">Invest</MenuItem>
@@ -58,12 +55,12 @@ const ExpenseListRight = ({
               }
             />
           </div>
-          <button
-            type="submit"
-            className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-          >
-            Use Amount
-          </button>
+            <button
+              type="submit"
+              className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+            >
+              Use Amount
+            </button>
         </form>
         <div className="balence_left_box ">
           <p className=" w-full bg-red-50 p-2 rounded-lg text-gray-800 text-center my-2 ">
@@ -72,24 +69,21 @@ const ExpenseListRight = ({
         </div>
         <div className="list_amount_parent">
           <div className=" mt-5 list_by_filter flex align-center justify-between">
-
-          <div className="filter_box w-full">
-        <div>Filter By:</div>
-        <div>
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <Select
-              value={monthFilter}
-              onChange={(e) => setMonthFilter(e.target.value)}
-            >
-              <MenuItem value="jan">Jan</MenuItem>
-              <MenuItem value="feb">Feb</MenuItem>
-              <MenuItem value="mar">Mar</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-
-
-      </div>
+            <div className="filter_box w-full">
+              <div>Filter By:</div>
+              <div>
+                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                  <Select
+                    value={monthFilter}
+                    onChange={(e) => setMonthFilter(e.target.value)}
+                  >
+                    <MenuItem value="jan">Jan</MenuItem>
+                    <MenuItem value="feb">Feb</MenuItem>
+                    <MenuItem value="mar">Mar</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+            </div>
           </div>
           <div className="all_lists_parent">
             {listItem.length > 0 &&

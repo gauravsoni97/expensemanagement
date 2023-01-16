@@ -32,13 +32,9 @@ const Main = () => {
   // const [addWants, setAddWants] = useState();
   // const [addInvest, setAddInvest] = useState();
 
+  const [filter, setFilter] = useState("needs");
+  const [monthFilter, setMonthFilter] = useState("jan");
 
-
-  const [filter, setFilter] = useState("needs"); 
-  const [monthFilter, setMonthFilter] = useState("jan"); 
-
-
-  
   // ----- left side form handler
 
   const handleSalary = (e) => {
