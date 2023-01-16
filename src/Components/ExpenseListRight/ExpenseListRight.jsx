@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const ExpenseListRight = ({
   handleBudgetForm,
@@ -7,13 +11,27 @@ const ExpenseListRight = ({
   listItem,
   onDeleteListItem,
   needsAmountFromSalary,
-  // balance,
+  filter,
+  setFilter,
+  monthFilter,
+  setMonthFilter,
 }) => {
   return (
     <div className="mainBox-rightside p-3 ">
-      <div className="filter_box  flex align-center justify-between my-4">
-        <span>Filter By:</span>
-        <span> Needs - dropdown</span>
+      <div className="filter_box">
+        <div>Filter By:</div>
+        <div>
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <Select
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+            >
+              <MenuItem value="needs">Needs</MenuItem>
+              <MenuItem value="wants">Wants</MenuItem>
+              <MenuItem value="invest">Invest</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
       </div>
 
       <div className="input_amount_form_section">
@@ -54,27 +72,44 @@ const ExpenseListRight = ({
         </div>
         <div className="list_amount_parent">
           <div className=" mt-5 list_by_filter flex align-center justify-between">
-            <span>Filter By:</span>
-            <span>Dropdown</span>
+
+          <div className="filter_box w-full">
+        <div>Filter By:</div>
+        <div>
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <Select
+              value={monthFilter}
+              onChange={(e) => setMonthFilter(e.target.value)}
+            >
+              <MenuItem value="jan">Jan</MenuItem>
+              <MenuItem value="feb">Feb</MenuItem>
+              <MenuItem value="mar">Mar</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+
+
+      </div>
           </div>
           <div className="all_lists_parent">
-            { listItem.length>0 &&  listItem.map((e, ind) => {
-              return (
-                <div
-                  className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
-                  key={ind}
-                >
-                  <p className="listed_item_name">{e.name}</p>
-                  <p className="listed_item_price">{e.price}</p>
-                  <p className="listed_item_edit">
-                    <i
-                      className="ri-delete-bin-line"
-                      onClick={() => onDeleteListItem(ind)}
-                    ></i>
-                  </p>
-                </div>
-              );
-            })}
+            {listItem.length > 0 &&
+              listItem.map((e, ind) => {
+                return (
+                  <div
+                    className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                    key={ind}
+                  >
+                    <p className="listed_item_name">{e.name}</p>
+                    <p className="listed_item_price">{e.price}</p>
+                    <p className="listed_item_edit">
+                      <i
+                        className="ri-delete-bin-line"
+                        onClick={() => onDeleteListItem(ind)}
+                      ></i>
+                    </p>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>

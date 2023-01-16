@@ -37,13 +37,13 @@ const SalaryBoxLeft = ({
       <div className="needs_wants_invest_parent mt-6">
         <i>50-30-20 Rule of Budgeting</i>
         <div className="split_in_needs_wants_invest">
-          <div className="needs_from_salary bg-[#FFFBEC] my-3 rounded-xl p-3">
+          <div className="needs_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
             <p>50% on Needs: {needsAmountFromSalary}</p>
           </div>
-          <div className="wants_from_salary bg-[#FFFBEC] my-3 rounded-xl p-3">
+          <div className="wants_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
             <p>30% on Wants: {wantsAmountFromSalary} </p>
           </div>
-          <div className="invest_from_salary bg-[#FFFBEC] my-3 rounded-xl p-3">
+          <div className="invest_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
             <p>20% on Invest: {investAmountFromSalary} </p>
           </div>
         </div>

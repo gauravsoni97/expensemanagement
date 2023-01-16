@@ -33,13 +33,12 @@ const Main = () => {
   // const [addInvest, setAddInvest] = useState();
 
 
-const [balance, setBalance] = useState(0)
 
-const balanceLeft = () =>{
-
-}
+  const [filter, setFilter] = useState("needs"); 
+  const [monthFilter, setMonthFilter] = useState("jan"); 
 
 
+  
   // ----- left side form handler
 
   const handleSalary = (e) => {
@@ -48,7 +47,6 @@ const balanceLeft = () =>{
     setWantsAmountFromSalary(Math.round((thirtyPercent / 100) * salaryInput));
     setInvestAmountFromSalary(Math.round((twentyPercent / 100) * salaryInput));
     setSalaryInput("");
-    setBalance(needsAmountFromSalary);
   };
 
   // right side form
@@ -59,8 +57,7 @@ const balanceLeft = () =>{
     addListItem(addNeeds.name, addNeeds.price);
   };
 
-
-  // on delete list  from lists of Array 
+  // on delete list  from lists of Array
 
   const onDeleteListItem = (ind) => {
     const updatedList = listItem.filter((currVal, currInd) => {
@@ -69,7 +66,6 @@ const balanceLeft = () =>{
     setListItem(updatedList);
   };
 
-  
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
       <SalaryBoxLeft
@@ -87,7 +83,11 @@ const balanceLeft = () =>{
         setAddNeeds={setAddNeeds}
         listItem={listItem}
         onDeleteListItem={onDeleteListItem}
-        balance={balance}
+        needsAmountFromSalary={needsAmountFromSalary}
+        filter={filter}
+        setFilter={setFilter}
+        monthFilter={monthFilter}
+        setMonthFilter={setMonthFilter}
       />
     </div>
   );

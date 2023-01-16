@@ -67,3 +67,11 @@
     border-bottom: 1px solid rgb(255, 229, 212);
     margin: .5rem 0;
 }
+
+
+
+.filter_box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
