@@ -12,6 +12,8 @@ const ExpenseListRight = ({
   monthFilter,
   setMonthFilter,
 }) => {
+  const [arrayOfList, setArrayOfList] = useState([ ]);
+
   const formik = useFormik({
     initialValues: {
       itemName: "",
@@ -102,8 +104,8 @@ const ExpenseListRight = ({
           </div>
           <div className="all_lists_parent">
             <div className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50">
-              <p className="listed_item_name">item name</p>
-              <p className="listed_item_price">item price</p>
+              <p className="listed_item_name">{arrayOfList.itemName}</p>
+              <p className="listed_item_price">{arrayOfList.itemPrice}</p>
               <p className="listed_item_edit">
                 <i
                   className="ri-delete-bin-line"
