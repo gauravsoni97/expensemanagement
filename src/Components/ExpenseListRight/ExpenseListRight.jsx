@@ -32,8 +32,18 @@ const ExpenseListRight = ({
 
     onSubmit: (values) => {
       console.log(values);
+      setArrayOfList ( (preval) => {
+        return [...preval,  {name :values.itemName , price : values.itemPrice}]
+      })
     },
   });
+
+  const onDeleteListItem = (curInd) => {
+    const updatedList = arrayOfList.filter((ele, arrInd) => {
+      return arrInd !== curInd;
+    })
+    setArrayOfList(updatedList)
+  } 
 
   return (
     <div className="mainBox-rightside p-3 ">
@@ -103,16 +113,22 @@ const ExpenseListRight = ({
             </div>
           </div>
           <div className="all_lists_parent">
+
+            {arrayOfList?.map((e , ind)=>{
+              return(
             <div className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50">
-              <p className="listed_item_name">{arrayOfList.itemName}</p>
-              <p className="listed_item_price">{arrayOfList.itemPrice}</p>
+              <p className="listed_item_name">{e.name}</p>
+              <p className="listed_item_price">{e.price}</p>
               <p className="listed_item_edit">
                 <i
                   className="ri-delete-bin-line"
-                  // onClick={() => onDeleteListItem(ind)}
+                  onClick={() => onDeleteListItem(ind)}
                 ></i>
               </p>
             </div>
+
+              )
+            })}
           </div>
         </div>
       </div>
