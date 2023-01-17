@@ -10,9 +10,9 @@ let thirtyPercent = 30;
 let twentyPercent = 20;
 
 const Main = () => {
-  const [salaryToNeeds, setSalaryToNeeds] = useState("");
-  const [salaryToWants, setSalaryToWants] = useState("");
-  const [salaryToInvest, setSalaryToInvest] = useState("");
+  const [salaryToNeeds, setSalaryToNeeds] = useState("___");
+  const [salaryToWants, setSalaryToWants] = useState("___");
+  const [salaryToInvest, setSalaryToInvest] = useState("___");
 
   const formik = useFormik({
     initialValues: {
@@ -102,13 +102,13 @@ const Main = () => {
           <i>50-30-20 Rule of Budgeting</i>
           <div className="split_in_needs_wants_invest">
             <div className="needs_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
-              <p>50% on Needs: {salaryToNeeds} </p>
+              <p>50% on Needs: &nbsp; {salaryToNeeds} </p>
             </div>
             <div className="wants_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
-              <p>30% on Wants: {salaryToWants} </p>
+              <p>30% on Wants: &nbsp; {salaryToWants} </p>
             </div>
             <div className="invest_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
-              <p>20% on Invest:{salaryToInvest} </p>
+              <p>20% on Invest:&nbsp; {salaryToInvest} </p>
             </div>
           </div>
         </div>
