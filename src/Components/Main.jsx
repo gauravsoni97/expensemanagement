@@ -10,12 +10,9 @@ let thirtyPercent = 30;
 let twentyPercent = 20;
 
 const Main = () => {
-
-
-  const [salaryToNeeds, setSalaryToNeeds] = useState("")
-  const [salaryToWants, setSalaryToWants] = useState("")
-  const [salaryToInvest, setSalaryToInvest] = useState("")
-
+  const [salaryToNeeds, setSalaryToNeeds] = useState("");
+  const [salaryToWants, setSalaryToWants] = useState("");
+  const [salaryToInvest, setSalaryToInvest] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -28,17 +25,15 @@ const Main = () => {
 
       salary: Yup.number()
         .max(1000000000000, "Enter Salary less than 1 Trillion")
-        .required("Salary Amount is Required"),
+        .required("Amount is Required"),
     }),
 
     onSubmit: (values) => {
       console.log(values);
 
-      setSalaryToNeeds ((formik.values.salary /100) * fiftyPercent)
-      setSalaryToWants ((formik.values.salary /100) * thirtyPercent)
-      setSalaryToInvest ((formik.values.salary /100) * twentyPercent)
-
-
+      setSalaryToNeeds((formik.values.salary / 100) * fiftyPercent);
+      setSalaryToWants((formik.values.salary / 100) * thirtyPercent);
+      setSalaryToInvest((formik.values.salary / 100) * twentyPercent);
     },
   });
 
@@ -51,13 +46,7 @@ const Main = () => {
 
         <form onSubmit={formik.handleSubmit}>
           <div className="inputfield">
-            <label
-              className={
-                formik.touched.date && formik.errors.date ? "text-red-700  text-sm font-medium" : ""
-              }
-            >
-              {formik.touched.date && formik.errors.date ? formik.errors.date : "Select Month"}
-            </label>
+            <label>Select Date</label>
             <input
               name="date"
               type="date"
@@ -66,6 +55,18 @@ const Main = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+
+            <p
+              className={
+                formik.touched.date && formik.errors.date
+                  ? "text-red-600  text-sm font-medium"
+                  : ""
+              }
+            >
+              {formik.touched.date && formik.errors.date
+                ? formik.errors.date
+                : ""}
+            </p>
           </div>
           <div className="inputfield">
             <label>Monthly Salary</label>
@@ -76,6 +77,17 @@ const Main = () => {
               value={formik.values.salary}
               onChange={formik.handleChange}
             />
+               <p
+              className={
+                formik.touched.salary && formik.errors.salary
+                  ? "text-red-600  text-sm font-medium"
+                  : ""
+              }
+            >
+              {formik.touched.salary && formik.errors.salary
+                ? formik.errors.salary
+                : ""}
+            </p>
           </div>
 
           <button
