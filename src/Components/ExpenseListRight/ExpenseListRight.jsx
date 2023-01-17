@@ -11,8 +11,10 @@ const ExpenseListRight = ({
   setFilter,
   monthFilter,
   setMonthFilter,
+  currentBalance,
+  salaryToNeeds,
 }) => {
-  const [arrayOfList, setArrayOfList] = useState([ ]);
+  const [arrayOfList, setArrayOfList] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -31,19 +33,27 @@ const ExpenseListRight = ({
     }),
 
     onSubmit: (values) => {
-      console.log(values);
-      setArrayOfList ( (preval) => {
-        return [...preval,  {name :values.itemName , price : values.itemPrice}]
-      })
+      setArrayOfList((preval) => {
+        return [...preval, { name: values.itemName, price: values.itemPrice }];
+      });
+
+  
     },
   });
+
+
+let totalListSum = arrayOfList.map(obj => obj.price).reduce((acc, cur) => acc + cur , 0);
+console.log(totalListSum);
+
+
+
 
   const onDeleteListItem = (curInd) => {
     const updatedList = arrayOfList.filter((ele, arrInd) => {
       return arrInd !== curInd;
-    })
-    setArrayOfList(updatedList)
-  } 
+    });
+    setArrayOfList(updatedList);
+  };
 
   return (
     <div className="mainBox-rightside p-3 ">
@@ -82,16 +92,16 @@ const ExpenseListRight = ({
               onChange={formik.handleChange}
             />
           </div>
-            <button
-              type="submit"
-              className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-            >
-              Use Amount
-            </button>
+          <button
+            type="submit"
+            className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          >
+            Use Amount
+          </button>
         </form>
         <div className="balence_left_box ">
           <p className=" w-full bg-red-50 p-2 rounded-lg text-gray-800 text-center my-2 ">
-            Balance left: 13432
+            Balance left: {salaryToNeeds - totalListSum}
           </p>
         </div>
         <div className="list_amount_parent">
@@ -113,21 +123,22 @@ const ExpenseListRight = ({
             </div>
           </div>
           <div className="all_lists_parent">
-
-            {arrayOfList?.map((e , ind)=>{
-              return(
-            <div className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50">
-              <p className="listed_item_name">{e.name}</p>
-              <p className="listed_item_price">{e.price}</p>
-              <p className="listed_item_edit">
-                <i
-                  className="ri-delete-bin-line"
-                  onClick={() => onDeleteListItem(ind)}
-                ></i>
-              </p>
-            </div>
-
-              )
+            {arrayOfList?.map((e, ind) => {
+              return (
+                <div
+                  className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                  key={ind}
+                >
+                  <p className="listed_item_name">{e.name}</p>
+                  <p className="listed_item_price">{e.price}</p>
+                  <p className="listed_item_edit">
+                    <i
+                      className="ri-delete-bin-line"
+                      onClick={() => onDeleteListItem(ind)}
+                    ></i>
+                  </p>
+                </div>
+              );
             })}
           </div>
         </div>

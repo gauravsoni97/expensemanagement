@@ -11,9 +11,10 @@ let thirtyPercent = 30;
 let twentyPercent = 20;
 
 const Main = () => {
-  const [salaryToNeeds, setSalaryToNeeds] = useState("___");
-  const [salaryToWants, setSalaryToWants] = useState("___");
-  const [salaryToInvest, setSalaryToInvest] = useState("___");
+  const [salaryToNeeds, setSalaryToNeeds] = useState(0);
+  const [salaryToWants, setSalaryToWants] = useState(0);
+  const [salaryToInvest, setSalaryToInvest] = useState(0);
+
 
   const formik = useFormik({
     initialValues: {
@@ -30,11 +31,9 @@ const Main = () => {
     }),
 
     onSubmit: (values) => {
-      console.log(values);
-
-      setSalaryToNeeds((formik.values.salary / 100) * fiftyPercent);
-      setSalaryToWants((formik.values.salary / 100) * thirtyPercent);
-      setSalaryToInvest((formik.values.salary / 100) * twentyPercent);
+      setSalaryToNeeds((values.salary / 100) * fiftyPercent);
+      setSalaryToWants((values.salary / 100) * thirtyPercent);
+      setSalaryToInvest((values.salary / 100) * twentyPercent);
     },
   });
 
@@ -42,6 +41,11 @@ const Main = () => {
   
 
   // ------------- right side form 
+
+
+
+
+
 
 
   const [filter, setFilter] = useState("needs");
@@ -131,6 +135,7 @@ const Main = () => {
         setFilter={setFilter}
         monthFilter={monthFilter}
         setMonthFilter={setMonthFilter}
+        salaryToNeeds={salaryToNeeds}
       />
     </div>
   );
