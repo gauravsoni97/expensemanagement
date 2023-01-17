@@ -36,17 +36,18 @@ const ExpenseListRight = ({
       setArrayOfList((preval) => {
         return [...preval, { name: values.itemName, price: values.itemPrice }];
       });
-
-  
     },
   });
+  
+  // Balance left code 
 
+  let totalListSum = arrayOfList.map(obj => obj.price).reduce((acc, cur) => acc + cur , 0);
+  console.log(totalListSum);
+  
 
-let totalListSum = arrayOfList.map(obj => obj.price).reduce((acc, cur) => acc + cur , 0);
-console.log(totalListSum);
+  
 
-
-
+  // on delete list item from list 
 
   const onDeleteListItem = (curInd) => {
     const updatedList = arrayOfList.filter((ele, arrInd) => {
@@ -123,6 +124,7 @@ console.log(totalListSum);
             </div>
           </div>
           <div className="all_lists_parent">
+            {arrayOfList.length == 0 && <p className=" text-center text-sm pt-12 text-gray-600">No data found</p> }
             {arrayOfList?.map((e, ind) => {
               return (
                 <div
