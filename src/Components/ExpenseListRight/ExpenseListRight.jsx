@@ -3,19 +3,48 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const ExpenseListRight = ({
-  handleBudgetForm,
-  addNeeds,
-  setAddNeeds,
-  listItem,
-  onDeleteListItem,
-  needsAmountFromSalary,
   filter,
   setFilter,
   monthFilter,
   setMonthFilter,
 }) => {
+  const [arrayOfList, setArrayOfList] = useState([ ]);
+
+  const formik = useFormik({
+    initialValues: {
+      itemName: "",
+      itemPrice: "",
+    },
+
+    validationSchema: Yup.object({
+      itemName: Yup.string()
+        .max(20, "Enter name less than 20 character")
+        .required("Name is Required"),
+
+      itemPrice: Yup.number()
+        .max(1000000000000, "Enter Salary less than 1 Trillion")
+        .required("Amount is Required"),
+    }),
+
+    onSubmit: (values) => {
+      console.log(values);
+      setArrayOfList ( (preval) => {
+        return [...preval,  {name :values.itemName , price : values.itemPrice}]
+      })
+    },
+  });
+
+  const onDeleteListItem = (curInd) => {
+    const updatedList = arrayOfList.filter((ele, arrInd) => {
+      return arrInd !== curInd;
+    })
+    setArrayOfList(updatedList)
+  } 
+
   return (
     <div className="mainBox-rightside p-3 ">
       <div className="filter_box">
@@ -32,27 +61,25 @@ const ExpenseListRight = ({
       </div>
 
       <div className="input_amount_form_section">
-        <form onSubmit={handleBudgetForm}>
+        <form onSubmit={formik.handleSubmit}>
           <div className="inputfield inputfield_rightside">
             <label>Enter Name</label>
             <input
+              name="itemName"
               type="text"
               placeholder="Sugar"
-              value={addNeeds.name}
-              onChange={(e) =>
-                setAddNeeds({ ...addNeeds, name: e.target.value })
-              }
+              value={formik.values.itemName}
+              onChange={formik.handleChange}
             />
           </div>
           <div className="inputfield inputfield_rightside">
             <label>Enter Amount</label>
             <input
+              name="itemPrice"
               type="number"
               placeholder="10000"
-              value={addNeeds.price}
-              onChange={(e) =>
-                setAddNeeds({ ...addNeeds, price: e.target.value })
-              }
+              value={formik.values.itemPrice}
+              onChange={formik.handleChange}
             />
           </div>
             <button
@@ -64,7 +91,7 @@ const ExpenseListRight = ({
         </form>
         <div className="balence_left_box ">
           <p className=" w-full bg-red-50 p-2 rounded-lg text-gray-800 text-center my-2 ">
-            Balance left: {needsAmountFromSalary}
+            Balance left: 13432
           </p>
         </div>
         <div className="list_amount_parent">
@@ -86,24 +113,22 @@ const ExpenseListRight = ({
             </div>
           </div>
           <div className="all_lists_parent">
-            {listItem.length > 0 &&
-              listItem.map((e, ind) => {
-                return (
-                  <div
-                    className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
-                    key={ind}
-                  >
-                    <p className="listed_item_name">{e.name}</p>
-                    <p className="listed_item_price">{e.price}</p>
-                    <p className="listed_item_edit">
-                      <i
-                        className="ri-delete-bin-line"
-                        onClick={() => onDeleteListItem(ind)}
-                      ></i>
-                    </p>
-                  </div>
-                );
-              })}
+
+            {arrayOfList?.map((e , ind)=>{
+              return(
+            <div className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50">
+              <p className="listed_item_name">{e.name}</p>
+              <p className="listed_item_price">{e.price}</p>
+              <p className="listed_item_edit">
+                <i
+                  className="ri-delete-bin-line"
+                  onClick={() => onDeleteListItem(ind)}
+                ></i>
+              </p>
+            </div>
+
+              )
+            })}
           </div>
         </div>
       </div>
