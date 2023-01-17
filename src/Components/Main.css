@@ -17,7 +17,7 @@
  
     .mainBox-leftside,.mainBox-rightside {
         width: 100%;
-        padding: 1rem;
+        padding: 2rem;
     }
     
 }
@@ -74,4 +74,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+
+
+.empty_state_ExpenseList_right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin: 0 auto;
 }

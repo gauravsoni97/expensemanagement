@@ -55,7 +55,7 @@ const Main = () => {
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
       {/* left side  */}
 
-      <div className="mainBox-leftside bg-[#FFE0CA] rounded-xl  p-3 ">
+      <div className="mainBox-leftside bg-[#FFE0CA] rounded-xl  p-3  ">
         <h2 className="mainheading_topleft">Expense Management</h2>
 
         <form onSubmit={formik.handleSubmit}>
@@ -129,6 +129,7 @@ const Main = () => {
       </div>
 
       {/* -----------------  right side form -------------------------- */}
+
 
       <ExpenseListRight
         filter={filter}

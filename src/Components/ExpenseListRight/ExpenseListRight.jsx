@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -14,7 +14,11 @@ const ExpenseListRight = ({
   currentBalance,
   salaryToNeeds,
 }) => {
-  const [arrayOfList, setArrayOfList] = useState([]);
+  const initialValues = JSON.parse(localStorage.getItem('formData')) || {};
+  
+  
+  const [arrayOfList, setArrayOfList] = useState(initialValues);
+
 
   const formik = useFormik({
     initialValues: {
@@ -56,8 +60,17 @@ const ExpenseListRight = ({
     setArrayOfList(updatedList);
   };
 
+
+
+  useEffect(() => {
+    localStorage.setItem('formData', JSON.stringify(arrayOfList));
+  }, [arrayOfList]);
+
+
+
+
   return (
-    <div className="mainBox-rightside p-3 ">
+    <div className="mainBox-rightside p-3">
       <div className="filter_box">
         <div>Filter By:</div>
         <div>
