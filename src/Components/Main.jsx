@@ -1,156 +1,110 @@
+import { useFormik, validateYupSchema } from "formik";
 import React, { useState } from "react";
-import ExpenseListRight from "./ExpenseListRight/ExpenseListRight";
+
+import * as Yup from "yup";
+
 import "./Main.css";
-import SalaryBoxLeft from "./SalaryBoxLeft/SalaryBoxLeft";
 
 let fiftyPercent = 50;
 let thirtyPercent = 30;
 let twentyPercent = 20;
 
 const Main = () => {
-  // left side states ------------------
-  // const [salaryInput, setSalaryInput] = useState();
-  // const [needsAmountFromSalary, setNeedsAmountFromSalary] = useState(0);
-  // const [wantsAmountFromSalary, setWantsAmountFromSalary] = useState(0);
-  // const [investAmountFromSalary, setInvestAmountFromSalary] = useState(0);
-
-  // right side states --------------
-
-  // const [listItem, setListItem] = useState([]);
-
-  // const addListItem = (nameOfItem, priceOfItem) => {
-  //   setListItem((prevVal) => {
-  //     return [...prevVal, { name: nameOfItem, price: priceOfItem }];
-  //   });
-  // };
-
-  // const [addNeeds, setAddNeeds] = useState({
-  //   name: "",
-  //   price: "",
-  // });
-
-  // const [addWants, setAddWants] = useState();
-  // const [addInvest, setAddInvest] = useState();
 
 
-
-  // const [filter, setFilter] = useState("needs"); 
-  // const [monthFilter, setMonthFilter] = useState("jan"); 
-
-
-  
-  // ----- left side form handler
-
-  // const handleSalary = (e) => {
-  //   e.preventDefault();
-  //   setNeedsAmountFromSalary(Math.round((fiftyPercent / 100) * salaryInput));
-  //   setWantsAmountFromSalary(Math.round((thirtyPercent / 100) * salaryInput));
-  //   setInvestAmountFromSalary(Math.round((twentyPercent / 100) * salaryInput));
-  //   setSalaryInput("");
-  // };
-
-  // // right side form
-
-  // const handleBudgetForm = (e) => {
-  //   e.preventDefault();
-  //   setAddNeeds({ name: "", price: "" });
-  //   addListItem(addNeeds.name, addNeeds.price);
-  // };
-
-  // // on delete list  from lists of Array
-
-  // const onDeleteListItem = (ind) => {
-  //   const updatedList = listItem.filter((currVal, currInd) => {
-  //     return ind !== currInd;
-  //   });
-  //   setListItem(updatedList);
-  // };
+  const [salaryToNeeds, setSalaryToNeeds] = useState("")
+  const [salaryToWants, setSalaryToWants] = useState("")
+  const [salaryToInvest, setSalaryToInvest] = useState("")
 
 
-  // -----------------------------------------------------------------------------------------------------------------------
-  // --------------------------------------( After using FORMIK WITH YUP )----------------------------------------------------
-  // -----------------------------------------------------------------------------------------------------------------------
+  const formik = useFormik({
+    initialValues: {
+      date: "",
+      salary: "",
+    },
+
+    validationSchema: Yup.object({
+      date: Yup.date().required("Date is Required*"),
+
+      salary: Yup.number()
+        .max(1000000000000, "Enter Salary less than 1 Trillion")
+        .required("Salary Amount is Required"),
+    }),
+
+    onSubmit: (values) => {
+      console.log(values);
+
+      setSalaryToNeeds ((formik.values.salary /100) * fiftyPercent)
+      setSalaryToWants ((formik.values.salary /100) * thirtyPercent)
+      setSalaryToInvest ((formik.values.salary /100) * twentyPercent)
 
 
+    },
+  });
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
-      {/* <SalaryBoxLeft
-        handleSalary={handleSalary}
-        salaryInput={salaryInput}
-        setSalaryInput={setSalaryInput}
-        needsAmountFromSalary={needsAmountFromSalary}
-        wantsAmountFromSalary={wantsAmountFromSalary}
-        investAmountFromSalary={investAmountFromSalary}
-      /> */}
-      {/* ------------------------- Right Side --------------------- */}
-      {/* <ExpenseListRight
-        handleBudgetForm={handleBudgetForm}
-        addNeeds={addNeeds}
-        setAddNeeds={setAddNeeds}
-        listItem={listItem}
-        onDeleteListItem={onDeleteListItem}
-        needsAmountFromSalary={needsAmountFromSalary}
-        filter={filter}
-        setFilter={setFilter}
-        monthFilter={monthFilter}
-        setMonthFilter={setMonthFilter}
-      /> */}
+      {/* left side  */}
 
+      <div className="mainBox-leftside bg-[#FFE0CA] rounded-xl  p-3 ">
+        <h2 className="mainheading_topleft">Expense Management</h2>
 
-
-
-{/* =============================================================================================== */}
-{/* ========================================== After formik with yup ============================== */}
-{/* =============================================================================================== */}
-
-
-{/* left side  */}
-
-<div className="mainBox-leftside bg-[#FFE0CA] rounded-xl  p-3 ">
-      <h2 className="mainheading_topleft">Expense Management</h2>
-      <form >
-        <div className="inputfield">
-          <label>Select Month</label>
-          <input type="month" placeholder="Jan-2023" />
-        </div>
-        <div className="inputfield">
-          <label>Monthly Salary</label>
-          <input
-            type="number"
-            placeholder="100000"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-        >
-          Manage Amount
-        </button>
-      </form>
-
-      <div className="needs_wants_invest_parent mt-6">
-        <i>50-30-20 Rule of Budgeting</i>
-        <div className="split_in_needs_wants_invest">
-          <div className="needs_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
-            <p>50% on Needs: </p>
+        <form onSubmit={formik.handleSubmit}>
+          <div className="inputfield">
+            <label
+              className={
+                formik.touched.date && formik.errors.date ? "text-red-700  text-sm font-medium" : ""
+              }
+            >
+              {formik.touched.date && formik.errors.date ? formik.errors.date : "Select Month"}
+            </label>
+            <input
+              name="date"
+              type="date"
+              placeholder="12-12"
+              value={formik.values.date}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
           </div>
-          <div className="wants_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
-            <p>30% on Wants:  </p>
+          <div className="inputfield">
+            <label>Monthly Salary</label>
+            <input
+              name="salary"
+              type="number"
+              placeholder="100000"
+              value={formik.values.salary}
+              onChange={formik.handleChange}
+            />
           </div>
-          <div className="invest_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
-            <p>20% on Invest:</p>
+
+          <button
+            type="submit"
+            className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          >
+            Manage Amount
+          </button>
+        </form>
+
+        <div className="needs_wants_invest_parent mt-6">
+          <i>50-30-20 Rule of Budgeting</i>
+          <div className="split_in_needs_wants_invest">
+            <div className="needs_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
+              <p>50% on Needs: {salaryToNeeds} </p>
+            </div>
+            <div className="wants_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
+              <p>30% on Wants: {salaryToWants} </p>
+            </div>
+            <div className="invest_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
+              <p>20% on Invest:{salaryToInvest} </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
+      {/* right side  */}
 
-    {/* right side  */}
-
-
-    {/* <div className="mainBox-rightside p-3 ">
+      {/* <div className="mainBox-rightside p-3 ">
       <div className="filter_box">
         <div>Filter By:</div>
         <div>
@@ -248,9 +202,6 @@ const Main = () => {
       </div>
     </div>
  */}
-
-
-
     </div>
   );
 };
