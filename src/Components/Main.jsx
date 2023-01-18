@@ -77,36 +77,44 @@ const Main = () => {
           </button>
         </form>
 
-        <div className="needs_wants_invest_parent mt-6">
-          <i>50-30-20 Rule of Budgeting</i>
+        <div className="needs_wants_invest_parent mt-6 ">
+          <p className="text-sm font-medium ">
+            *50-30-20 Rule of Budgeting*
+          </p>
           <div className="split_in_needs_wants_invest">
             <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
-              <p className="font-medium text-sm ">Needs (50%):&nbsp; {salaryToNeeds} </p>
+              <p className="font-medium text-sm mb-3 ">
+                Needs (50%):&nbsp; {Math.round(salaryToNeeds * 100) / 100}
+              </p>
               <button
                 type="button"
-                class="text-white mt-2 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
                 Use Amount
               </button>
             </div>
 
             <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
-              <p  className="font-medium text-sm ">Wants (30%):&nbsp; {salaryToWants} </p>
+              <p className="font-medium text-sm mb-3 ">
+                Wants (30%):&nbsp; {Math.round(salaryToWants * 100) / 100}
+              </p>
               <button
                 type="button"
-                class="text-white mt-2 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
-               Use Amount
+                Use Amount
               </button>
             </div>
 
             <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
-              <p  className="font-medium text-sm ">Invest (20%):&nbsp; {salaryToInvest} </p>
+              <p className="font-medium text-sm mb-3 ">
+                Invest (20%):&nbsp; {Math.round(salaryToInvest * 100) / 100}
+              </p>
               <button
                 type="button"
-                class="text-white mt-2 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
-               Use Amount 
+                Use Amount
               </button>
             </div>
           </div>
