@@ -58,6 +58,19 @@ const ExpenseListRight = ({
     setArrayOfList(updatedList);
   };
 
+
+  useEffect(() => {
+    localStorage.setItem('list', JSON.stringify(arrayOfList));
+}, [arrayOfList]);
+
+useEffect(() => {
+  const storedList = localStorage.getItem('list');
+  if (storedList) {
+      setArrayOfList(JSON.parse(storedList));
+  }
+}, []);
+
+
   return (
     <div className="mainBox-rightside p-3">
       <div className="balence_left_box w-full ">
