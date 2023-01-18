@@ -1,6 +1,6 @@
 import { useFormik, validateYupSchema } from "formik";
 import React, { useState } from "react";
-import emptystatehome from "../Imgs/emptystatehome2.png"
+import emptystatehome from "../Imgs/emptystatehome2.png";
 import * as Yup from "yup";
 import ExpenseListRight from "./ExpenseListRight/ExpenseListRight";
 
@@ -17,13 +17,10 @@ const Main = () => {
 
   const formik = useFormik({
     initialValues: {
-      date: "",
       salary: "",
     },
 
     validationSchema: Yup.object({
-      date: Yup.date().required("Date is Required*"),
-
       salary: Yup.number()
         .max(1000000000000, "Enter Salary less than 1 Trillion")
         .required("Amount is Required"),
@@ -50,30 +47,7 @@ const Main = () => {
 
         <form onSubmit={formik.handleSubmit}>
           <div className="inputfield">
-            <label>Select Date</label>
-            <input
-              name="date"
-              type="date"
-              placeholder="12-12"
-              value={formik.values.date}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-
-            <p
-              className={
-                formik.touched.date && formik.errors.date
-                  ? "text-red-600  text-sm font-medium"
-                  : ""
-              }
-            >
-              {formik.touched.date && formik.errors.date
-                ? formik.errors.date
-                : ""}
-            </p>
-          </div>
-          <div className="inputfield">
-            <label>Monthly Salary</label>
+            <label className="text-sm">Monthly Salary</label>
             <input
               name="salary"
               type="number"
@@ -106,14 +80,34 @@ const Main = () => {
         <div className="needs_wants_invest_parent mt-6">
           <i>50-30-20 Rule of Budgeting</i>
           <div className="split_in_needs_wants_invest">
-            <div className="needs_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
-              <p>50% on Needs: &nbsp; {salaryToNeeds} </p>
+            <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
+              <p className="font-medium text-sm ">Needs (50%):&nbsp; {salaryToNeeds} </p>
+              <button
+                type="button"
+                class="text-white mt-2 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              >
+                Use Amount
+              </button>
             </div>
-            <div className="wants_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
-              <p>30% on Wants: &nbsp; {salaryToWants} </p>
+
+            <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
+              <p  className="font-medium text-sm ">Wants (30%):&nbsp; {salaryToWants} </p>
+              <button
+                type="button"
+                class="text-white mt-2 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              >
+               Use Amount
+              </button>
             </div>
-            <div className="invest_from_salary bg-[#FFFBEC] my-5 rounded-xl p-4">
-              <p>20% on Invest:&nbsp; {salaryToInvest} </p>
+
+            <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
+              <p  className="font-medium text-sm ">Invest (20%):&nbsp; {salaryToInvest} </p>
+              <button
+                type="button"
+                class="text-white mt-2 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              >
+               Use Amount 
+              </button>
             </div>
           </div>
         </div>
@@ -123,9 +117,18 @@ const Main = () => {
 
       {salaryToInvest == 0 ? (
         <div className="right_side_empty_image flex align-center justify-center flex-col">
-          <img className="empty_state_home_image  object-contain" src={emptystatehome} alt="money management image" loading="lazy" />
-          <h2 className="empty-heading text-center text-lg font-medium">Let's Manage your Expenses</h2> 
-          <p className="text-gray-400 text-sm text-center mt-3">Please fill your salary in given form</p>
+          <img
+            className="empty_state_home_image  object-contain"
+            src={emptystatehome}
+            alt="money management image"
+            loading="lazy"
+          />
+          <h2 className="empty-heading text-center text-lg font-medium">
+            Let's Manage your Expenses
+          </h2>
+          <p className="text-gray-400 text-sm text-center mt-3">
+            Please fill your salary in given form
+          </p>
         </div>
       ) : (
         <ExpenseListRight
