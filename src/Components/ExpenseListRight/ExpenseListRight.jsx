@@ -39,6 +39,10 @@ const ExpenseListRight = ({
       setArrayOfList((preval) => {
         return [...preval, { name: values.itemName, price: values.itemPrice }];
       });
+
+
+      formik.resetForm();
+
     },
   });
   
