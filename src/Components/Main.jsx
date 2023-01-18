@@ -1,6 +1,6 @@
 import { useFormik, validateYupSchema } from "formik";
 import React, { useState } from "react";
-
+import emptystatehome from "../Imgs/emptystatehome2.png"
 import * as Yup from "yup";
 import ExpenseListRight from "./ExpenseListRight/ExpenseListRight";
 
@@ -14,7 +14,6 @@ const Main = () => {
   const [salaryToNeeds, setSalaryToNeeds] = useState(0);
   const [salaryToWants, setSalaryToWants] = useState(0);
   const [salaryToInvest, setSalaryToInvest] = useState(0);
-
 
   const formik = useFormik({
     initialValues: {
@@ -37,16 +36,7 @@ const Main = () => {
     },
   });
 
-
-  
-
-  // ------------- right side form 
-
-
-
-
-
-
+  // ------------- right side form
 
   const [filter, setFilter] = useState("needs");
   const [monthFilter, setMonthFilter] = useState("jan");
@@ -87,6 +77,7 @@ const Main = () => {
             <input
               name="salary"
               type="number"
+              min="0"
               placeholder="100000"
               value={formik.values.salary}
               onChange={formik.handleChange}
@@ -130,14 +121,21 @@ const Main = () => {
 
       {/* -----------------  right side form -------------------------- */}
 
-
-      <ExpenseListRight
-        filter={filter}
-        setFilter={setFilter}
-        monthFilter={monthFilter}
-        setMonthFilter={setMonthFilter}
-        salaryToNeeds={salaryToNeeds}
-      />
+      {salaryToInvest == 0 ? (
+        <div className="right_side_empty_image flex align-center justify-center flex-col">
+          <img className="empty_state_home_image  object-contain" src={emptystatehome} alt="money management image" loading="lazy" />
+          <h2 className="empty-heading text-center text-lg font-medium">Let's Manage your Expenses</h2> 
+          <p className="text-gray-400 text-sm text-center mt-3">Please fill your salary in given form</p>
+        </div>
+      ) : (
+        <ExpenseListRight
+          filter={filter}
+          setFilter={setFilter}
+          monthFilter={monthFilter}
+          setMonthFilter={setMonthFilter}
+          salaryToNeeds={salaryToNeeds}
+        />
+      )}
     </div>
   );
 };

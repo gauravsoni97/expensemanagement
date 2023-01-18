@@ -49,9 +49,6 @@ const ExpenseListRight = ({
   // Balance left code 
 
   let totalListSum = arrayOfList.map(obj => obj.price).reduce((acc, cur) => acc + cur , 0);
-  console.log(totalListSum);
-  
-
   
 
   // on delete list item from list 

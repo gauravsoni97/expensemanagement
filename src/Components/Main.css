@@ -5,6 +5,9 @@
     border-radius: 2rem;
 }
 
+
+
+
 .mainBox-leftside,.mainBox-rightside {
     width: 50%;
     padding: 2rem;
@@ -22,6 +25,18 @@
     
 }
 
+
+
+.right_side_empty_image{
+    width: 50%;
+    margin: 0 auto;
+
+}
+
+.empty_state_home_image {
+    width: 300px;
+    margin:  0 auto;
+}
 
 
 .mainheading_topleft{
