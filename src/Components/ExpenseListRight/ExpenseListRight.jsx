@@ -14,10 +14,9 @@ const ExpenseListRight = ({
   currentBalance,
   salaryToNeeds,
 }) => {
-  const initialValues = JSON.parse(localStorage.getItem('formData')) || {};
   
   
-  const [arrayOfList, setArrayOfList] = useState(initialValues);
+  const [arrayOfList, setArrayOfList] = useState([]);
 
 
   const formik = useFormik({
@@ -59,12 +58,6 @@ const ExpenseListRight = ({
     });
     setArrayOfList(updatedList);
   };
-
-
-
-  useEffect(() => {
-    localStorage.setItem('formData', JSON.stringify(arrayOfList));
-  }, [arrayOfList]);
 
 
 
