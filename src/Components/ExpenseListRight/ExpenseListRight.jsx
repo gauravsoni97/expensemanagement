@@ -14,18 +14,17 @@ const ExpenseListRight = ({
   currentBalance,
   salaryToNeeds,
 }) => {
-  
-  
   const [arrayOfList, setArrayOfList] = useState([]);
-
 
   const formik = useFormik({
     initialValues: {
+      itemDate: "",
       itemName: "",
       itemPrice: "",
     },
 
     validationSchema: Yup.object({
+      itemDate: Yup.date().required("Date is Required"),
       itemName: Yup.string()
         .max(20, "Enter name less than 20 character")
         .required("Name is Required"),
@@ -40,18 +39,17 @@ const ExpenseListRight = ({
         return [...preval, { name: values.itemName, price: values.itemPrice }];
       });
 
-
       formik.resetForm();
-
     },
   });
-  
-  // Balance left code 
 
-  let totalListSum = arrayOfList.map(obj => obj.price).reduce((acc, cur) => acc + cur , 0);
-  
+  // Balance left code
 
-  // on delete list item from list 
+  let totalListSum = arrayOfList
+    .map((obj) => obj.price)
+    .reduce((acc, cur) => acc + cur, 0);
+
+  // on delete list item from list
 
   const onDeleteListItem = (curInd) => {
     const updatedList = arrayOfList.filter((ele, arrInd) => {
@@ -60,26 +58,26 @@ const ExpenseListRight = ({
     setArrayOfList(updatedList);
   };
 
-
-
-
   return (
     <div className="mainBox-rightside p-3">
-      <div className="filter_box">
-        <div>Filter By:</div>
-        <div>
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
-              <MenuItem value="needs">Needs</MenuItem>
-              <MenuItem value="wants">Wants</MenuItem>
-              <MenuItem value="invest">Invest</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
+      <div className="balence_left_box w-full ">
+        <p className=" w-full bg-red-50 p-4 border rounded-lg text-gray-800 text-center my-2 ">
+          Needs Balance Left: {salaryToNeeds - totalListSum}
+        </p>
       </div>
 
       <div className="input_amount_form_section">
         <form onSubmit={formik.handleSubmit}>
+          <div className="inputfield inputfield_rightside">
+            <label>Enter Date</label>
+            <input
+              name="itemDate"
+              type="date"
+              placeholder="12 jan"
+              value={formik.values.itemDate}
+              onChange={formik.handleChange}
+            />
+          </div>
           <div className="inputfield inputfield_rightside">
             <label>Enter Name</label>
             <input
@@ -107,11 +105,7 @@ const ExpenseListRight = ({
             Use Amount
           </button>
         </form>
-        <div className="balence_left_box ">
-          <p className=" w-full bg-red-50 p-2 rounded-lg text-gray-800 text-center my-2 ">
-            Balance left: {salaryToNeeds - totalListSum}
-          </p>
-        </div>
+
         <div className="list_amount_parent">
           <div className=" mt-5 list_by_filter flex align-center justify-between">
             <div className="filter_box w-full">
@@ -131,7 +125,11 @@ const ExpenseListRight = ({
             </div>
           </div>
           <div className="all_lists_parent">
-            {arrayOfList.length == 0 && <p className=" text-center text-sm pt-12 text-gray-600">No data found</p> }
+            {arrayOfList.length == 0 && (
+              <p className=" text-center text-sm pt-12 text-gray-600">
+                No data found
+              </p>
+            )}
             {arrayOfList?.map((e, ind) => {
               return (
                 <div

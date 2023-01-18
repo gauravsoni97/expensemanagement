@@ -47,7 +47,7 @@ const Main = () => {
 
         <form onSubmit={formik.handleSubmit}>
           <div className="inputfield">
-            <label className="text-sm">Monthly Salary</label>
+            <label className="text-sm font-medium">Monthly Salary</label>
             <input
               name="salary"
               type="number"
