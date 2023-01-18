@@ -22,14 +22,16 @@ const Main = () => {
 
     validationSchema: Yup.object({
       salary: Yup.number()
-        .max(1000000000000, "Enter Salary less than 1 Trillion")
-        .required("Amount is Required"),
+        .max(1000000000000, "Enter Salary less than 1 Trillion*")
+        .required("Amount is Required*"),
     }),
 
     onSubmit: (values) => {
       setSalaryToNeeds((values.salary / 100) * fiftyPercent);
       setSalaryToWants((values.salary / 100) * thirtyPercent);
       setSalaryToInvest((values.salary / 100) * twentyPercent);
+
+      formik.resetForm();
     },
   });
 
@@ -43,11 +45,11 @@ const Main = () => {
       {/* left side  */}
 
       <div className="mainBox-leftside bg-[#FFE0CA] rounded-xl  p-3  ">
-        <h2 className="mainheading_topleft">Expense Management</h2>
+        <h2 className="mainheading_topleft">Income Management</h2>
 
         <form onSubmit={formik.handleSubmit}>
           <div className="inputfield">
-            <label className="text-sm font-medium">Monthly Salary</label>
+            <label className="text-sm font-medium">Monthly Income</label>
             <input
               name="salary"
               type="number"
@@ -59,7 +61,7 @@ const Main = () => {
             <p
               className={
                 formik.touched.salary && formik.errors.salary
-                  ? "text-red-600  text-sm font-medium"
+                  ? "text-red-600  text-xs font-medium"
                   : ""
               }
             >
@@ -73,14 +75,12 @@ const Main = () => {
             type="submit"
             className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
           >
-            Manage Amount
+            Manage Income
           </button>
         </form>
 
         <div className="needs_wants_invest_parent mt-6 ">
-          <p className="text-sm font-medium ">
-            *50-30-20 Rule of Budgeting*
-          </p>
+          <p className="text-sm font-medium ">*50-30-20 Rule of Budgeting*</p>
           <div className="split_in_needs_wants_invest">
             <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
@@ -132,10 +132,10 @@ const Main = () => {
             loading="lazy"
           />
           <h2 className="empty-heading text-center text-lg font-medium">
-            Let's Manage your Expenses
+            Let's Manage your Income
           </h2>
           <p className="text-gray-400 text-sm text-center mt-3">
-            Please fill your salary in given form
+            Please fill your income first in given form
           </p>
         </div>
       ) : (

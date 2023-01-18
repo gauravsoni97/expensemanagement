@@ -24,14 +24,14 @@ const ExpenseListRight = ({
     },
 
     validationSchema: Yup.object({
-      itemDate: Yup.date().required("Date is Required"),
+      itemDate: Yup.date().required("Date is Required*"),
       itemName: Yup.string()
-        .max(20, "Enter name less than 20 character")
-        .required("Name is Required"),
+        .max(20, "Enter name less than 20 character*")
+        .required("Name is Required*"),
 
       itemPrice: Yup.number()
-        .max(1000000000000, "Enter Salary less than 1 Trillion")
-        .required("Amount is Required"),
+        .max(1000000000000, "Enter Salary less than 1 Trillion*")
+        .required("Amount is Required*"),
     }),
 
     onSubmit: (values) => {
@@ -61,25 +61,37 @@ const ExpenseListRight = ({
   return (
     <div className="mainBox-rightside p-3">
       <div className="balence_left_box w-full ">
-        <p className=" w-full bg-red-50 p-4 border rounded-lg text-gray-800 text-center my-2 ">
-          Needs Balance Left: {salaryToNeeds - totalListSum}
+        <p className=" w-full bg-red-50 p-3 border rounded-lg text-gray-800 text-center mb-3 ">
+          Needs Balance Left:{" "}
+          {Math.round(salaryToNeeds * 100) / 100 - totalListSum}
         </p>
       </div>
 
       <div className="input_amount_form_section">
         <form onSubmit={formik.handleSubmit}>
           <div className="inputfield inputfield_rightside">
-            <label>Enter Date</label>
+            <label className="text-sm font-medium">Enter Date</label>
             <input
               name="itemDate"
-              type="date"
-              placeholder="12 jan"
+              type="month"
+              placeholder="MM"
               value={formik.values.itemDate}
               onChange={formik.handleChange}
             />
+            <p
+              className={
+                formik.touched.itemDate && formik.errors.itemDate
+                  ? "text-red-600  text-xs  font-medium"
+                  : ""
+              }
+            >
+              {formik.touched.itemDate && formik.errors.itemDate
+                ? formik.errors.itemDate
+                : ""}
+            </p>
           </div>
           <div className="inputfield inputfield_rightside">
-            <label>Enter Name</label>
+            <label className="text-sm font-medium">Enter Name</label>
             <input
               name="itemName"
               type="text"
@@ -87,9 +99,20 @@ const ExpenseListRight = ({
               value={formik.values.itemName}
               onChange={formik.handleChange}
             />
+            <p
+              className={
+                formik.touched.itemName && formik.errors.itemName
+                  ? "text-red-600  text-xs  font-medium"
+                  : ""
+              }
+            >
+              {formik.touched.itemName && formik.errors.itemName
+                ? formik.errors.itemName
+                : ""}
+            </p>
           </div>
           <div className="inputfield inputfield_rightside">
-            <label>Enter Amount</label>
+            <label className="text-sm font-medium">Enter Amount</label>
             <input
               name="itemPrice"
               type="number"
@@ -97,6 +120,17 @@ const ExpenseListRight = ({
               value={formik.values.itemPrice}
               onChange={formik.handleChange}
             />
+            <p
+              className={
+                formik.touched.itemPrice && formik.errors.itemPrice
+                  ? "text-red-600  text-xs  font-medium"
+                  : ""
+              }
+            >
+              {formik.touched.itemPrice && formik.errors.itemPrice
+                ? formik.errors.itemPrice
+                : ""}
+            </p>
           </div>
           <button
             type="submit"

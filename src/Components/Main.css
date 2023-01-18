@@ -46,7 +46,7 @@
 }
 
 .inputfield {
-    margin: 1rem 0;
+    margin-bottom: 1rem;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -69,6 +69,7 @@
 
 .inputfield_rightside input{
   background-color: rgb(241, 241, 241);
+  font-size: .95rem;
 }
 
 .all_lists_parent{
@@ -80,7 +81,7 @@
 
 .balence_left_box{
     border-bottom: 1px solid rgb(255, 229, 212);
-    margin: .5rem 0;
+    margin-bottom: .8rem;
 }
 
 
