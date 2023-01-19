@@ -7,6 +7,15 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { red } from "@mui/material/colors";
 
+const getDatafromLS = () => {
+  const data = localStorage.getItem("lists");
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  }
+};
+
 const ExpenseListRight = ({
   monthFilter,
   setMonthFilter,
@@ -16,11 +25,9 @@ const ExpenseListRight = ({
   formVisible,
   monthlyIncome,
 }) => {
-
-
-  const [arrayOfNeeds, setArrayOfNeeds] = useState([]);
-  const [arrayOfWants, setArrayOfWants] = useState([]);
-  const [arrayOfInvest, setArrayOfInvest] = useState([]);
+  const [arrayOfNeeds, setArrayOfNeeds] = useState(getDatafromLS());
+  const [arrayOfWants, setArrayOfWants] = useState(getDatafromLS());
+  const [arrayOfInvest, setArrayOfInvest] = useState(getDatafromLS());
 
   const formik = useFormik({
     initialValues: {
@@ -120,30 +127,40 @@ const ExpenseListRight = ({
   //   }
   // }, []);
 
+  // let arrayAllData = [
+  //   ...monthlyIncome,
+  //   ...arrayOfNeeds,
+  //   ...arrayOfWants,
+  //   ...arrayOfInvest,
+  // ];
 
-  
-  let arrayAllData = [...monthlyIncome , ...arrayOfNeeds , ...arrayOfWants , ...arrayOfInvest]
+  // console.log(arrayAllData);
 
-  console.log(arrayAllData);
+  // useEffect(() => {
+  //   localStorage.setItem("list", JSON.stringify(arrayAllData));
+  // }, [arrayAllData]);
 
-
-
-
-  useEffect(() => {
-    localStorage.setItem('list', JSON.stringify(arrayAllData));
-  }, [arrayAllData]);
-  
-  
-
-//   useEffect(() => {
-//     const storedList = localStorage.getItem('list');
-//     if (storedList) {
-//         setList(JSON.parse(storedList));
-//     }
-// }, []);
+  //   useEffect(() => {
+  //     const storedList = localStorage.getItem('list');
+  //     if (storedList) {
+  //         setList(JSON.parse(storedList));
+  //     }
+  // }, []);
 
 
-
+    // saving data to local storage
+    useEffect(()=>{
+      localStorage.setItem('lists',JSON.stringify(arrayOfNeeds));
+    },[arrayOfNeeds])
+    
+    useEffect(()=>{
+      localStorage.setItem('lists',JSON.stringify(arrayOfWants));
+    },[arrayOfWants])
+    
+    useEffect(()=>{
+      localStorage.setItem('lists',JSON.stringify(arrayOfInvest));
+    },[arrayOfInvest])
+   
   return (
     <div className="mainBox-rightside p-3">
       <div className="balence_left_box w-full ">
