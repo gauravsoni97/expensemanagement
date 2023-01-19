@@ -12,9 +12,7 @@ const ExpenseListRight = ({
   salaryToNeeds,
   salaryToWants,
   salaryToInvest,
-  needsFormVisible,
-  wantsFormVisible,
-  investFormVisible,
+  formVisible,
 }) => {
   const [arrayOfList, setArrayOfList] = useState([]);
 
@@ -77,11 +75,11 @@ const ExpenseListRight = ({
         <p className=" w-full bg-red-50 p-3 border rounded-lg text-gray-800 text-center mb-3 ">
           Balance Left:
           {Math.round(
-            needsFormVisible
+            formVisible === 0
               ? salaryToNeeds - totalListSum
-              : wantsFormVisible
+              : formVisible === 1
               ? salaryToWants - totalListSum
-              : investFormVisible
+              : formVisible === 2
               ? salaryToInvest - totalListSum
               : ""
           )}
