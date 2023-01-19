@@ -17,6 +17,10 @@ const ExpenseListRight = ({
 }) => {
   const [arrayOfList, setArrayOfList] = useState([]);
 
+  const [arrayOfNeeds, setArrayOfNeeds] = useState([]);
+  const [arrayOfWants, setArrayOfWants] = useState([]);
+  const [arrayOfInvest, setArrayOfInvest] = useState([]);
+
   const formik = useFormik({
     initialValues: {
       itemDate: "",
@@ -36,9 +40,36 @@ const ExpenseListRight = ({
     }),
 
     onSubmit: (values) => {
-      setArrayOfList((preval) => {
-        return [...preval, { name: values.itemName, price: values.itemPrice }];
-      });
+      // setArrayOfList((preval) => {
+      //   return [...preval, { name: values.itemName, price: values.itemPrice }];
+      // });
+      {
+        formVisible === 0 &&
+          setArrayOfNeeds((preval) => {
+            return [
+              ...preval,
+              { name: values.itemName, price: values.itemPrice },
+            ];
+          });
+      }
+      {
+        formVisible === 1 &&
+          setArrayOfWants((preval) => {
+            return [
+              ...preval,
+              { name: values.itemName, price: values.itemPrice },
+            ];
+          });
+      }
+      {
+        formVisible === 2 &&
+          setArrayOfInvest((preval) => {
+            return [
+              ...preval,
+              { name: values.itemName, price: values.itemPrice },
+            ];
+          });
+      }
 
       formik.resetForm();
     },
@@ -46,7 +77,13 @@ const ExpenseListRight = ({
 
   // Balance left code
 
-  let totalListSum = arrayOfList
+  let needsTotalListSum = arrayOfNeeds
+    .map((obj) => obj.price)
+    .reduce((acc, cur) => acc + cur, 0);
+  let wantsTotalListSum = arrayOfWants
+    .map((obj) => obj.price)
+    .reduce((acc, cur) => acc + cur, 0);
+  let investTotalListSum = arrayOfInvest
     .map((obj) => obj.price)
     .reduce((acc, cur) => acc + cur, 0);
 
@@ -59,40 +96,45 @@ const ExpenseListRight = ({
     setArrayOfList(updatedList);
   };
 
-  useEffect(() => {
-    localStorage.setItem("list", JSON.stringify(arrayOfList));
-  }, [arrayOfList]);
+  // useEffect(() => {
+  //   localStorage.setItem("list", JSON.stringify(arrayOfList));
+  // }, [arrayOfList]);
 
-  useEffect(() => {
-    const storedList = localStorage.getItem("list");
-    if (storedList) {
-      setArrayOfList(JSON.parse(storedList));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedList = localStorage.getItem("list");
+  //   if (storedList) {
+  //     setArrayOfList(JSON.parse(storedList));
+  //   }
+  // }, []);
 
   return (
     <div className="mainBox-rightside p-3">
       <div className="balence_left_box w-full ">
-        <p className={`w-full ${(salaryToNeeds - totalListSum ) <= 0 ? "bg-red-600 text-gray-50" : "bg-green-50 text-gray-800"} p-3 border rounded-lg text-gray-800 text-center mb-3 `}>
-
-        {formVisible === 0
-              ? "Needs Balance:"
-              : formVisible === 1
-              ?  "Wants Balance:"
-              : formVisible === 2
-              ? "Invest Balance:"
-              : "Balance Left"
-
-        } &nbsp;
-
+        <p
+          className={`w-full ${
+            (salaryToNeeds - needsTotalListSum ||
+              salaryToWants - wantsTotalListSum ||
+              salaryToInvest - investTotalListSum) <= 0
+              ? "bg-red-600 text-gray-50"
+              : "bg-green-50 text-gray-800"
+          } p-3 border rounded-lg text-gray-800 text-center mb-3 `}
+        >
+          {formVisible === 0
+            ? "Needs Balance:"
+            : formVisible === 1
+            ? "Wants Balance:"
+            : formVisible === 2
+            ? "Invest Balance:"
+            : "Balance Left"}{" "}
+          &nbsp;
           {Math.round(
             formVisible === 0
-              ? salaryToNeeds - totalListSum
+              ? salaryToNeeds - needsTotalListSum
               : formVisible === 1
-              ? salaryToWants - totalListSum
+              ? salaryToWants - wantsTotalListSum
               : formVisible === 2
-              ? salaryToInvest - totalListSum
-              : ""
+              ? salaryToInvest - investTotalListSum
+              : "-"
           )}
         </p>
       </div>
@@ -146,7 +188,7 @@ const ExpenseListRight = ({
             <input
               name="itemPrice"
               type="number"
-              min='0'
+              min="0"
               placeholder="10000"
               value={formik.values.itemPrice}
               onChange={formik.handleChange}
@@ -190,28 +232,84 @@ const ExpenseListRight = ({
             </div>
           </div>
           <div className="all_lists_parent">
-            {arrayOfList.length == 0 && (
-              <p className=" text-center text-sm pt-12 text-gray-600">
-                No data found
-              </p>
-            )}
-            {arrayOfList?.map((e, ind) => {
-              return (
-                <div
-                  className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
-                  key={ind}
-                >
-                  <p className="listed_item_name">{e.name}</p>
-                  <p className="listed_item_price">{e.price}</p>
-                  <p className="listed_item_edit">
-                    <i
-                      className="ri-delete-bin-line"
-                      onClick={() => onDeleteListItem(ind)}
-                    ></i>
+            {formVisible === 0 && (
+              <>
+                {arrayOfNeeds.length === 0 && (
+                  <p className=" text-center text-sm pt-12 text-gray-600">
+                    No data found
                   </p>
-                </div>
-              );
-            })}
+                )}
+                {arrayOfNeeds?.map((e, ind) => {
+                  return (
+                    <div
+                      className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                      key={ind}
+                    >
+                      <p className="listed_item_name">{e.name}</p>
+                      <p className="listed_item_price">{e.price}</p>
+                      <p className="listed_item_edit">
+                        <i
+                          className="ri-delete-bin-line"
+                          onClick={() => onDeleteListItem(ind)}
+                        ></i>
+                      </p>
+                    </div>
+                  );
+                })}
+              </>
+            )}
+            {formVisible === 1 && (
+              <>
+                {arrayOfWants.length === 0 && (
+                  <p className=" text-center text-sm pt-12 text-gray-600">
+                    No data found
+                  </p>
+                )}
+                {arrayOfWants?.map((e, ind) => {
+                  return (
+                    <div
+                      className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                      key={ind}
+                    >
+                      <p className="listed_item_name">{e.name}</p>
+                      <p className="listed_item_price">{e.price}</p>
+                      <p className="listed_item_edit">
+                        <i
+                          className="ri-delete-bin-line"
+                          onClick={() => onDeleteListItem(ind)}
+                        ></i>
+                      </p>
+                    </div>
+                  );
+                })}
+              </>
+            )}
+            {formVisible === 2 && (
+              <>
+                {arrayOfInvest.length === 0 && (
+                  <p className=" text-center text-sm pt-12 text-gray-600">
+                    No data found
+                  </p>
+                )}
+                {arrayOfInvest?.map((e, ind) => {
+                  return (
+                    <div
+                      className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                      key={ind}
+                    >
+                      <p className="listed_item_name">{e.name}</p>
+                      <p className="listed_item_price">{e.price}</p>
+                      <p className="listed_item_edit">
+                        <i
+                          className="ri-delete-bin-line"
+                          onClick={() => onDeleteListItem(ind)}
+                        ></i>
+                      </p>
+                    </div>
+                  );
+                })}
+              </>
+            )}
           </div>
         </div>
       </div>
