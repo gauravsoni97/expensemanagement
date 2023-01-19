@@ -98,7 +98,7 @@ const Main = () => {
           <div className="split_in_needs_wants_invest">
             <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Needs (50%):&nbsp; {Math.round(salaryToNeeds * 100) / 100}
+                Needs (50%):&nbsp; {Math.round(salaryToNeeds)}
               </p>
               <button
                 onClick={handleNeedsFrom}

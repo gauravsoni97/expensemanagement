@@ -5,6 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { red } from "@mui/material/colors";
 
 const ExpenseListRight = ({
   monthFilter,
@@ -72,8 +73,18 @@ const ExpenseListRight = ({
   return (
     <div className="mainBox-rightside p-3">
       <div className="balence_left_box w-full ">
-        <p className=" w-full bg-red-50 p-3 border rounded-lg text-gray-800 text-center mb-3 ">
-          Balance Left:
+        <p className={`w-full ${(salaryToNeeds - totalListSum ) <= 0 ? "bg-red-600 text-gray-50" : "bg-green-50 text-gray-800"} p-3 border rounded-lg text-gray-800 text-center mb-3 `}>
+
+        {formVisible === 0
+              ? "Needs Balance:"
+              : formVisible === 1
+              ?  "Wants Balance:"
+              : formVisible === 2
+              ? "Invest Balance:"
+              : "Balance Left"
+
+        } &nbsp;
+
           {Math.round(
             formVisible === 0
               ? salaryToNeeds - totalListSum
@@ -135,6 +146,7 @@ const ExpenseListRight = ({
             <input
               name="itemPrice"
               type="number"
+              min='0'
               placeholder="10000"
               value={formik.values.itemPrice}
               onChange={formik.handleChange}
