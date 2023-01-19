@@ -10,6 +10,11 @@ const ExpenseListRight = ({
   monthFilter,
   setMonthFilter,
   salaryToNeeds,
+  salaryToWants,
+  salaryToInvest,
+  needsFormVisible,
+  wantsFormVisible,
+  investFormVisible,
 }) => {
   const [arrayOfList, setArrayOfList] = useState([]);
 
@@ -55,25 +60,31 @@ const ExpenseListRight = ({
     setArrayOfList(updatedList);
   };
 
+  useEffect(() => {
+    localStorage.setItem("list", JSON.stringify(arrayOfList));
+  }, [arrayOfList]);
 
   useEffect(() => {
-    localStorage.setItem('list', JSON.stringify(arrayOfList));
-}, [arrayOfList]);
-
-useEffect(() => {
-  const storedList = localStorage.getItem('list');
-  if (storedList) {
+    const storedList = localStorage.getItem("list");
+    if (storedList) {
       setArrayOfList(JSON.parse(storedList));
-  }
-}, []);
-
+    }
+  }, []);
 
   return (
     <div className="mainBox-rightside p-3">
       <div className="balence_left_box w-full ">
         <p className=" w-full bg-red-50 p-3 border rounded-lg text-gray-800 text-center mb-3 ">
-          Needs Balance Left:{" "}
-          {Math.round(salaryToNeeds * 100) / 100 - totalListSum}
+          Balance Left:
+          {Math.round(
+            needsFormVisible
+              ? salaryToNeeds - totalListSum
+              : wantsFormVisible
+              ? salaryToWants - totalListSum
+              : investFormVisible
+              ? salaryToInvest - totalListSum
+              : ""
+          )}
         </p>
       </div>
 

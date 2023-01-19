@@ -11,7 +11,7 @@ let thirtyPercent = 30;
 let twentyPercent = 20;
 
 const Main = () => {
-  const [salaryToNeeds, setSalaryToNeeds] = useState(0);
+  const [salaryToNeeds, setSalaryAmount] = useState(0);
   const [salaryToWants, setSalaryToWants] = useState(0);
   const [salaryToInvest, setSalaryToInvest] = useState(0);
 
@@ -27,7 +27,7 @@ const Main = () => {
     }),
 
     onSubmit: (values) => {
-      setSalaryToNeeds((values.salary / 100) * fiftyPercent);
+      setSalaryAmount((values.salary / 100) * fiftyPercent);
       setSalaryToWants((values.salary / 100) * thirtyPercent);
       setSalaryToInvest((values.salary / 100) * twentyPercent);
 
@@ -41,13 +41,20 @@ const Main = () => {
 
   const [formVisible, setFormVisible] = useState(false);
 
+  const [needsFormVisible, setNeedsFormVisible] = useState(false);
+  const [wantsFormVisible, setWantsFormVisible] = useState(false);
+  const [investFormVisible, setInvestFormVisible] = useState(false);
+
   const handleNeedsFrom = () => {
+    setNeedsFormVisible(!needsFormVisible);
     setFormVisible(true);
   };
   const handleWantsFrom = () => {
+    setWantsFormVisible(!wantsFormVisible);
     setFormVisible(true);
   };
   const handleInvestFrom = () => {
+    setInvestFormVisible(!investFormVisible);
     setFormVisible(true);
   };
 
@@ -76,7 +83,9 @@ const Main = () => {
                   : ""
               }
             >
-              {formik.touched.salary && formik.errors.salary
+              {formik.touched.salary &&
+              formik.errors.salary 
+            
                 ? formik.errors.salary
                 : ""}
             </p>
@@ -137,7 +146,18 @@ const Main = () => {
 
       {/* -----------------  right side form -------------------------- */}
 
-      {!formVisible ? (
+      {salaryToInvest != 0 && formVisible ? (
+        <ExpenseListRight
+          monthFilter={monthFilter}
+          setMonthFilter={setMonthFilter}
+          salaryToNeeds={salaryToNeeds}
+          salaryToWants={salaryToWants}
+          salaryToInvest={salaryToInvest}
+          needsFormVisible={needsFormVisible}
+          wantsFormVisible={wantsFormVisible}
+          investFormVisible={investFormVisible}
+        />
+      ) : (
         <div className="right_side_empty_image flex align-center justify-center flex-col">
           <img
             className="empty_state_home_image  object-contain"
@@ -152,12 +172,6 @@ const Main = () => {
             Please fill your income first in given form
           </p>
         </div>
-      ) : (
-        <ExpenseListRight
-          monthFilter={monthFilter}
-          setMonthFilter={setMonthFilter}
-          salaryToNeeds={salaryToNeeds}
-        />
       )}
     </div>
   );
