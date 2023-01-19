@@ -37,8 +37,19 @@ const Main = () => {
 
   // ------------- right side form
 
-  const [filter, setFilter] = useState("needs");
   const [monthFilter, setMonthFilter] = useState("jan");
+
+  const [formVisible, setFormVisible] = useState(false);
+
+  const handleNeedsFrom = () => {
+    setFormVisible(true);
+  };
+  const handleWantsFrom = () => {
+    setFormVisible(true);
+  };
+  const handleInvestFrom = () => {
+    setFormVisible(true);
+  };
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
@@ -87,6 +98,7 @@ const Main = () => {
                 Needs (50%):&nbsp; {Math.round(salaryToNeeds * 100) / 100}
               </p>
               <button
+                onClick={handleNeedsFrom}
                 type="button"
                 className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
@@ -99,6 +111,7 @@ const Main = () => {
                 Wants (30%):&nbsp; {Math.round(salaryToWants * 100) / 100}
               </p>
               <button
+                onClick={handleWantsFrom}
                 type="button"
                 className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
@@ -111,6 +124,7 @@ const Main = () => {
                 Invest (20%):&nbsp; {Math.round(salaryToInvest * 100) / 100}
               </p>
               <button
+                onClick={handleInvestFrom}
                 type="button"
                 className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
@@ -123,7 +137,7 @@ const Main = () => {
 
       {/* -----------------  right side form -------------------------- */}
 
-      {salaryToInvest == 0 ? (
+      {!formVisible ? (
         <div className="right_side_empty_image flex align-center justify-center flex-col">
           <img
             className="empty_state_home_image  object-contain"
@@ -140,8 +154,6 @@ const Main = () => {
         </div>
       ) : (
         <ExpenseListRight
-          filter={filter}
-          setFilter={setFilter}
           monthFilter={monthFilter}
           setMonthFilter={setMonthFilter}
           salaryToNeeds={salaryToNeeds}

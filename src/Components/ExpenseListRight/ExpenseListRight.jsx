@@ -7,11 +7,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const ExpenseListRight = ({
-  filter,
-  setFilter,
   monthFilter,
   setMonthFilter,
-  currentBalance,
   salaryToNeeds,
 }) => {
   const [arrayOfList, setArrayOfList] = useState([]);
