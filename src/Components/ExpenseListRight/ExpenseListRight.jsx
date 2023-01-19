@@ -14,8 +14,9 @@ const ExpenseListRight = ({
   salaryToWants,
   salaryToInvest,
   formVisible,
+  monthlyIncome,
 }) => {
-  const [arrayOfList, setArrayOfList] = useState([]);
+
 
   const [arrayOfNeeds, setArrayOfNeeds] = useState([]);
   const [arrayOfWants, setArrayOfWants] = useState([]);
@@ -89,11 +90,23 @@ const ExpenseListRight = ({
 
   // on delete list item from list
 
-  const onDeleteListItem = (curInd) => {
-    const updatedList = arrayOfList.filter((ele, arrInd) => {
+  const deleteNeedsFromList = (curInd) => {
+    const updatedList = arrayOfNeeds.filter((ele, arrInd) => {
       return arrInd !== curInd;
     });
-    setArrayOfList(updatedList);
+    setArrayOfNeeds(updatedList);
+  };
+  const deleteWantsFromList = (curInd) => {
+    const updatedList = arrayOfWants.filter((ele, arrInd) => {
+      return arrInd !== curInd;
+    });
+    setArrayOfWants(updatedList);
+  };
+  const deleteInvestFromList = (curInd) => {
+    const updatedList = arrayOfInvest.filter((ele, arrInd) => {
+      return arrInd !== curInd;
+    });
+    setArrayOfInvest(updatedList);
   };
 
   // useEffect(() => {
@@ -107,13 +120,37 @@ const ExpenseListRight = ({
   //   }
   // }, []);
 
+
+  
+  let arrayAllData = [...monthlyIncome , ...arrayOfNeeds , ...arrayOfWants , ...arrayOfInvest]
+
+  console.log(arrayAllData);
+
+
+
+
+  useEffect(() => {
+    localStorage.setItem('list', JSON.stringify(arrayAllData));
+  }, [arrayAllData]);
+  
+  
+
+//   useEffect(() => {
+//     const storedList = localStorage.getItem('list');
+//     if (storedList) {
+//         setList(JSON.parse(storedList));
+//     }
+// }, []);
+
+
+
   return (
     <div className="mainBox-rightside p-3">
       <div className="balence_left_box w-full ">
         <p
           className={`w-full ${
-            (salaryToNeeds - needsTotalListSum ||
-              salaryToWants - wantsTotalListSum ||
+            (salaryToNeeds - needsTotalListSum &&
+              salaryToWants - wantsTotalListSum &&
               salaryToInvest - investTotalListSum) <= 0
               ? "bg-red-600 text-gray-50"
               : "bg-green-50 text-gray-800"
@@ -250,7 +287,7 @@ const ExpenseListRight = ({
                       <p className="listed_item_edit">
                         <i
                           className="ri-delete-bin-line"
-                          onClick={() => onDeleteListItem(ind)}
+                          onClick={() => deleteNeedsFromList(ind)}
                         ></i>
                       </p>
                     </div>
@@ -276,7 +313,7 @@ const ExpenseListRight = ({
                       <p className="listed_item_edit">
                         <i
                           className="ri-delete-bin-line"
-                          onClick={() => onDeleteListItem(ind)}
+                          onClick={() => deleteWantsFromList(ind)}
                         ></i>
                       </p>
                     </div>
@@ -302,7 +339,7 @@ const ExpenseListRight = ({
                       <p className="listed_item_edit">
                         <i
                           className="ri-delete-bin-line"
-                          onClick={() => onDeleteListItem(ind)}
+                          onClick={() => deleteInvestFromList(ind)}
                         ></i>
                       </p>
                     </div>

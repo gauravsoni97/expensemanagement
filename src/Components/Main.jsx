@@ -11,6 +11,11 @@ let thirtyPercent = 30;
 let twentyPercent = 20;
 
 const Main = () => {
+
+
+
+const [monthlyIncome, setMonthlyIncome] = useState([])
+
   const [salaryToNeeds, setSalaryAmount] = useState(0);
   const [salaryToWants, setSalaryToWants] = useState(0);
   const [salaryToInvest, setSalaryToInvest] = useState(0);
@@ -32,8 +37,16 @@ const Main = () => {
       setSalaryToInvest((values.salary / 100) * twentyPercent);
 
       formik.resetForm();
+
+
+
+      setMonthlyIncome((preval) => {
+       return [...preval, {salary:values.salary}];
+     });
+
     },
   });
+
 
   // ------------- right side form
 
@@ -53,6 +66,12 @@ const Main = () => {
     setFormVisible(2);
     console.log(formVisible);
   };
+
+
+
+
+
+
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
@@ -148,6 +167,7 @@ const Main = () => {
           salaryToWants={salaryToWants}
           salaryToInvest={salaryToInvest}
           formVisible={formVisible}
+          monthlyIncome={monthlyIncome}
         />
       ) : (
         <div className="right_side_empty_image flex align-center justify-center flex-col">
