@@ -7,15 +7,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { red } from "@mui/material/colors";
 
-const getDatafromLS = () => {
-  const data = localStorage.getItem("lists");
-  if (data) {
-    return JSON.parse(data);
-  } else {
-    return [];
-  }
-};
-
 const ExpenseListRight = ({
   monthFilter,
   setMonthFilter,
@@ -25,9 +16,9 @@ const ExpenseListRight = ({
   formVisible,
   monthlyIncome,
 }) => {
-  const [arrayOfNeeds, setArrayOfNeeds] = useState(getDatafromLS());
-  const [arrayOfWants, setArrayOfWants] = useState(getDatafromLS());
-  const [arrayOfInvest, setArrayOfInvest] = useState(getDatafromLS());
+  const [arrayOfNeeds, setArrayOfNeeds] = useState([]);
+  const [arrayOfWants, setArrayOfWants] = useState([]);
+  const [arrayOfInvest, setArrayOfInvest] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -116,51 +107,54 @@ const ExpenseListRight = ({
     setArrayOfInvest(updatedList);
   };
 
-  // useEffect(() => {
-  //   localStorage.setItem("list", JSON.stringify(arrayOfList));
-  // }, [arrayOfList]);
+  // saving data to local storage
+  useEffect(() => {
+    localStorage.setItem("lists", JSON.stringify(arrayOfNeeds));
+  }, [arrayOfNeeds]);
+
+  useEffect(() => {
+    localStorage.setItem("lists", JSON.stringify(arrayOfWants));
+  }, [arrayOfWants]);
+
+  useEffect(() => {
+    localStorage.setItem("lists", JSON.stringify(arrayOfInvest));
+  }, [arrayOfInvest]);
 
   // useEffect(() => {
-  //   const storedList = localStorage.getItem("list");
-  //   if (storedList) {
-  //     setArrayOfList(JSON.parse(storedList));
+  //   // Load form data from local storage when the component first renders
+  //   const storedData = localStorage.getItem("lists");
+  //   console.log(storedData);
+  //   if (storedData) {
+  //     setArrayOfNeeds(JSON.parse(storedData));
   //   }
   // }, []);
 
-  // let arrayAllData = [
-  //   ...monthlyIncome,
-  //   ...arrayOfNeeds,
-  //   ...arrayOfWants,
-  //   ...arrayOfInvest,
-  // ];
-
-  // console.log(arrayAllData);
+  // useEffect(() => {
+  //   // Load form data from local storage when the component first renders
+  //   const storedData = localStorage.getItem("lists");
+  //   if (storedData) {
+  //     setArrayOfWants(JSON.parse(storedData));
+  //   }
+  // }, []);
 
   // useEffect(() => {
-  //   localStorage.setItem("list", JSON.stringify(arrayAllData));
-  // }, [arrayAllData]);
-
-  //   useEffect(() => {
-  //     const storedList = localStorage.getItem('list');
-  //     if (storedList) {
-  //         setList(JSON.parse(storedList));
-  //     }
+  //   // Load form data from local storage when the component first renders
+  //   const storedData = localStorage.getItem("lists");
+  //   if (storedData) {
+  //     setArrayOfInvest(JSON.parse(storedData));
+  //   }
   // }, []);
 
 
-    // saving data to local storage
-    useEffect(()=>{
-      localStorage.setItem('lists',JSON.stringify(arrayOfNeeds));
-    },[arrayOfNeeds])
-    
-    useEffect(()=>{
-      localStorage.setItem('lists',JSON.stringify(arrayOfWants));
-    },[arrayOfWants])
-    
-    useEffect(()=>{
-      localStorage.setItem('lists',JSON.stringify(arrayOfInvest));
-    },[arrayOfInvest])
-   
+  useEffect ( ()=>{
+
+      setArrayOfNeeds(JSON.parse(localStorage.getItem("lists")));
+
+      
+  },[])
+
+  console.log(arrayOfNeeds);
+
   return (
     <div className="mainBox-rightside p-3">
       <div className="balence_left_box w-full ">

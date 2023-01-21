@@ -11,10 +11,7 @@ let thirtyPercent = 30;
 let twentyPercent = 20;
 
 const Main = () => {
-
-
-
-const [monthlyIncome, setMonthlyIncome] = useState([])
+  const [monthlyIncome, setMonthlyIncome] = useState([]);
 
   const [salaryToNeeds, setSalaryAmount] = useState(0);
   const [salaryToWants, setSalaryToWants] = useState(0);
@@ -36,24 +33,20 @@ const [monthlyIncome, setMonthlyIncome] = useState([])
       setSalaryToWants((values.salary / 100) * thirtyPercent);
       setSalaryToInvest((values.salary / 100) * twentyPercent);
 
-      formik.resetForm();
-
-
-
       setMonthlyIncome((preval) => {
-       return [...preval, {salary:values.salary}];
-     });
+        return [...preval, { salary: values.salary }];
+      });
 
+      formik.resetForm();
     },
   });
-
 
   // ------------- right side form
 
   const [monthFilter, setMonthFilter] = useState("jan");
 
   const [formVisible, setFormVisible] = useState(-1);
-  
+
   const handleNeedsFrom = () => {
     setFormVisible(0);
     console.log(formVisible);
@@ -66,12 +59,6 @@ const [monthlyIncome, setMonthlyIncome] = useState([])
     setFormVisible(2);
     console.log(formVisible);
   };
-
-
-
-
-
-
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
