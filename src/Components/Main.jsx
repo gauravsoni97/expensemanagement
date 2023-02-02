@@ -13,9 +13,9 @@ let twentyPercent = 20;
 
 const Main = () => {
 
-  const [salaryToNeeds, setSalaryAmount] = useState(0);
-  const [salaryToWants, setSalaryToWants] = useState(0);
-  const [salaryToInvest, setSalaryToInvest] = useState(0);
+  const [needsAmount, setNeedsAmount] = useState(0);
+  const [wantsAmount, setWantsAmount] = useState(0);
+  const [investAmount, setInvestAmount] = useState(0);
 
   // --------- right side 
   const [arrayOfNeeds, setArrayOfNeeds] = useState([]);
@@ -23,34 +23,49 @@ const Main = () => {
   const [arrayOfInvest, setArrayOfInvest] = useState([]);
 
 
+  const incomeForm = useFormik({
+    initialValues: {
+      income: "",
+    },
+
+    validationSchema: Yup.object({
+      income: Yup.number()
+        .max(1000000000000, "Enter income less than 1 Trillion*")
+        .required("Amount is Required*"),
+    }),
+
+    onSubmit: (values) => {
+      setNeedsAmount((values.income / 100) * fiftyPercent);
+      setWantsAmount((values.income / 100) * thirtyPercent);
+      setInvestAmount((values.income / 100) * twentyPercent);
+
+
+ 
+    },
+  });
+
+  // -- needs wants invest form formik validation 
+
   const formik = useFormik({
     initialValues: {
-      salary: "",
       itemDate: "",
       itemName: "",
       itemPrice: "",
     },
 
     validationSchema: Yup.object({
-      salary: Yup.number()
-        .max(1000000000000, "Enter Salary less than 1 Trillion*")
-        .required("Amount is Required*"),
         itemDate: Yup.date().required("Date is Required*"),
         itemName: Yup.string()
           .max(20, "Enter name less than 20 character*")
           .required("Name is Required*"),
   
         itemPrice: Yup.number()
-          .max(1000000000000, "Enter Salary less than 1 Trillion*")
+          .max(1000000000000, "Enter income less than 1 Trillion*")
           .required("Amount is Required*"),
     }),
 
     onSubmit: (values) => {
-      setSalaryAmount((values.salary / 100) * fiftyPercent);
-      setSalaryToWants((values.salary / 100) * thirtyPercent);
-      setSalaryToInvest((values.salary / 100) * twentyPercent);
-
-
+  
       // {
       //   formVisible === 0 &&
       //     setArrayOfNeeds((preval) => {
@@ -130,26 +145,26 @@ const Main = () => {
       <div className="mainBox-leftside bg-[#FFE0CA] rounded-xl  p-3  ">
         <h2 className="mainheading_topleft">Income Management</h2>
 
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={incomeForm.handleSubmit}>
           <div className="inputfield">
             <label className="text-sm font-medium">Monthly Income</label>
             <input
-              name="salary"
+              name="income"
               type="number"
               min="0"
               placeholder="100000"
-              value={formik.values.salary}
-              onChange={formik.handleChange}
+              value={incomeForm.values.income}
+              onChange={incomeForm.handleChange}
             />
             <p
               className={
-                formik.touched.salary && formik.errors.salary
+                incomeForm.touched.income && incomeForm.errors.income
                   ? "text-red-600  text-xs font-medium"
                   : ""
               }
             >
-              {formik.touched.salary && formik.errors.salary
-                ? formik.errors.salary
+              {incomeForm.touched.income && incomeForm.errors.income
+                ? incomeForm.errors.income
                 : ""}
             </p>
           </div>
@@ -165,9 +180,9 @@ const Main = () => {
         <div className="needs_wants_invest_parent mt-6 ">
           <p className="text-sm font-medium ">*50-30-20 Rule of Budgeting*</p>
           <div className="split_in_needs_wants_invest">
-            <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
+            <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Needs (50%):&nbsp; {Math.round(salaryToNeeds)}
+                Needs (50%):&nbsp; {Math.round(needsAmount)}
               </p>
               <button
                 onClick={handleNeedsFrom}
@@ -178,9 +193,9 @@ const Main = () => {
               </button>
             </div>
 
-            <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
+            <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Wants (30%):&nbsp; {Math.round(salaryToWants * 100) / 100}
+                Wants (30%):&nbsp; {Math.round(wantsAmount * 100) / 100}
               </p>
               <button
                 onClick={handleWantsFrom}
@@ -191,9 +206,9 @@ const Main = () => {
               </button>
             </div>
 
-            <div className="needs_from_salary bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
+            <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Invest (20%):&nbsp; {Math.round(salaryToInvest * 100) / 100}
+                Invest (20%):&nbsp; {Math.round(investAmount * 100) / 100}
               </p>
               <button
                 onClick={handleInvestFrom}
@@ -209,14 +224,14 @@ const Main = () => {
 
       {/* -----------------  right side form -------------------------- */}
 
-      {salaryToInvest != 0 && formVisible !== -1 ? (
+      {investAmount != 0 && formVisible !== -1 ? (
          <div className="mainBox-rightside p-3">
          <div className="balence_left_box w-full ">
            <p
              className={`w-full ${
-               (salaryToNeeds - needsTotalListSum &&
-                 salaryToWants - wantsTotalListSum &&
-                 salaryToInvest - investTotalListSum) <= 0
+               (needsAmount - needsTotalListSum &&
+                 wantsAmount - wantsTotalListSum &&
+                 investAmount - investTotalListSum) <= 0
                  ? "bg-red-600 text-gray-50"
                  : "bg-green-50 text-gray-800"
              } p-3 border rounded-lg text-gray-800 text-center mb-3 `}
@@ -231,11 +246,11 @@ const Main = () => {
              &nbsp;
              {Math.round(
                formVisible === 0
-                 ? salaryToNeeds - needsTotalListSum
+                 ? needsAmount - needsTotalListSum
                  : formVisible === 1
-                 ? salaryToWants - wantsTotalListSum
+                 ? wantsAmount - wantsTotalListSum
                  : formVisible === 2
-                 ? salaryToInvest - investTotalListSum
+                 ? investAmount - investTotalListSum
                  : "-"
              )}
            </p>
