@@ -1,0 +1,15 @@
+{
+  "total": 10000,
+  "needs": [
+    { "name": "A", "amount": 100 },
+    { "name": "B", "amount": 200 }
+  ],
+  "wants": [
+    { "name": "A", "amount": 100 },
+    { "name": "B", "amount": 200 }
+  ],
+  "invest": [
+    { "name": "A", "amount": 100 },
+    { "name": "B", "amount": 200 }
+  ]
+}
