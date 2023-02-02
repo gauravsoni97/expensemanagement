@@ -35,9 +35,9 @@ const Main = () => {
     }),
 
     onSubmit: (values) => {
-      setNeedsAmount((values.income / 100) * fiftyPercent);
-      setWantsAmount((values.income / 100) * thirtyPercent);
-      setInvestAmount((values.income / 100) * twentyPercent);
+      setNeedsAmount(Math.round((values.income / 100) * fiftyPercent));
+      setWantsAmount(Math.round((values.income / 100) * thirtyPercent));
+      setInvestAmount(Math.round((values.income / 100) * twentyPercent));
 
 
  
@@ -182,7 +182,7 @@ const Main = () => {
           <div className="split_in_needs_wants_invest">
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Needs (50%):&nbsp; {Math.round(needsAmount)}
+                Needs (50%):&nbsp; {needsAmount}
               </p>
               <button
                 onClick={handleNeedsFrom}
@@ -195,7 +195,7 @@ const Main = () => {
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Wants (30%):&nbsp; {Math.round(wantsAmount * 100) / 100}
+                Wants (30%):&nbsp; {wantsAmount}
               </p>
               <button
                 onClick={handleWantsFrom}
@@ -208,7 +208,7 @@ const Main = () => {
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Invest (20%):&nbsp; {Math.round(investAmount * 100) / 100}
+                Invest (20%):&nbsp; {investAmount}
               </p>
               <button
                 onClick={handleInvestFrom}
