@@ -177,7 +177,7 @@ const Main = () => {
           <div className="split_in_needs_wants_invest">
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                {/* Needs (50%):&nbsp; {needsAmount} */}
+                Needs (50%):&nbsp; 
               </p>
               <button
                 onClick={handleNeedsFrom}
@@ -190,7 +190,7 @@ const Main = () => {
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                {/* Wants (30%):&nbsp; {wantsAmount} */}
+                Wants (30%):&nbsp; 
               </p>
               <button
                 onClick={handleWantsFrom}
@@ -203,7 +203,7 @@ const Main = () => {
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                {/* Invest (20%):&nbsp; {investAmount} */}
+                Invest (20%):&nbsp; 
               </p>
               <button
                 onClick={handleInvestFrom}
