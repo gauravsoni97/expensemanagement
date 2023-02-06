@@ -7,19 +7,8 @@ import "./Main.css";
 import { useEffect } from "react";
 import { FormControl, MenuItem, Select } from "@mui/material";
 
-let fiftyPercent = 50;
-let thirtyPercent = 30;
-let twentyPercent = 20;
 
 const Main = () => {
-  const [formData, setFormData] = useState({});
-
-  console.log(formData);
-
-const needsAmount = (formData.income / 100) * fiftyPercent;
- const wantsAmount = (formData.income / 100) * thirtyPercent;
- const investAmount = (formData.income / 100) * twentyPercent;
-
 
 
 
@@ -27,7 +16,7 @@ const needsAmount = (formData.income / 100) * fiftyPercent;
 
 
   const incomeForm = useFormik({
-    initialValues: {income:formData},
+    initialValues: {income:""},
 
     validationSchema: Yup.object({
       income: Yup.number()
@@ -36,12 +25,7 @@ const needsAmount = (formData.income / 100) * fiftyPercent;
     }),
 
     onSubmit: (values) => {
-     setFormData (values);
-
-
-      incomeForm.resetForm();
-
-      console.log(needsAmount, wantsAmount, investAmount);
+    
     },
   });
 
@@ -148,22 +132,6 @@ const needsAmount = (formData.income / 100) * fiftyPercent;
 
   
 
-  useEffect(() => {
-    const storedData = localStorage.getItem("formData");
-    if (storedData) {
-      setFormData(JSON.parse(storedData));
-    }
-  }, []);
-
-
-
-  
-  
-  useEffect(() => {
-    localStorage.setItem('formData', JSON.stringify(formData));
-  }, [formData]);
-
-
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
@@ -209,7 +177,7 @@ const needsAmount = (formData.income / 100) * fiftyPercent;
           <div className="split_in_needs_wants_invest">
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Needs (50%):&nbsp; {needsAmount}
+                {/* Needs (50%):&nbsp; {needsAmount} */}
               </p>
               <button
                 onClick={handleNeedsFrom}
@@ -222,7 +190,7 @@ const needsAmount = (formData.income / 100) * fiftyPercent;
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Wants (30%):&nbsp; {wantsAmount}
+                {/* Wants (30%):&nbsp; {wantsAmount} */}
               </p>
               <button
                 onClick={handleWantsFrom}
@@ -235,7 +203,7 @@ const needsAmount = (formData.income / 100) * fiftyPercent;
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Invest (20%):&nbsp; {investAmount}
+                {/* Invest (20%):&nbsp; {investAmount} */}
               </p>
               <button
                 onClick={handleInvestFrom}
@@ -251,10 +219,10 @@ const needsAmount = (formData.income / 100) * fiftyPercent;
 
       {/* -----------------  right side form -------------------------- */}
 
-      {needsAmount != 0 && formVisible !== -1 ? (
+      {formVisible !== -1 ? (
         <div className="mainBox-rightside p-3">
           <div className="balence_left_box w-full ">
-            <p
+            {/* <p
               className={`w-full ${
                 (needsAmount - needsTotalListSum &&
                   wantsAmount - wantsTotalListSum &&
@@ -280,7 +248,7 @@ const needsAmount = (formData.income / 100) * fiftyPercent;
                   ? investAmount - investTotalListSum
                   : "-"
               )}
-            </p>
+            </p> */}
           </div>
 
           <div className="input_amount_form_section">
