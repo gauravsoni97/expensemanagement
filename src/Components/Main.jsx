@@ -38,12 +38,16 @@ const Main = () => {
   // -- needs wants invest form formik validation
 
   // --------- right side
-  const [arrayOfNeeds, setArrayOfNeeds] = useState(JSON.parse(localStorage.getItem("needsArray"))  || []);
-  const [arrayOfWants, setArrayOfWants] = useState(JSON.parse(localStorage.getItem("wantsArray"))  || []);
-  const [arrayOfInvest, setArrayOfInvest] = useState(JSON.parse(localStorage.getItem("investArray"))  || []);
+  const [arrayOfNeeds, setArrayOfNeeds] = useState(
+    JSON.parse(localStorage.getItem("needsArray")) || []
+  );
+  const [arrayOfWants, setArrayOfWants] = useState(
+    JSON.parse(localStorage.getItem("wantsArray")) || []
+  );
+  const [arrayOfInvest, setArrayOfInvest] = useState(
+    JSON.parse(localStorage.getItem("investArray")) || []
+  );
 
-
-  
   const [formVisible, setFormVisible] = useState(-1);
 
   const handleNeedsForm = () => setFormVisible(0);
@@ -102,7 +106,7 @@ const Main = () => {
       setArrayOfWants((preval) => {
         return [...preval, { name: values.itemName, price: values.itemPrice }];
       });
-      wantsForm.resetForm()
+      wantsForm.resetForm();
     },
   });
 
@@ -192,13 +196,12 @@ const Main = () => {
   }, [arrayOfNeeds]);
 
   useEffect(() => {
-    localStorage.setItem("needsArray", JSON.stringify(arrayOfWants));
+    localStorage.setItem("wantsArray", JSON.stringify(arrayOfWants));
   }, [arrayOfWants]);
 
   useEffect(() => {
-    localStorage.setItem("needsArray", JSON.stringify(arrayOfInvest));
+    localStorage.setItem("investArray", JSON.stringify(arrayOfInvest));
   }, [arrayOfInvest]);
-
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
@@ -291,9 +294,12 @@ const Main = () => {
           <div className="balence_left_box w-full ">
             <p
               className={`w-full ${
-                (splitAmounts.needs - needsTotalListSum ||
-                  splitAmounts.wants - needsTotalListSum ||
-                  splitAmounts.invest - needsTotalListSum) < 0
+                (formVisible === 0 &&
+                  splitAmounts.needs - needsTotalListSum < 0) ||
+                (formVisible === 1 &&
+                  splitAmounts.wants - needsTotalListSum < 0) ||
+                (formVisible === 2 &&
+                  splitAmounts.invest - needsTotalListSum < 0)
                   ? "bg-red-200 text-gray-50"
                   : "bg-green-50 text-gray-800"
               } 
@@ -519,18 +525,18 @@ const Main = () => {
                     type="number"
                     min="0"
                     placeholder="10000"
-                    value={needsForm.values.itemPrice}
-                    onChange={needsForm.handleChange}
+                    value={investForm.values.itemPrice}
+                    onChange={investForm.handleChange}
                   />
                   <p
                     className={
-                      needsForm.touched.itemPrice && needsForm.errors.itemPrice
+                      investForm.touched.itemPrice && investForm.errors.itemPrice
                         ? "text-red-600  text-xs  font-medium"
                         : ""
                     }
                   >
-                    {needsForm.touched.itemPrice && needsForm.errors.itemPrice
-                      ? needsForm.errors.itemPrice
+                    {investForm.touched.itemPrice && investForm.errors.itemPrice
+                      ? investForm.errors.itemPrice
                       : ""}
                   </p>
                 </div>
