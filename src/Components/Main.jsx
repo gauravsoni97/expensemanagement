@@ -127,6 +127,12 @@ const Main = () => {
 
   // ================================================ use Effects ==============================
 
+  // -------------- use effects for  left side forms -----------------
+
+
+
+  // why its not working need to ask ????
+
   // useEffect(() => {
   //   const storedAmount = JSON.parse(localStorage.getItem("splitAmounts"));
   //   if (storedAmount) {
@@ -138,6 +144,13 @@ const Main = () => {
   useEffect(() => {
     localStorage.setItem("splitAmounts", JSON.stringify(splitAmounts));
   }, [splitAmounts]);
+
+
+
+    // -------------- use effects for  right side forms -----------------
+
+
+
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
@@ -225,14 +238,14 @@ const Main = () => {
 
       {/* -----------------  right side form -------------------------- */}
 
-      {formVisible !== -1 ? (
+      {splitAmounts.needs !== 0 && formVisible !== -1 ? (
         <div className="mainBox-rightside p-3">
           <div className="balence_left_box w-full ">
-            {/* <p
+             <p
               className={`w-full ${
-                (needsAmount - needsTotalListSum &&
-                  wantsAmount - wantsTotalListSum &&
-                  investAmount - investTotalListSum) <= 0
+                (splitAmounts.needs - needsTotalListSum &&
+                  splitAmounts.wants - wantsTotalListSum &&
+                  splitAmounts.invest - investTotalListSum) <= 0
                   ? "bg-red-600 text-gray-50"
                   : "bg-green-50 text-gray-800"
               } p-3 border rounded-lg text-gray-800 text-center mb-3 `}
@@ -243,18 +256,18 @@ const Main = () => {
                 ? "Wants Balance:"
                 : formVisible === 2
                 ? "Invest Balance:"
-                : "Balance Left"}{" "}
+                : "Balance Left"}
               &nbsp;
               {Math.round(
                 formVisible === 0
-                  ? needsAmount - needsTotalListSum
+                  ? splitAmounts.needs - needsTotalListSum
                   : formVisible === 1
-                  ? wantsAmount - wantsTotalListSum
+                  ? splitAmounts.wants - wantsTotalListSum
                   : formVisible === 2
-                  ? investAmount - investTotalListSum
+                  ? splitAmounts.invest - investTotalListSum
                   : "-"
               )}
-            </p> */}
+            </p> 
           </div>
 
           <div className="input_amount_form_section">
