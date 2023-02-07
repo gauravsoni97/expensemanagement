@@ -42,7 +42,15 @@ const Main = () => {
   const [arrayOfWants, setArrayOfWants] = useState([]);
   const [arrayOfInvest, setArrayOfInvest] = useState([]);
 
-  const formik = useFormik({
+  const [formVisible, setFormVisible] = useState(-1);
+
+  const handleNeedsFrom = () => setFormVisible(0);
+  const handleWantsFrom = () => setFormVisible(1);
+  const handleInvestFrom = () => setFormVisible(2);
+
+  // needs input form
+
+  const needsForm = useFormik({
     initialValues: {
       itemDate: "",
       itemName: "",
@@ -52,7 +60,7 @@ const Main = () => {
     validationSchema: Yup.object({
       itemDate: Yup.date().required("Date is Required*"),
       itemName: Yup.string()
-        .max(20, "Enter name less than 20 character*")
+        .max(20, "Enter needs name less than 20 character*")
         .required("Name is Required*"),
 
       itemPrice: Yup.number()
@@ -61,36 +69,63 @@ const Main = () => {
     }),
 
     onSubmit: (values) => {
-      // {
-      //   formVisible === 0 &&
-      //     setArrayOfNeeds((preval) => {
-      //       return [
-      //         ...preval,
-      //         { name: values.itemName, price: values.itemPrice },
-      //       ];
-      //     });
-      // }
+      setArrayOfNeeds((preval) => {
+        return [...preval, { name: values.itemName, price: values.itemPrice }];
+      });
+    },
+  });
+
+  const wantsForm = useFormik({
+    initialValues: {
+      itemDate: "",
+      itemName: "",
+      itemPrice: "",
+    },
+
+    validationSchema: Yup.object({
+      itemDate: Yup.date().required("Date is Required*"),
+      itemName: Yup.string()
+        .max(20, "Enter needs name less than 20 character*")
+        .required("Name is Required*"),
+
+      itemPrice: Yup.number()
+        .max(1000000000000, "Enter income less than 1 Trillion*")
+        .required("Amount is Required*"),
+    }),
+
+    onSubmit: (values) => {
+      setArrayOfWants((preval) => {
+        return [...preval, { name: values.itemName, price: values.itemPrice }];
+      });
+    },
+  });
+
+  const investForm = useFormik({
+    initialValues: {
+      itemDate: "",
+      itemName: "",
+      itemPrice: "",
+    },
+
+    validationSchema: Yup.object({
+      itemDate: Yup.date().required("Date is Required*"),
+      itemName: Yup.string()
+        .max(20, "Enter needs name less than 20 character*")
+        .required("Name is Required*"),
+
+      itemPrice: Yup.number()
+        .max(1000000000000, "Enter income less than 1 Trillion*")
+        .required("Amount is Required*"),
+    }),
+
+    onSubmit: (values) => {
+      setArrayOfInvest((preval) => {
+        return [...preval, { name: values.itemName, price: values.itemPrice }];
+      });
     },
   });
 
   // ------------- right side form
-
-  const [formVisible, setFormVisible] = useState(-1);
-
-  const handleNeedsFrom = () => {
-    setFormVisible(0);
-    console.log(formVisible);
-  };
-  const handleWantsFrom = () => {
-    setFormVisible(1);
-    console.log(formVisible);
-  };
-  const handleInvestFrom = () => {
-    setFormVisible(2);
-    console.log(formVisible);
-  };
-
-  // --------------- right side
 
   // Balance left code
 
@@ -129,8 +164,6 @@ const Main = () => {
 
   // -------------- use effects for  left side forms -----------------
 
-
-
   // why its not working need to ask ????
 
   // useEffect(() => {
@@ -145,12 +178,7 @@ const Main = () => {
     localStorage.setItem("splitAmounts", JSON.stringify(splitAmounts));
   }, [splitAmounts]);
 
-
-
-    // -------------- use effects for  right side forms -----------------
-
-
-
+  // -------------- use effects for  right side forms -----------------
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
@@ -241,7 +269,7 @@ const Main = () => {
       {splitAmounts.needs !== 0 && formVisible !== -1 ? (
         <div className="mainBox-rightside p-3">
           <div className="balence_left_box w-full ">
-             <p
+            <p
               className={`w-full ${
                 (splitAmounts.needs - needsTotalListSum &&
                   splitAmounts.wants - wantsTotalListSum &&
@@ -267,83 +295,232 @@ const Main = () => {
                   ? splitAmounts.invest - investTotalListSum
                   : "-"
               )}
-            </p> 
+            </p>
           </div>
 
           <div className="input_amount_form_section">
-            <form onSubmit={formik.handleSubmit}>
-              <div className="inputfield inputfield_rightside">
-                <label className="text-sm font-medium">Enter Date</label>
-                <input
-                  name="itemDate"
-                  type="month"
-                  placeholder="MM"
-                  value={formik.values.itemDate}
-                  onChange={formik.handleChange}
-                />
-                <p
-                  className={
-                    formik.touched.itemDate && formik.errors.itemDate
-                      ? "text-red-600  text-xs  font-medium"
-                      : ""
-                  }
+            {formVisible === 0 ? (
+              <form onSubmit={needsForm.handleSubmit}>
+                <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Date</label>
+                  <input
+                    name="itemDate"
+                    type="month"
+                    placeholder="MM"
+                    value={needsForm.values.itemDate}
+                    onChange={needsForm.handleChange}
+                  />
+                  <p
+                    className={
+                      needsForm.touched.itemDate && needsForm.errors.itemDate
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {needsForm.touched.itemDate && needsForm.errors.itemDate
+                      ? needsForm.errors.itemDate
+                      : ""}
+                  </p>
+                </div>
+                <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Name</label>
+                  <input
+                    name="itemName"
+                    type="text"
+                    placeholder="Sugar"
+                    value={needsForm.values.itemName}
+                    onChange={needsForm.handleChange}
+                  />
+                  <p
+                    className={
+                      needsForm.touched.itemName && needsForm.errors.itemName
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {needsForm.touched.itemName && needsForm.errors.itemName
+                      ? needsForm.errors.itemName
+                      : ""}
+                  </p>
+                </div>
+                <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Amount</label>
+                  <input
+                    name="itemPrice"
+                    type="number"
+                    min="0"
+                    placeholder="10000"
+                    value={needsForm.values.itemPrice}
+                    onChange={needsForm.handleChange}
+                  />
+                  <p
+                    className={
+                      needsForm.touched.itemPrice && needsForm.errors.itemPrice
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {needsForm.touched.itemPrice && needsForm.errors.itemPrice
+                      ? needsForm.errors.itemPrice
+                      : ""}
+                  </p>
+                </div>
+                <button
+                  type="submit"
+                  className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 >
-                  {formik.touched.itemDate && formik.errors.itemDate
-                    ? formik.errors.itemDate
-                    : ""}
-                </p>
-              </div>
-              <div className="inputfield inputfield_rightside">
-                <label className="text-sm font-medium">Enter Name</label>
-                <input
-                  name="itemName"
-                  type="text"
-                  placeholder="Sugar"
-                  value={formik.values.itemName}
-                  onChange={formik.handleChange}
-                />
-                <p
-                  className={
-                    formik.touched.itemName && formik.errors.itemName
-                      ? "text-red-600  text-xs  font-medium"
-                      : ""
-                  }
+                  Use Amount
+                </button>
+              </form>
+            ) : formVisible === 1 ? (
+              <form onSubmit={wantsForm.handleSubmit}>
+                <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Date</label>
+                  <input
+                    name="itemDate"
+                    type="month"
+                    placeholder="MM"
+                    value={wantsForm.values.itemDate}
+                    onChange={wantsForm.handleChange}
+                  />
+                  <p
+                    className={
+                      wantsForm.touched.itemDate && wantsForm.errors.itemDate
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {wantsForm.touched.itemDate && wantsForm.errors.itemDate
+                      ? wantsForm.errors.itemDate
+                      : ""}
+                  </p>
+                </div>
+                <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Name</label>
+                  <input
+                    name="itemName"
+                    type="text"
+                    placeholder="Sugar"
+                    value={wantsForm.values.itemName}
+                    onChange={wantsForm.handleChange}
+                  />
+                  <p
+                    className={
+                      wantsForm.touched.itemName && wantsForm.errors.itemName
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {wantsForm.touched.itemName && wantsForm.errors.itemName
+                      ? wantsForm.errors.itemName
+                      : ""}
+                  </p>
+                </div>
+                <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Amount</label>
+                  <input
+                    name="itemPrice"
+                    type="number"
+                    min="0"
+                    placeholder="10000"
+                    value={wantsForm.values.itemPrice}
+                    onChange={wantsForm.handleChange}
+                  />
+                  <p
+                    className={
+                      wantsForm.touched.itemPrice && wantsForm.errors.itemPrice
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {wantsForm.touched.itemPrice && wantsForm.errors.itemPrice
+                      ? wantsForm.errors.itemPrice
+                      : ""}
+                  </p>
+                </div>
+                <button
+                  type="submit"
+                  className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 >
-                  {formik.touched.itemName && formik.errors.itemName
-                    ? formik.errors.itemName
-                    : ""}
-                </p>
-              </div>
-              <div className="inputfield inputfield_rightside">
-                <label className="text-sm font-medium">Enter Amount</label>
-                <input
-                  name="itemPrice"
-                  type="number"
-                  min="0"
-                  placeholder="10000"
-                  value={formik.values.itemPrice}
-                  onChange={formik.handleChange}
-                />
-                <p
-                  className={
-                    formik.touched.itemPrice && formik.errors.itemPrice
-                      ? "text-red-600  text-xs  font-medium"
-                      : ""
-                  }
+                  Use Amount
+                </button>
+              </form>
+            ) : formVisible === 2 ? (
+              <form onSubmit={investForm.handleSubmit}>
+                <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Date</label>
+                  <input
+                    name="itemDate"
+                    type="month"
+                    placeholder="MM"
+                    value={investForm.values.itemDate}
+                    onChange={investForm.handleChange}
+                  />
+                  <p
+                    className={
+                      investForm.touched.itemDate && investForm.errors.itemDate
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {investForm.touched.itemDate && investForm.errors.itemDate
+                      ? investForm.errors.itemDate
+                      : ""}
+                  </p>
+                </div>
+                <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Name</label>
+                  <input
+                    name="itemName"
+                    type="text"
+                    placeholder="Sugar"
+                    value={investForm.values.itemName}
+                    onChange={investForm.handleChange}
+                  />
+                  <p
+                    className={
+                      investForm.touched.itemName && investForm.errors.itemName
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {investForm.touched.itemName && investForm.errors.itemName
+                      ? investForm.errors.itemName
+                      : ""}
+                  </p>
+                </div>
+                <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Amount</label>
+                  <input
+                    name="itemPrice"
+                    type="number"
+                    min="0"
+                    placeholder="10000"
+                    value={needsForm.values.itemPrice}
+                    onChange={needsForm.handleChange}
+                  />
+                  <p
+                    className={
+                      needsForm.touched.itemPrice && needsForm.errors.itemPrice
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {needsForm.touched.itemPrice && needsForm.errors.itemPrice
+                      ? needsForm.errors.itemPrice
+                      : ""}
+                  </p>
+                </div>
+                <button
+                  type="submit"
+                  className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 >
-                  {formik.touched.itemPrice && formik.errors.itemPrice
-                    ? formik.errors.itemPrice
-                    : ""}
-                </p>
-              </div>
-              <button
-                type="submit"
-                className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-              >
-                Use Amount
-              </button>
-            </form>
-
+                  Use Amount
+                </button>
+              </form>
+            ) : (
+              ""
+            )}
             <div className="list_amount_parent">
               <div className=" mt-5 list_by_filter flex align-center justify-between">
                 <div className="filter_box w-full">
