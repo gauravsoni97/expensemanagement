@@ -8,11 +8,13 @@ import { useEffect } from "react";
 import { FormControl, MenuItem, Select } from "@mui/material";
 
 const Main = () => {
-  const [splitAmounts, setSplitAmounts] = useState({
-    needs: 0,
-    wants: 0,
-    invest: 0,
-  });
+  const [splitAmounts, setSplitAmounts] = useState(
+    JSON.parse(localStorage.getItem("splitAmounts")) || {
+      needs: 0,
+      wants: 0,
+      invest: 0,
+    }
+  );
 
   const incomeForm = useFormik({
     initialValues: { income: "" },
@@ -29,6 +31,7 @@ const Main = () => {
         wants: values.income * 0.3,
         invest: values.income * 0.2,
       });
+      incomeForm.resetForm();
     },
   });
 
@@ -124,12 +127,13 @@ const Main = () => {
 
   // ================================================ use Effects ==============================
 
-  useEffect(() => {
-    const storedAmount = JSON.parse(localStorage.getItem("splitAmounts"));
-    if (storedAmount) {
-      setSplitAmounts(storedAmount);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedAmount = JSON.parse(localStorage.getItem("splitAmounts"));
+  //   if (storedAmount) {
+  //     setSplitAmounts(storedAmount);
+  //     console.log(storedAmount);
+  //   }
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem("splitAmounts", JSON.stringify(splitAmounts));
