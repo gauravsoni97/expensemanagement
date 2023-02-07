@@ -8,12 +8,13 @@ import { useEffect } from "react";
 import { FormControl, MenuItem, Select } from "@mui/material";
 
 const Main = () => {
-  const [splitAmounts, setSplitAmounts] = useState(JSON.parse(localStorage.getItem("splitAmounts")) || {
+  const [splitAmounts, setSplitAmounts] = useState(
+    JSON.parse(localStorage.getItem("splitAmounts")) || {
       needs: 0,
       wants: 0,
       invest: 0,
     }
-  )
+  );
 
   const incomeForm = useFormik({
     initialValues: { income: "" },
@@ -37,15 +38,19 @@ const Main = () => {
   // -- needs wants invest form formik validation
 
   // --------- right side
-  const [arrayOfNeeds, setArrayOfNeeds] = useState([]);
-  const [arrayOfWants, setArrayOfWants] = useState([]);
-  const [arrayOfInvest, setArrayOfInvest] = useState([]);
+  const [arrayOfNeeds, setArrayOfNeeds] = useState(JSON.parse(localStorage.getItem("needsArray"))  || []);
+  const [arrayOfWants, setArrayOfWants] = useState(JSON.parse(localStorage.getItem("wantsArray"))  || []);
+  const [arrayOfInvest, setArrayOfInvest] = useState(JSON.parse(localStorage.getItem("investArray"))  || []);
 
+
+  
   const [formVisible, setFormVisible] = useState(-1);
 
-  const handleNeedsFrom = () => setFormVisible(0);
-  const handleWantsFrom = () => setFormVisible(1);
-  const handleInvestFrom = () => setFormVisible(2);
+  const handleNeedsForm = () => setFormVisible(0);
+  const handleWantsForm = () => setFormVisible(1);
+  const handleInvestForm = () => setFormVisible(2);
+
+  console.log(handleInvestForm);
 
   // needs input form
 
@@ -59,7 +64,7 @@ const Main = () => {
     validationSchema: Yup.object({
       itemDate: Yup.date().required("Date is Required*"),
       itemName: Yup.string()
-        .max(20, "Enter needs name less than 20 character*")
+        .max(20, "Enter name less than 20 character*")
         .required("Name is Required*"),
 
       itemPrice: Yup.number()
@@ -71,6 +76,7 @@ const Main = () => {
       setArrayOfNeeds((preval) => {
         return [...preval, { name: values.itemName, price: values.itemPrice }];
       });
+      needsForm.resetForm();
     },
   });
 
@@ -84,7 +90,7 @@ const Main = () => {
     validationSchema: Yup.object({
       itemDate: Yup.date().required("Date is Required*"),
       itemName: Yup.string()
-        .max(20, "Enter needs name less than 20 character*")
+        .max(20, "Enter name less than 20 character*")
         .required("Name is Required*"),
 
       itemPrice: Yup.number()
@@ -96,6 +102,7 @@ const Main = () => {
       setArrayOfWants((preval) => {
         return [...preval, { name: values.itemName, price: values.itemPrice }];
       });
+      wantsForm.resetForm()
     },
   });
 
@@ -109,7 +116,7 @@ const Main = () => {
     validationSchema: Yup.object({
       itemDate: Yup.date().required("Date is Required*"),
       itemName: Yup.string()
-        .max(20, "Enter needs name less than 20 character*")
+        .max(20, "Enter name less than 20 character*")
         .required("Name is Required*"),
 
       itemPrice: Yup.number()
@@ -121,6 +128,7 @@ const Main = () => {
       setArrayOfInvest((preval) => {
         return [...preval, { name: values.itemName, price: values.itemPrice }];
       });
+      investForm.resetForm();
     },
   });
 
@@ -179,6 +187,19 @@ const Main = () => {
 
   // -------------- use effects for  right side forms -----------------
 
+  useEffect(() => {
+    localStorage.setItem("needsArray", JSON.stringify(arrayOfNeeds));
+  }, [arrayOfNeeds]);
+
+  useEffect(() => {
+    localStorage.setItem("needsArray", JSON.stringify(arrayOfWants));
+  }, [arrayOfWants]);
+
+  useEffect(() => {
+    localStorage.setItem("needsArray", JSON.stringify(arrayOfInvest));
+  }, [arrayOfInvest]);
+
+
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
       {/* left side  */}
@@ -226,7 +247,7 @@ const Main = () => {
                 Needs (50%):&nbsp; {splitAmounts.needs}
               </p>
               <button
-                onClick={handleNeedsFrom}
+                onClick={handleNeedsForm}
                 type="button"
                 className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
@@ -239,7 +260,7 @@ const Main = () => {
                 Wants (30%):&nbsp; {splitAmounts.wants}
               </p>
               <button
-                onClick={handleWantsFrom}
+                onClick={handleWantsForm}
                 type="button"
                 className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
@@ -252,7 +273,7 @@ const Main = () => {
                 Invest (20%):&nbsp; {splitAmounts.invest}
               </p>
               <button
-                onClick={handleInvestFrom}
+                onClick={handleInvestForm}
                 type="button"
                 className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
@@ -270,12 +291,15 @@ const Main = () => {
           <div className="balence_left_box w-full ">
             <p
               className={`w-full ${
-                (splitAmounts.needs - needsTotalListSum &&
-                  splitAmounts.wants - wantsTotalListSum &&
-                  splitAmounts.invest - investTotalListSum) <= 0
-                  ? "bg-red-600 text-gray-50"
+                (splitAmounts.needs - needsTotalListSum ||
+                  splitAmounts.wants - needsTotalListSum ||
+                  splitAmounts.invest - needsTotalListSum) < 0
+                  ? "bg-red-200 text-gray-50"
                   : "bg-green-50 text-gray-800"
-              } p-3 border rounded-lg text-gray-800 text-center mb-3 `}
+              } 
+           
+              
+                p-3 border rounded-lg text-gray-800 text-center mb-3 `}
             >
               {formVisible === 0
                 ? "Needs Balance:"
