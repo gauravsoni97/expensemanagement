@@ -530,7 +530,8 @@ const Main = () => {
                   />
                   <p
                     className={
-                      investForm.touched.itemPrice && investForm.errors.itemPrice
+                      investForm.touched.itemPrice &&
+                      investForm.errors.itemPrice
                         ? "text-red-600  text-xs  font-medium"
                         : ""
                     }
@@ -662,8 +663,8 @@ const Main = () => {
           <h2 className="empty-heading text-center text-lg font-medium">
             Let's Manage your Income
           </h2>
-          <p className="text-gray-400 text-sm text-center mt-3">
-            Please fill your income first in given form
+          <p className="text-gray-400 text-sm text-center mt-3 max-w-xs	 px-16"  >
+            Please fill your income first and then click on use amount.
           </p>
         </div>
       )}
