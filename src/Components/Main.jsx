@@ -7,35 +7,30 @@ import "./Main.css";
 import { useEffect } from "react";
 import { FormControl, MenuItem, Select } from "@mui/material";
 
-
 const Main = () => {
-
-
-
-
-
+  const [splitAmounts, setSplitAmounts] = useState({
+    first: 0,
+    second: 0,
+    third: 0,
+  });
 
   const incomeForm = useFormik({
-    initialValues: {income:""},
+    initialValues: { income: "" },
 
     validationSchema: Yup.object({
       income: Yup.number()
-        .max(1000000000000, "Enter income less than 1 Trillion*")
+        .max(1000000000000, "Enter amount less than 1 Trillion*")
         .required("Amount is Required*"),
     }),
 
     onSubmit: (values) => {
-    
+      setSplitAmounts({
+        first: values.income * 0.5,
+        second: values.income * 0.3,
+        third: values.income * 0.2,
+      });
     },
   });
-
-
-
-
-
-  
-
-
 
   // -- needs wants invest form formik validation
 
@@ -127,11 +122,18 @@ const Main = () => {
     setArrayOfInvest(updatedList);
   };
 
+  // ================================================ use Effects ==============================
 
-// ================================================ use Effects ==============================
+  useEffect(() => {
+    const storedAmount = JSON.parse(localStorage.getItem("splitAmounts"));
+    if (storedAmount) {
+      setSplitAmounts(storedAmount);
+    }
+  }, []);
 
-  
-
+  useEffect(() => {
+    localStorage.setItem("splitAmounts", JSON.stringify(splitAmounts));
+  }, [splitAmounts]);
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
@@ -177,7 +179,7 @@ const Main = () => {
           <div className="split_in_needs_wants_invest">
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Needs (50%):&nbsp; 
+                Needs (50%):&nbsp; {splitAmounts.first}
               </p>
               <button
                 onClick={handleNeedsFrom}
@@ -190,7 +192,7 @@ const Main = () => {
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Wants (30%):&nbsp; 
+                Wants (30%):&nbsp; {splitAmounts.second}
               </p>
               <button
                 onClick={handleWantsFrom}
@@ -203,7 +205,7 @@ const Main = () => {
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Invest (20%):&nbsp; 
+                Invest (20%):&nbsp; {splitAmounts.third}
               </p>
               <button
                 onClick={handleInvestFrom}
