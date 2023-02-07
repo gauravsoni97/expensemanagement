@@ -35,9 +35,9 @@ const Main = () => {
     },
   });
 
-  // -- needs wants invest form formik validation
+  // ========================================================== Right side forms ================================
 
-  // --------- right side
+
   const [arrayOfNeeds, setArrayOfNeeds] = useState(
     JSON.parse(localStorage.getItem("needsArray")) || []
   );
@@ -54,7 +54,6 @@ const Main = () => {
   const handleWantsForm = () => setFormVisible(1);
   const handleInvestForm = () => setFormVisible(2);
 
-  console.log(handleInvestForm);
 
   // needs input form
 
