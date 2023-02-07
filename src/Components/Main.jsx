@@ -9,9 +9,9 @@ import { FormControl, MenuItem, Select } from "@mui/material";
 
 const Main = () => {
   const [splitAmounts, setSplitAmounts] = useState({
-    first: 0,
-    second: 0,
-    third: 0,
+    needs: 0,
+    wants: 0,
+    invest: 0,
   });
 
   const incomeForm = useFormik({
@@ -25,9 +25,9 @@ const Main = () => {
 
     onSubmit: (values) => {
       setSplitAmounts({
-        first: values.income * 0.5,
-        second: values.income * 0.3,
-        third: values.income * 0.2,
+        needs: values.income * 0.5,
+        wants: values.income * 0.3,
+        invest: values.income * 0.2,
       });
     },
   });
@@ -179,7 +179,7 @@ const Main = () => {
           <div className="split_in_needs_wants_invest">
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Needs (50%):&nbsp; {splitAmounts.first}
+                Needs (50%):&nbsp; {splitAmounts.needs}
               </p>
               <button
                 onClick={handleNeedsFrom}
@@ -192,7 +192,7 @@ const Main = () => {
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Wants (30%):&nbsp; {splitAmounts.second}
+                Wants (30%):&nbsp; {splitAmounts.wants}
               </p>
               <button
                 onClick={handleWantsFrom}
@@ -205,7 +205,7 @@ const Main = () => {
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Invest (20%):&nbsp; {splitAmounts.third}
+                Invest (20%):&nbsp; {splitAmounts.invest}
               </p>
               <button
                 onClick={handleInvestFrom}
