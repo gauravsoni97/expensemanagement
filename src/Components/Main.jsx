@@ -321,27 +321,6 @@ const Main = () => {
             {formVisible === 0 ? (
               <form onSubmit={needsForm.handleSubmit}>
                 <div className="inputfield inputfield_rightside">
-                  <label className="text-sm font-medium">Enter Date</label>
-                  <input
-                    name="itemDate"
-                    type="month"
-                    placeholder="MM"
-                    value={needsForm.values.itemDate}
-                    onChange={needsForm.handleChange}
-                  />
-                  <p
-                    className={
-                      needsForm.touched.itemDate && needsForm.errors.itemDate
-                        ? "text-red-600  text-xs  font-medium"
-                        : ""
-                    }
-                  >
-                    {needsForm.touched.itemDate && needsForm.errors.itemDate
-                      ? needsForm.errors.itemDate
-                      : ""}
-                  </p>
-                </div>
-                <div className="inputfield inputfield_rightside">
                   <label className="text-sm font-medium">Enter Name</label>
                   <input
                     name="itemName"
@@ -394,27 +373,6 @@ const Main = () => {
             ) : formVisible === 1 ? (
               <form onSubmit={wantsForm.handleSubmit}>
                 <div className="inputfield inputfield_rightside">
-                  <label className="text-sm font-medium">Enter Date</label>
-                  <input
-                    name="itemDate"
-                    type="month"
-                    placeholder="MM"
-                    value={wantsForm.values.itemDate}
-                    onChange={wantsForm.handleChange}
-                  />
-                  <p
-                    className={
-                      wantsForm.touched.itemDate && wantsForm.errors.itemDate
-                        ? "text-red-600  text-xs  font-medium"
-                        : ""
-                    }
-                  >
-                    {wantsForm.touched.itemDate && wantsForm.errors.itemDate
-                      ? wantsForm.errors.itemDate
-                      : ""}
-                  </p>
-                </div>
-                <div className="inputfield inputfield_rightside">
                   <label className="text-sm font-medium">Enter Name</label>
                   <input
                     name="itemName"
@@ -466,27 +424,6 @@ const Main = () => {
               </form>
             ) : formVisible === 2 ? (
               <form onSubmit={investForm.handleSubmit}>
-                <div className="inputfield inputfield_rightside">
-                  <label className="text-sm font-medium">Enter Date</label>
-                  <input
-                    name="itemDate"
-                    type="month"
-                    placeholder="MM"
-                    value={investForm.values.itemDate}
-                    onChange={investForm.handleChange}
-                  />
-                  <p
-                    className={
-                      investForm.touched.itemDate && investForm.errors.itemDate
-                        ? "text-red-600  text-xs  font-medium"
-                        : ""
-                    }
-                  >
-                    {investForm.touched.itemDate && investForm.errors.itemDate
-                      ? investForm.errors.itemDate
-                      : ""}
-                  </p>
-                </div>
                 <div className="inputfield inputfield_rightside">
                   <label className="text-sm font-medium">Enter Name</label>
                   <input
