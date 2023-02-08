@@ -49,7 +49,7 @@ const Main = () => {
 
   const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const years = [2021, 2022, 2023, 2024, 2025];
-  
+
 
   const [selectedMonth, setSelectedMonth] = useState(months[0]);
   const [selectedYear, setSelectedYear] = useState(years[0]);
@@ -589,11 +589,11 @@ const Main = () => {
                 <div className="filter_box w-full">
                   <div>Filter By:</div>
                   <div className="flex align-center">
-                    <FormControl
+                    <FormControl 
                       sx={{ m: 1, minWidth: 80, maxWidth: 100 }}
                       size="small"
                     >
-                      <Select
+                      <Select style={{fontSize:".8rem"}}
                         value={selectedMonth}
                         onChange={(e) => setSelectedMonth(e.target.value)}
                       >
@@ -601,16 +601,16 @@ const Main = () => {
                         {monthOptions}
                       </Select>
                     </FormControl>
-                    <FormControl
+                    <FormControl 
                       sx={{ m: 1, minWidth: 80, maxWidth: 100 }}
                       size="small"
                     >
-                      <Select
+                      <Select style={{fontSize:".8rem"}}
                         value={selectedYear}
                         onChange={(e) => setSelectedYear(e.target.value)}
                       >
-                        <MenuItem value={selectedYear}>Year</MenuItem>
 
+                        <MenuItem value={selectedYear}>Year</MenuItem>
                         {yearOptions}
                       </Select>
                     </FormControl>
