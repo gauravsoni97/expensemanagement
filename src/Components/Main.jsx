@@ -37,7 +37,6 @@ const Main = () => {
 
   // ========================================================== Right side forms ================================
 
-
   const [arrayOfNeeds, setArrayOfNeeds] = useState(
     JSON.parse(localStorage.getItem("needsArray")) || []
   );
@@ -54,12 +53,10 @@ const Main = () => {
   const handleWantsForm = () => setFormVisible(1);
   const handleInvestForm = () => setFormVisible(2);
 
-
   // needs input form
 
   const needsForm = useFormik({
     initialValues: {
-      itemDate: "",
       itemName: "",
       itemPrice: "",
     },
@@ -85,7 +82,6 @@ const Main = () => {
 
   const wantsForm = useFormik({
     initialValues: {
-      itemDate: "",
       itemName: "",
       itemPrice: "",
     },
@@ -111,7 +107,6 @@ const Main = () => {
 
   const investForm = useFormik({
     initialValues: {
-      itemDate: "",
       itemName: "",
       itemPrice: "",
     },
@@ -134,10 +129,6 @@ const Main = () => {
       investForm.resetForm();
     },
   });
-
-  // ------------- right side form
-
-  // Balance left code
 
   let needsTotalListSum = arrayOfNeeds
     .map((obj) => obj.price)
@@ -551,23 +542,6 @@ const Main = () => {
               ""
             )}
             <div className="list_amount_parent">
-              <div className=" mt-5 list_by_filter flex align-center justify-between">
-                <div className="filter_box w-full">
-                  <div>Filter By:</div>
-                  <div>
-                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                      <Select
-                      //  value={monthFilter}
-                      //  onChange={(e) => setMonthFilter(e.target.value)}
-                      >
-                        <MenuItem value="jan">Jan</MenuItem>
-                        <MenuItem value="feb">Feb</MenuItem>
-                        <MenuItem value="mar">Mar</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                </div>
-              </div>
               <div className="all_lists_parent">
                 {formVisible === 0 && (
                   <>
@@ -662,7 +636,7 @@ const Main = () => {
           <h2 className="empty-heading text-center text-lg font-medium">
             Let's Manage your Income
           </h2>
-          <p className="text-gray-400 text-sm text-center mt-3 max-w-xs	 px-16"  >
+          <p className="text-gray-400 text-sm text-center mt-3 max-w-xs	 px-16">
             Please fill your income first and then click on use amount.
           </p>
         </div>
