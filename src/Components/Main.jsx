@@ -47,22 +47,9 @@ const Main = () => {
     JSON.parse(localStorage.getItem("investArray")) || []
   );
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const years = [2021, 2022, 2023, 2024, 2025];
+  
 
   const [selectedMonth, setSelectedMonth] = useState(months[0]);
   const [selectedYear, setSelectedYear] = useState(years[0]);
