@@ -37,12 +37,6 @@ const Main = () => {
 
   // ========================================================== Right side forms ================================
 
-
-  
-
-
-
-
   const [arrayOfNeeds, setArrayOfNeeds] = useState(
     JSON.parse(localStorage.getItem("needsArray")) || []
   );
@@ -53,30 +47,43 @@ const Main = () => {
     JSON.parse(localStorage.getItem("investArray")) || []
   );
 
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
+  const years = [2021, 2022, 2023, 2024, 2025];
 
-  let needsDateFilterOptions = arrayOfNeeds.map((obj) => obj.pickedDate);
-  
-  console.log(needsDateFilterOptions);
+  const [selectedMonth, setSelectedMonth] = useState(months[0]);
+  const [selectedYear, setSelectedYear] = useState(years[0]);
 
-  const [monthFilter, setMonthFilter] = useState(needsDateFilterOptions[needsDateFilterOptions.length - 1])
+  const monthOptions = months.map((month, index) => (
+    <MenuItem key={month} value={index}>
+      {month}
+    </MenuItem>
+  ));
 
-
-
-  const filteredDataList = (curInd) => {
-    const updatedList = arrayOfNeeds.filter((ele, arrInd) => {
-      return ele.pickedDate !== curInd.pickedDate;
-    });
-    setArrayOfNeeds(updatedList);
-  };
-  
+  const yearOptions = years.map((years, index) => (
+    <MenuItem key={years} value={index}>
+      {years}
+    </MenuItem>
+  ));
 
   const [formVisible, setFormVisible] = useState(-1);
 
   const handleNeedsForm = () => setFormVisible(0);
   const handleWantsForm = () => setFormVisible(1);
   const handleInvestForm = () => setFormVisible(2);
-
 
   // needs input form
 
@@ -100,7 +107,14 @@ const Main = () => {
 
     onSubmit: (values) => {
       setArrayOfNeeds((preval) => {
-        return [...preval, {pickedDate: values.itemDate, name: values.itemName, price: values.itemPrice }];
+        return [
+          ...preval,
+          {
+            pickedDate: values.itemDate,
+            name: values.itemName,
+            price: values.itemPrice,
+          },
+        ];
       });
       needsForm.resetForm();
     },
@@ -126,7 +140,14 @@ const Main = () => {
 
     onSubmit: (values) => {
       setArrayOfWants((preval) => {
-        return [...preval, { pickedDate: values.itemDate, name: values.itemName, price: values.itemPrice }];
+        return [
+          ...preval,
+          {
+            pickedDate: values.itemDate,
+            name: values.itemName,
+            price: values.itemPrice,
+          },
+        ];
       });
       wantsForm.resetForm();
     },
@@ -152,16 +173,18 @@ const Main = () => {
 
     onSubmit: (values) => {
       setArrayOfInvest((preval) => {
-        return [...preval, { pickedDate: values.itemDate, name: values.itemName, price: values.itemPrice }];
+        return [
+          ...preval,
+          {
+            pickedDate: values.itemDate,
+            name: values.itemName,
+            price: values.itemPrice,
+          },
+        ];
       });
       investForm.resetForm();
     },
   });
-
-
-
-
-  
 
   let needsTotalListSum = arrayOfNeeds
     .map((obj) => obj.price)
@@ -578,18 +601,30 @@ const Main = () => {
               <div className=" mt-5 list_by_filter flex align-center justify-between">
                 <div className="filter_box w-full">
                   <div>Filter By:</div>
-                  <div>
-                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                  <div className="flex align-center">
+                    <FormControl
+                      sx={{ m: 1, minWidth: 80, maxWidth: 100 }}
+                      size="small"
+                    >
                       <Select
-                       value={monthFilter}
-                       onChange={(e) => setMonthFilter(e.target.value)}
+                        value={selectedMonth}
+                        onChange={(e) => setSelectedMonth(e.target.value)}
                       >
-                        {needsDateFilterOptions.map((e)=>{
-                          return(
-                            <MenuItem value={e}>{e}</MenuItem>
-                          )
-                        })}
+                        <MenuItem value={selectedMonth}>Month</MenuItem>
+                        {monthOptions}
+                      </Select>
+                    </FormControl>
+                    <FormControl
+                      sx={{ m: 1, minWidth: 80, maxWidth: 100 }}
+                      size="small"
+                    >
+                      <Select
+                        value={selectedYear}
+                        onChange={(e) => setSelectedYear(e.target.value)}
+                      >
+                        <MenuItem value={selectedYear}>Year</MenuItem>
 
+                        {yearOptions}
                       </Select>
                     </FormControl>
                   </div>
@@ -689,7 +724,7 @@ const Main = () => {
           <h2 className="empty-heading text-center text-lg font-medium">
             Let's Manage your Income
           </h2>
-          <p className="text-gray-400 text-sm text-center mt-3 max-w-xs	 px-16"  >
+          <p className="text-gray-400 text-sm text-center mt-3 max-w-sm	px-8">
             Please fill your income first and then click on use amount.
           </p>
         </div>
