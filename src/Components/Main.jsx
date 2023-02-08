@@ -37,6 +37,12 @@ const Main = () => {
 
   // ========================================================== Right side forms ================================
 
+
+  
+
+
+
+
   const [arrayOfNeeds, setArrayOfNeeds] = useState(
     JSON.parse(localStorage.getItem("needsArray")) || []
   );
@@ -47,16 +53,36 @@ const Main = () => {
     JSON.parse(localStorage.getItem("investArray")) || []
   );
 
+
+
+  let needsDateFilterOptions = arrayOfNeeds.map((obj) => obj.pickedDate);
+  
+  console.log(needsDateFilterOptions);
+
+  const [monthFilter, setMonthFilter] = useState(needsDateFilterOptions[needsDateFilterOptions.length - 1])
+
+
+
+  const filteredDataList = (curInd) => {
+    const updatedList = arrayOfNeeds.filter((ele, arrInd) => {
+      return ele.pickedDate !== curInd.pickedDate;
+    });
+    setArrayOfNeeds(updatedList);
+  };
+  
+
   const [formVisible, setFormVisible] = useState(-1);
 
   const handleNeedsForm = () => setFormVisible(0);
   const handleWantsForm = () => setFormVisible(1);
   const handleInvestForm = () => setFormVisible(2);
 
+
   // needs input form
 
   const needsForm = useFormik({
     initialValues: {
+      itemDate: "",
       itemName: "",
       itemPrice: "",
     },
@@ -74,7 +100,7 @@ const Main = () => {
 
     onSubmit: (values) => {
       setArrayOfNeeds((preval) => {
-        return [...preval, { name: values.itemName, price: values.itemPrice }];
+        return [...preval, {pickedDate: values.itemDate, name: values.itemName, price: values.itemPrice }];
       });
       needsForm.resetForm();
     },
@@ -82,6 +108,7 @@ const Main = () => {
 
   const wantsForm = useFormik({
     initialValues: {
+      itemDate: "",
       itemName: "",
       itemPrice: "",
     },
@@ -99,7 +126,7 @@ const Main = () => {
 
     onSubmit: (values) => {
       setArrayOfWants((preval) => {
-        return [...preval, { name: values.itemName, price: values.itemPrice }];
+        return [...preval, { pickedDate: values.itemDate, name: values.itemName, price: values.itemPrice }];
       });
       wantsForm.resetForm();
     },
@@ -107,6 +134,7 @@ const Main = () => {
 
   const investForm = useFormik({
     initialValues: {
+      itemDate: "",
       itemName: "",
       itemPrice: "",
     },
@@ -124,11 +152,16 @@ const Main = () => {
 
     onSubmit: (values) => {
       setArrayOfInvest((preval) => {
-        return [...preval, { name: values.itemName, price: values.itemPrice }];
+        return [...preval, { pickedDate: values.itemDate, name: values.itemName, price: values.itemPrice }];
       });
       investForm.resetForm();
     },
   });
+
+
+
+
+  
 
   let needsTotalListSum = arrayOfNeeds
     .map((obj) => obj.price)
@@ -321,6 +354,27 @@ const Main = () => {
             {formVisible === 0 ? (
               <form onSubmit={needsForm.handleSubmit}>
                 <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Date</label>
+                  <input
+                    name="itemDate"
+                    type="month"
+                    placeholder="MM"
+                    value={needsForm.values.itemDate}
+                    onChange={needsForm.handleChange}
+                  />
+                  <p
+                    className={
+                      needsForm.touched.itemDate && needsForm.errors.itemDate
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {needsForm.touched.itemDate && needsForm.errors.itemDate
+                      ? needsForm.errors.itemDate
+                      : ""}
+                  </p>
+                </div>
+                <div className="inputfield inputfield_rightside">
                   <label className="text-sm font-medium">Enter Name</label>
                   <input
                     name="itemName"
@@ -373,6 +427,27 @@ const Main = () => {
             ) : formVisible === 1 ? (
               <form onSubmit={wantsForm.handleSubmit}>
                 <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Date</label>
+                  <input
+                    name="itemDate"
+                    type="month"
+                    placeholder="MM"
+                    value={wantsForm.values.itemDate}
+                    onChange={wantsForm.handleChange}
+                  />
+                  <p
+                    className={
+                      wantsForm.touched.itemDate && wantsForm.errors.itemDate
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {wantsForm.touched.itemDate && wantsForm.errors.itemDate
+                      ? wantsForm.errors.itemDate
+                      : ""}
+                  </p>
+                </div>
+                <div className="inputfield inputfield_rightside">
                   <label className="text-sm font-medium">Enter Name</label>
                   <input
                     name="itemName"
@@ -424,6 +499,27 @@ const Main = () => {
               </form>
             ) : formVisible === 2 ? (
               <form onSubmit={investForm.handleSubmit}>
+                <div className="inputfield inputfield_rightside">
+                  <label className="text-sm font-medium">Enter Date</label>
+                  <input
+                    name="itemDate"
+                    type="month"
+                    placeholder="MM"
+                    value={investForm.values.itemDate}
+                    onChange={investForm.handleChange}
+                  />
+                  <p
+                    className={
+                      investForm.touched.itemDate && investForm.errors.itemDate
+                        ? "text-red-600  text-xs  font-medium"
+                        : ""
+                    }
+                  >
+                    {investForm.touched.itemDate && investForm.errors.itemDate
+                      ? investForm.errors.itemDate
+                      : ""}
+                  </p>
+                </div>
                 <div className="inputfield inputfield_rightside">
                   <label className="text-sm font-medium">Enter Name</label>
                   <input
@@ -479,6 +575,26 @@ const Main = () => {
               ""
             )}
             <div className="list_amount_parent">
+              <div className=" mt-5 list_by_filter flex align-center justify-between">
+                <div className="filter_box w-full">
+                  <div>Filter By:</div>
+                  <div>
+                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                      <Select
+                       value={monthFilter}
+                       onChange={(e) => setMonthFilter(e.target.value)}
+                      >
+                        {needsDateFilterOptions.map((e)=>{
+                          return(
+                            <MenuItem value={e}>{e}</MenuItem>
+                          )
+                        })}
+
+                      </Select>
+                    </FormControl>
+                  </div>
+                </div>
+              </div>
               <div className="all_lists_parent">
                 {formVisible === 0 && (
                   <>
@@ -573,7 +689,7 @@ const Main = () => {
           <h2 className="empty-heading text-center text-lg font-medium">
             Let's Manage your Income
           </h2>
-          <p className="text-gray-400 text-sm text-center mt-3 max-w-xs	 px-16">
+          <p className="text-gray-400 text-sm text-center mt-3 max-w-xs	 px-16"  >
             Please fill your income first and then click on use amount.
           </p>
         </div>
