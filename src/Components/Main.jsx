@@ -372,7 +372,7 @@ const Main = () => {
                   <label className="text-sm font-medium">Enter Date</label>
                   <input
                     name="itemDate"
-                    type="month"
+                    type="date"
                     placeholder="MM"
                     value={needsForm.values.itemDate}
                     onChange={needsForm.handleChange}
@@ -445,7 +445,7 @@ const Main = () => {
                   <label className="text-sm font-medium">Enter Date</label>
                   <input
                     name="itemDate"
-                    type="month"
+                    type="date"
                     placeholder="MM"
                     value={wantsForm.values.itemDate}
                     onChange={wantsForm.handleChange}
@@ -518,7 +518,7 @@ const Main = () => {
                   <label className="text-sm font-medium">Enter Date</label>
                   <input
                     name="itemDate"
-                    type="month"
+                    type="date"
                     placeholder="MM"
                     value={investForm.values.itemDate}
                     onChange={investForm.handleChange}
