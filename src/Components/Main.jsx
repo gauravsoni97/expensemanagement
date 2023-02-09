@@ -16,7 +16,6 @@ const Main = () => {
     }
   );
 
-
   // --------- Right side states ----------
 
   const [arrayOfNeeds, setArrayOfNeeds] = useState(
@@ -31,18 +30,27 @@ const Main = () => {
 
   const [formVisible, setFormVisible] = useState(-1);
 
-
-
   const [selectedMonth, setSelectedMonth] = useState(null);
 
 
 
 
 
-  const splitMonthFromArray = (arrayOfNeeds[0].pickedDate.split("-"));
-  console.log(splitMonthFromArray[1]);
+  const splitMonthFromArray = arrayOfNeeds[0].pickedDate.split("-");
+
+  function convertToEnglish(splitMonthFromArray) {
+    const date = new Date(splitMonthFromArray);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+    });
+  }
+
+
   
-  const months =[
+
+  console.log(convertToEnglish(splitMonthFromArray));
+
+  const months = [
     "Jan",
     "Feb",
     "Mar",
@@ -55,9 +63,7 @@ const Main = () => {
     "Oct",
     "Nov",
     "Dec",
-  ]
-
-
+  ];
 
   const incomeForm = useFormik({
     initialValues: { income: "" },
@@ -79,7 +85,6 @@ const Main = () => {
   });
 
   // ========================================================== Right side forms ================================
-
 
   // needs input form
 
@@ -115,10 +120,6 @@ const Main = () => {
       needsForm.resetForm();
     },
   });
-
-
-
-
 
   const wantsForm = useFormik({
     initialValues: {
@@ -186,14 +187,9 @@ const Main = () => {
     },
   });
 
-
   const handleNeedsForm = () => setFormVisible(0);
   const handleWantsForm = () => setFormVisible(1);
   const handleInvestForm = () => setFormVisible(2);
-
-
-
-
 
   let needsTotalListSum = arrayOfNeeds
     .map((obj) => obj.price)
@@ -598,9 +594,7 @@ const Main = () => {
               <div className=" mt-5 list_by_filter flex align-center justify-between">
                 <div className="filter_box w-full">
                   <div>Filter By:</div>
-                  <div className="flex align-center">
-                   
-                  </div>
+                  <div className="flex align-center"></div>
                 </div>
               </div>
               <div className="all_lists_parent">
