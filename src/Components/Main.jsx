@@ -16,6 +16,25 @@ const Main = () => {
     }
   );
 
+
+  // --------- Right side states ----------
+
+  const [arrayOfNeeds, setArrayOfNeeds] = useState(
+    JSON.parse(localStorage.getItem("needsArray")) || []
+  );
+  const [arrayOfWants, setArrayOfWants] = useState(
+    JSON.parse(localStorage.getItem("wantsArray")) || []
+  );
+  const [arrayOfInvest, setArrayOfInvest] = useState(
+    JSON.parse(localStorage.getItem("investArray")) || []
+  );
+
+  const [formVisible, setFormVisible] = useState(-1);
+
+
+
+
+
   const incomeForm = useFormik({
     initialValues: { income: "" },
 
@@ -37,40 +56,6 @@ const Main = () => {
 
   // ========================================================== Right side forms ================================
 
-  const [arrayOfNeeds, setArrayOfNeeds] = useState(
-    JSON.parse(localStorage.getItem("needsArray")) || []
-  );
-  const [arrayOfWants, setArrayOfWants] = useState(
-    JSON.parse(localStorage.getItem("wantsArray")) || []
-  );
-  const [arrayOfInvest, setArrayOfInvest] = useState(
-    JSON.parse(localStorage.getItem("investArray")) || []
-  );
-
-  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const years = [2021, 2022, 2023, 2024, 2025];
-
-
-  const [selectedMonth, setSelectedMonth] = useState(months[0]);
-  const [selectedYear, setSelectedYear] = useState(years[0]);
-
-  const monthOptions = months.map((month, index) => (
-    <MenuItem key={month} value={index}>
-      {month}
-    </MenuItem>
-  ));
-
-  const yearOptions = years.map((years, index) => (
-    <MenuItem key={years} value={index}>
-      {years}
-    </MenuItem>
-  ));
-
-  const [formVisible, setFormVisible] = useState(-1);
-
-  const handleNeedsForm = () => setFormVisible(0);
-  const handleWantsForm = () => setFormVisible(1);
-  const handleInvestForm = () => setFormVisible(2);
 
   // needs input form
 
@@ -95,7 +80,6 @@ const Main = () => {
     onSubmit: (values) => {
       setArrayOfNeeds((preval) => {
         return [
-        
           {
             pickedDate: values.itemDate,
             name: values.itemName,
@@ -129,7 +113,6 @@ const Main = () => {
     onSubmit: (values) => {
       setArrayOfWants((preval) => {
         return [
-        
           {
             pickedDate: values.itemDate,
             name: values.itemName,
@@ -163,7 +146,6 @@ const Main = () => {
     onSubmit: (values) => {
       setArrayOfInvest((preval) => {
         return [
-         
           {
             pickedDate: values.itemDate,
             name: values.itemName,
@@ -175,6 +157,13 @@ const Main = () => {
       investForm.resetForm();
     },
   });
+
+
+  const handleNeedsForm = () => setFormVisible(0);
+  const handleWantsForm = () => setFormVisible(1);
+  const handleInvestForm = () => setFormVisible(2);
+
+
 
 
 
@@ -210,18 +199,6 @@ const Main = () => {
   };
 
   // ================================================ use Effects ==============================
-
-  // -------------- use effects for  left side forms -----------------
-
-  // why its not working need to ask ????
-
-  //  useEffect(() => {
-  //    const storedAmount = JSON.parse(localStorage.getItem("splitAmounts"));
-  //    if (storedAmount) {
-  //      setSplitAmounts(storedAmount);
-  //      console.log(storedAmount);
-  //    }
-  //  }, []);
 
   useEffect(() => {
     localStorage.setItem("splitAmounts", JSON.stringify(splitAmounts));
@@ -594,11 +571,12 @@ const Main = () => {
                 <div className="filter_box w-full">
                   <div>Filter By:</div>
                   <div className="flex align-center">
-                    <FormControl 
+                    <FormControl
                       sx={{ m: 1, minWidth: 80, maxWidth: 100 }}
                       size="small"
                     >
-                      <Select style={{fontSize:".8rem"}}
+                      <Select
+                        style={{ fontSize: ".8rem" }}
                         value={selectedMonth}
                         onChange={(e) => setSelectedMonth(e.target.value)}
                       >
@@ -606,15 +584,15 @@ const Main = () => {
                         {monthOptions}
                       </Select>
                     </FormControl>
-                    <FormControl 
+                    <FormControl
                       sx={{ m: 1, minWidth: 80, maxWidth: 100 }}
                       size="small"
                     >
-                      <Select style={{fontSize:".8rem"}}
+                      <Select
+                        style={{ fontSize: ".8rem" }}
                         value={selectedYear}
                         onChange={(e) => setSelectedYear(e.target.value)}
                       >
-
                         <MenuItem value={selectedYear}>Year</MenuItem>
                         {yearOptions}
                       </Select>
