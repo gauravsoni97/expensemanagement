@@ -33,6 +33,30 @@ const Main = () => {
 
 
 
+  const [selectedMonth, setSelectedMonth] = useState(null);
+
+
+
+
+
+  const splitMonthFromArray = (arrayOfNeeds[0].pickedDate.split("-"));
+  console.log(splitMonthFromArray[1]);
+  
+  const months =[
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ]
+
 
 
   const incomeForm = useFormik({
@@ -91,6 +115,10 @@ const Main = () => {
       needsForm.resetForm();
     },
   });
+
+
+
+
 
   const wantsForm = useFormik({
     initialValues: {
