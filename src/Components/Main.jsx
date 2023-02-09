@@ -571,32 +571,7 @@ const Main = () => {
                 <div className="filter_box w-full">
                   <div>Filter By:</div>
                   <div className="flex align-center">
-                    <FormControl
-                      sx={{ m: 1, minWidth: 80, maxWidth: 100 }}
-                      size="small"
-                    >
-                      <Select
-                        style={{ fontSize: ".8rem" }}
-                        value={selectedMonth}
-                        onChange={(e) => setSelectedMonth(e.target.value)}
-                      >
-                        <MenuItem value={selectedMonth}>Month</MenuItem>
-                        {monthOptions}
-                      </Select>
-                    </FormControl>
-                    <FormControl
-                      sx={{ m: 1, minWidth: 80, maxWidth: 100 }}
-                      size="small"
-                    >
-                      <Select
-                        style={{ fontSize: ".8rem" }}
-                        value={selectedYear}
-                        onChange={(e) => setSelectedYear(e.target.value)}
-                      >
-                        <MenuItem value={selectedYear}>Year</MenuItem>
-                        {yearOptions}
-                      </Select>
-                    </FormControl>
+                   
                   </div>
                 </div>
               </div>
