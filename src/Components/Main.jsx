@@ -95,12 +95,13 @@ const Main = () => {
     onSubmit: (values) => {
       setArrayOfNeeds((preval) => {
         return [
-          ...preval,
+        
           {
             pickedDate: values.itemDate,
             name: values.itemName,
             price: values.itemPrice,
           },
+          ...preval,
         ];
       });
       needsForm.resetForm();
@@ -128,12 +129,13 @@ const Main = () => {
     onSubmit: (values) => {
       setArrayOfWants((preval) => {
         return [
-          ...preval,
+        
           {
             pickedDate: values.itemDate,
             name: values.itemName,
             price: values.itemPrice,
           },
+          ...preval,
         ];
       });
       wantsForm.resetForm();
@@ -161,17 +163,20 @@ const Main = () => {
     onSubmit: (values) => {
       setArrayOfInvest((preval) => {
         return [
-          ...preval,
+         
           {
             pickedDate: values.itemDate,
             name: values.itemName,
             price: values.itemPrice,
           },
+          ...preval,
         ];
       });
       investForm.resetForm();
     },
   });
+
+
 
   let needsTotalListSum = arrayOfNeeds
     .map((obj) => obj.price)
