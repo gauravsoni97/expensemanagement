@@ -28,29 +28,27 @@ const Main = () => {
     JSON.parse(localStorage.getItem("investArray")) || []
   );
 
+  const [filteredArrayOfNeeds, setFilteredArrayOfNeeds] = useState([]);
+
+  const [filteredArrayOfWants, setFilteredArrayOfWants] = useState([]);
+
+  const [filteredArrayOfInvest, setFilteredArrayOfInvest] = useState([]);
+
   const [formVisible, setFormVisible] = useState(-1);
 
-  const [selectedMonth, setSelectedMonth] = useState(null);
+  const [selectedMonth, setSelectedMonth] = useState("Month");
 
+  const splitArrayOfNeeds = arrayOfNeeds.map((ele, ind) => ele.pickedDate.split("-"));
 
-
-
-
-  const splitMonthFromArray = arrayOfNeeds[0].pickedDate.split("-");
-
-  function convertToEnglish(splitMonthFromArray) {
-    const date = new Date(splitMonthFromArray);
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-    });
-  }
-
+  const splitYearFromNeedsArray = splitArrayOfNeeds.map((ele, ind)=>ele[0])
+  const splitMonthFromNeedsArray = splitArrayOfNeeds.map((ele, ind)=>ele[1] - 1)
 
   
+  console.log(splitMonthFromNeedsArray);
 
-  console.log(convertToEnglish(splitMonthFromArray));
 
-  const months = [
+ 
+  const monthsName = [
     "Jan",
     "Feb",
     "Mar",
@@ -64,6 +62,18 @@ const Main = () => {
     "Nov",
     "Dec",
   ];
+
+  const CustomMonthIndex = monthsName.map((ele, index)=> index);
+
+  console.log(CustomMonthIndex);
+
+
+  const handleMonthFilter = (e) => {
+    console.log(e.target.value);
+  };
+
+
+  // ----------------------------------------------------------------------------------------------------
 
   const incomeForm = useFormik({
     initialValues: { income: "" },
@@ -594,7 +604,23 @@ const Main = () => {
               <div className=" mt-5 list_by_filter flex align-center justify-between">
                 <div className="filter_box w-full">
                   <div>Filter By:</div>
-                  <div className="flex align-center"></div>
+                  <div className="flex align-center">
+                    <FormControl
+                      style={{ minWidth: "50px", fontSize: ".8rem" }}
+                      size="small"
+                    >
+                      <Select
+                        style={{ fontSize: ".8rem" }}
+                        size="small"
+                        value={selectedMonth}
+                        onChange={handleMonthFilter}
+                      >
+                        {monthsName.map((monthList, index) => {
+                          return <MenuItem value={index}>{monthList}</MenuItem>;
+                        })}
+                      </Select>
+                    </FormControl>
+                  </div>
                 </div>
               </div>
               <div className="all_lists_parent">
@@ -605,7 +631,7 @@ const Main = () => {
                         No data found
                       </p>
                     )}
-                    {arrayOfNeeds?.map((e, ind) => {
+                    {arrayOfNeeds.map((e, ind) => {
                       return (
                         <div
                           className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
