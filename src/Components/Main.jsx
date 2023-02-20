@@ -36,19 +36,19 @@ const Main = () => {
   );
   const [filteredArrayOfNeeds, setFilteredArrayOfNeeds] = useState([]);
 
-  const [selectedMonth, setSelectedMonth] = useState("Month");
 
-  const splitArrayOfNeeds = arrayOfNeeds.map((ele, ind) =>
-    ele.pickedDate.split("-")
-  );
+  // const splitYearFromNeedsArray = splitArrayOfNeeds.map((ele, ind) => ele[0]);
 
-  const splitYearFromNeedsArray = splitArrayOfNeeds.map((ele, ind) => ele[0]);
-  const splitMonthFromNeedsArray = splitArrayOfNeeds.map(
-    (ele, ind) => ele[1] - 1
-  );
 
-  console.log(splitMonthFromNeedsArray);
 
+  const [selectedMonth, setSelectedMonth] = useState();
+
+
+
+  // console.log(splitMonthFromNeedsArray.reverse() + " index of array having months");
+
+
+  
   const monthsName = [
     "Jan",
     "Feb",
@@ -64,12 +64,24 @@ const Main = () => {
     "Dec",
   ];
 
-  const CustomMonthIndex = monthsName.map((ele, index) => index);
-
-  console.log(CustomMonthIndex);
 
   const handleMonthFilter = (e) => {
-    console.log(e.target.value);
+    console.log(e.target.value + " this is on change handle month filters");
+
+    const splitArrayOfNeeds = arrayOfNeeds.map((ele, ind) =>
+    ele.pickedDate.split("-")
+  );
+  const splitMonthFromNeedsArray = splitArrayOfNeeds.map(
+    (ele, ind) => ele[1] - 1
+  );
+  
+
+    if (splitMonthFromNeedsArray.includes(e.target.value)){
+      return console.log(" true ");
+    } else{
+      return console.log("false");
+    }
+
   };
 
   // ----------------------------------------------------------------------------------------------------
@@ -615,7 +627,7 @@ const Main = () => {
                         onChange={handleMonthFilter}
                       >
                         {monthsName.map((monthList, index) => {
-                          return <MenuItem value={index}>{monthList}</MenuItem>;
+                          return <MenuItem value={index} key={index}>{monthList}</MenuItem>;
                         })}
                       </Select>
                     </FormControl>
