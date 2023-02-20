@@ -16,11 +16,8 @@ const Main = () => {
     }
   );
 
-  // --------- Right side states ----------
+  // --------- Right side states ---------------------------------------
 
-  const [arrayOfNeeds, setArrayOfNeeds] = useState(
-    JSON.parse(localStorage.getItem("needsArray")) || []
-  );
   const [arrayOfWants, setArrayOfWants] = useState(
     JSON.parse(localStorage.getItem("wantsArray")) || []
   );
@@ -28,26 +25,30 @@ const Main = () => {
     JSON.parse(localStorage.getItem("investArray")) || []
   );
 
-  const [filteredArrayOfNeeds, setFilteredArrayOfNeeds] = useState([]);
-
   const [filteredArrayOfWants, setFilteredArrayOfWants] = useState([]);
-
   const [filteredArrayOfInvest, setFilteredArrayOfInvest] = useState([]);
-
   const [formVisible, setFormVisible] = useState(-1);
+
+  // --------------------------------------------------------------------
+
+  const [arrayOfNeeds, setArrayOfNeeds] = useState(
+    JSON.parse(localStorage.getItem("needsArray")) || []
+  );
+  const [filteredArrayOfNeeds, setFilteredArrayOfNeeds] = useState([]);
 
   const [selectedMonth, setSelectedMonth] = useState("Month");
 
-  const splitArrayOfNeeds = arrayOfNeeds.map((ele, ind) => ele.pickedDate.split("-"));
+  const splitArrayOfNeeds = arrayOfNeeds.map((ele, ind) =>
+    ele.pickedDate.split("-")
+  );
 
-  const splitYearFromNeedsArray = splitArrayOfNeeds.map((ele, ind)=>ele[0])
-  const splitMonthFromNeedsArray = splitArrayOfNeeds.map((ele, ind)=>ele[1] - 1)
+  const splitYearFromNeedsArray = splitArrayOfNeeds.map((ele, ind) => ele[0]);
+  const splitMonthFromNeedsArray = splitArrayOfNeeds.map(
+    (ele, ind) => ele[1] - 1
+  );
 
-  
   console.log(splitMonthFromNeedsArray);
 
-
- 
   const monthsName = [
     "Jan",
     "Feb",
@@ -63,15 +64,13 @@ const Main = () => {
     "Dec",
   ];
 
-  const CustomMonthIndex = monthsName.map((ele, index)=> index);
+  const CustomMonthIndex = monthsName.map((ele, index) => index);
 
   console.log(CustomMonthIndex);
-
 
   const handleMonthFilter = (e) => {
     console.log(e.target.value);
   };
-
 
   // ----------------------------------------------------------------------------------------------------
 
