@@ -18,9 +18,9 @@ const Main = () => {
 
   // ================================================================ Right side states 
 
-  const [formVisible, setFormVisible] = useState(-1);
-  const [selectedMonth, setSelectedMonth] = useState("Month");
   const monthsName = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const [formVisible, setFormVisible] = useState(-1);
+  const [selectedMonth, setSelectedMonth] = useState(0);
 
 
   const [arrayOfWants, setArrayOfWants] = useState(JSON.parse(localStorage.getItem("wantsArray")) || []);
@@ -30,29 +30,25 @@ const Main = () => {
 
   const [arrayOfNeeds, setArrayOfNeeds] = useState(JSON.parse(localStorage.getItem("needsArray")) || []);
 
-  console.log(arrayOfNeeds + " this is array of needs");
-
-  const splitArrayOfNeeds = arrayOfNeeds.map((ele, ind) =>
-  ele.pickedDate.split("-")[1]
-  );
-  console.log(splitArrayOfNeeds + " Split Array of Needs variable")
-
-
-const splitMonthFromNeedsArray = splitArrayOfNeeds.map(
-  (ele, ind) => ele[1] - 1
-);
-console.log(splitMonthFromNeedsArray + "This is  -1 of variable");
 
   const handleMonthFilter = (e) => {
-    if (splitMonthFromNeedsArray.includes(e.target.value)){
-      return console.log(" true ");
-    } else{
-      return console.log("false");
-    }
+    setSelectedMonth(e.target.value);
+
+
+    const splitArrayOfNeeds = arrayOfNeeds.filter((ele) => {
+      let date = ele.pickedDate.split("-")[1]; //[01, 02, 2020]
+      console.log(date);
+      while(date.charAt(0) === '0')
+      date = date.substring(1);
+      return date === selectedMonth;
+      });
+
+
+      setArrayOfNeeds(splitArrayOfNeeds);
 
   };
 
-
+  console.log(selectedMonth);
 
   // ----------------------------------------------------------------------------------------------------
 
