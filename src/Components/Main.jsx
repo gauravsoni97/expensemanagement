@@ -16,37 +16,59 @@ const Main = () => {
     }
   );
 
-  // ================================================================ Right side states 
+  // ================================================================ Right side states
 
-  const monthsName = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const monthsName = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   const [formVisible, setFormVisible] = useState(-1);
   const [selectedMonth, setSelectedMonth] = useState(0);
 
-
-  const [arrayOfWants, setArrayOfWants] = useState(JSON.parse(localStorage.getItem("wantsArray")) || []);
-  const [arrayOfInvest, setArrayOfInvest] = useState(JSON.parse(localStorage.getItem("investArray")) || []);
+  const [arrayOfWants, setArrayOfWants] = useState(
+    JSON.parse(localStorage.getItem("wantsArray")) || []
+  );
+  const [arrayOfInvest, setArrayOfInvest] = useState(
+    JSON.parse(localStorage.getItem("investArray")) || []
+  );
 
   // --------------------------------------------------------------------
 
-  const [arrayOfNeeds, setArrayOfNeeds] = useState(JSON.parse(localStorage.getItem("needsArray")) || []);
+  const [arrayOfNeeds, setArrayOfNeeds] = useState(
+    JSON.parse(localStorage.getItem("needsArray")) || []
+  );
 
+  const [filteredNeedsArray, setFilteredNeedsArray] = useState([]);
 
   const handleMonthFilter = (e) => {
-    setSelectedMonth(e.target.value);
+    setSelectedMonth(e.target.value + 1);
 
+    let splitArrayOfNeeds = arrayOfNeeds.filter((ele) => {
+      let date = ele.pickedDate.split("-")[1];
 
-    const splitArrayOfNeeds = arrayOfNeeds.filter((ele) => {
-      let date = ele.pickedDate.split("-")[1]; //[01, 02, 2020]
-      console.log(date);
-      while(date.charAt(0) === '0')
-      date = date.substring(1);
-      return date === selectedMonth;
-      });
+      while (date.charAt(0) == "0") date = date.substring(1);
 
+      console.log(date + " date from split Date");
 
-      setArrayOfNeeds(splitArrayOfNeeds);
+      return date == selectedMonth;
+    });
 
+    console.log(splitArrayOfNeeds);
+
+    setFilteredNeedsArray(splitArrayOfNeeds);
   };
+
+  console.log(filteredNeedsArray + " this is filtered array");
 
   console.log(selectedMonth);
 
@@ -320,8 +342,7 @@ const Main = () => {
           <div className="balence_left_box w-full ">
             <p
               className={`w-full ${
-                (formVisible === 0 &&
-                  splitAmounts.needs - needsTotalListSum < 0) ||
+                (formVisible === 0 && splitAmounts.needs - needsTotalListSum < 0) ||
                 (formVisible === 1 &&
                   splitAmounts.wants - needsTotalListSum < 0) ||
                 (formVisible === 2 &&
@@ -593,7 +614,11 @@ const Main = () => {
                         onChange={handleMonthFilter}
                       >
                         {monthsName.map((name, index) => {
-                          return <MenuItem value={index} key={index}>{name}</MenuItem>;
+                          return (
+                            <MenuItem value={index} key={index}>
+                              {name}
+                            </MenuItem>
+                          );
                         })}
                       </Select>
                     </FormControl>
