@@ -342,13 +342,22 @@ const Main = () => {
           <div className="balence_left_box w-full ">
             <p
               className={`w-full ${
-                (formVisible === 0 && splitAmounts.needs - needsTotalListSum < 0) ||
-                (formVisible === 1 &&
-                  splitAmounts.wants - needsTotalListSum < 0) ||
-                (formVisible === 2 &&
-                  splitAmounts.invest - needsTotalListSum < 0)
+                splitAmounts.needs - needsTotalListSum < 0
                   ? "bg-red-200 text-gray-50"
                   : "bg-green-50 text-gray-800"
+              }
+                ${
+                  splitAmounts.wants - needsTotalListSum < 0
+                    ? "bg-red-200 text-gray-50"
+                    : "bg-green-50 text-gray-800"
+                }
+
+                ${
+                  splitAmounts.invest - needsTotalListSum < 0
+                    ? "bg-red-200 text-gray-50"
+                    : "bg-green-50 text-gray-800"
+                }
+                  
               } 
            
               
