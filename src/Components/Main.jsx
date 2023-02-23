@@ -329,23 +329,15 @@ const Main = () => {
           <div className="balence_left_box w-full ">
             <p
               className={`w-full ${
-                splitAmounts.needs - needsTotalListSum < 0
+                (formVisible === 0 &&
+                  splitAmounts.needs - needsTotalListSum < 0) ||
+                (formVisible === 1 &&
+                  splitAmounts.wants - needsTotalListSum < 0) ||
+                (formVisible === 2 &&
+                  splitAmounts.invest - needsTotalListSum < 0)
                   ? "bg-red-200 text-gray-50"
                   : "bg-green-50 text-gray-800"
               }
-                ${
-                  splitAmounts.wants - needsTotalListSum < 0
-                    ? "bg-red-200 text-gray-50"
-                    : "bg-green-50 text-gray-800"
-                }
-
-                ${
-                  splitAmounts.invest - needsTotalListSum < 0
-                    ? "bg-red-200 text-gray-50"
-                    : "bg-green-50 text-gray-800"
-                }
-                  
-              } 
            
               
                 p-3 border rounded-lg text-gray-800 text-center mb-3 `}
@@ -630,11 +622,13 @@ const Main = () => {
               <div className="all_lists_parent">
                 {formVisible === 0 && (
                   <>
-                    {arrayOfNeeds.length === 0 &&  (
-                      <p className=" text-center text-sm pt-12 text-gray-600">
-                        No data found
-                      </p>
-                    )}
+                    {arrayOfNeeds.length === 0 ||
+                      (filteredNeedsArray.length === 0 &&
+                        selectedMonth !== 0 && (
+                          <p className=" text-center text-sm pt-12 text-gray-600">
+                            No data found
+                          </p>
+                        ))}
                     {/* 
                                   selectmonth -> filtered array -> filtered array -- done
                                   selectMonth -> filteredarray = 0 -> emptystate
@@ -666,7 +660,8 @@ const Main = () => {
 
                     {/* =========================== Filtered Array on select Month ========================== */}
 
-                    {selectedMonth > 0 && 
+                    {selectedMonth > 0 &&
+                      filteredNeedsArray.length > 0 &&
                       filteredNeedsArray.map((e, ind) => {
                         return (
                           <div
