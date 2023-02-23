@@ -621,11 +621,13 @@ const Main = () => {
               <div className="all_lists_parent">
                 {formVisible === 0 && (
                   <>
-                    {(arrayOfNeeds.length === 0 || (filteredNeedsArray.length === 0 && selectedMonth !== 0)) && (
-                          <p className=" text-center text-sm pt-12 text-gray-600">
-                            No data found
-                          </p>
-                        )}
+                    {(arrayOfNeeds.length === 0 ||
+                      (filteredNeedsArray.length === 0 &&
+                        selectedMonth !== 0)) && (
+                      <p className=" text-center text-sm pt-12 text-gray-600">
+                        No data found
+                      </p>
+                    )}
                     {/* 
                                   selectmonth -> filtered array -> filtered array -- done
                                   selectMonth -> filteredarray = 0 -> emptystate
