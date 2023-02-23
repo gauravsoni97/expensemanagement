@@ -19,7 +19,7 @@ const Main = () => {
   // ================================================================ Right side states
 
   const [formVisible, setFormVisible] = useState(-1);
-  const [selectedMonth, setSelectedMonth] = useState(0);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   const [arrayOfWants, setArrayOfWants] = useState(
     JSON.parse(localStorage.getItem("wantsArray")) || []
@@ -38,18 +38,10 @@ const Main = () => {
 
   const handleMonthFilter = (e) => {
     setSelectedMonth(e.target.value);
-
     const splitArrayOfNeeds = arrayOfNeeds.filter((ele) => {
-      let date = ele.pickedDate.split("-")[1].replace(/^0+/, '');
-
-      console.log(date + " splited Month Array Index");
-
-
-      return date == selectedMonth;
-
+      const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
+      return month === e.target.value;
     });
-
-    console.log(splitArrayOfNeeds);
 
     setFilteredNeedsArray(splitArrayOfNeeds);
   };
@@ -236,6 +228,15 @@ const Main = () => {
   useEffect(() => {
     localStorage.setItem("investArray", JSON.stringify(arrayOfInvest));
   }, [arrayOfInvest]);
+
+  useEffect(() => {
+    const splitArrayOfNeeds = arrayOfNeeds.filter((ele) => {
+      const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
+      return month === new Date().getMonth() + 1;
+    });
+
+    setFilteredNeedsArray(splitArrayOfNeeds);
+  }, [])
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
@@ -608,18 +609,19 @@ const Main = () => {
                         value={selectedMonth}
                         onChange={handleMonthFilter}
                       >
-                        <MenuItem value={0}>Jan</MenuItem>
-                        <MenuItem value={1}>Feb</MenuItem>
-                        <MenuItem value={2}>Mar</MenuItem>
-                        <MenuItem value={3}>Apr</MenuItem>
-                        <MenuItem value={4}>May</MenuItem>
-                        <MenuItem value={5}>Jun</MenuItem>
-                        <MenuItem value={6}>Jul</MenuItem>
-                        <MenuItem value={7}>Aug</MenuItem>
-                        <MenuItem value={8}>Sep</MenuItem>
-                        <MenuItem value={9}>Oct</MenuItem>
-                        <MenuItem value={10}>Nov</MenuItem>
-                        <MenuItem value={11}>Dec</MenuItem>
+                        <MenuItem value={0}>Select Month</MenuItem>
+                        <MenuItem value={1}>Jan</MenuItem>
+                        <MenuItem value={2}>Feb</MenuItem>
+                        <MenuItem value={3}>Mar</MenuItem>
+                        <MenuItem value={4}>Apr</MenuItem>
+                        <MenuItem value={5}>May</MenuItem>
+                        <MenuItem value={6}>Jun</MenuItem>
+                        <MenuItem value={7}>Jul</MenuItem>
+                        <MenuItem value={8}>Aug</MenuItem>
+                        <MenuItem value={9}>Sep</MenuItem>
+                        <MenuItem value={10}>Oct</MenuItem>
+                        <MenuItem value={11}>Nov</MenuItem>
+                        <MenuItem value={12}>Dec</MenuItem>
                       </Select>
                     </FormControl>
                   </div>
@@ -633,8 +635,14 @@ const Main = () => {
                         No data found
                       </p>
                     )}
+                                  {/* 
+                                  selectmonth -> filtered array -> filtered array
+                                  selectMonth -> filteredarray = 0 -> emptystate
+                                  clear filter -> all (month = 0 && filter = 0)
+                                  */}
+
                     {filteredNeedsArray.length > 0
-                      ? filteredNeedsArray.map((e, ind) => {
+                      ? filteredNeedsArray?.map((e, ind) => {
                           return (
                             <div
                               className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
