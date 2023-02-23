@@ -236,7 +236,7 @@ const Main = () => {
     });
 
     setFilteredNeedsArray(splitArrayOfNeeds);
-  }, [])
+  }, []);
 
   return (
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
@@ -597,7 +597,7 @@ const Main = () => {
             <div className="list_amount_parent">
               <div className=" mt-5 list_by_filter flex align-center justify-between">
                 <div className="filter_box w-full">
-                  <div>Filter By:</div>
+                  <div>Select Month</div>
                   <div className="flex align-center">
                     <FormControl
                       style={{ minWidth: "50px", fontSize: ".8rem" }}
@@ -609,7 +609,7 @@ const Main = () => {
                         value={selectedMonth}
                         onChange={handleMonthFilter}
                       >
-                        <MenuItem value={0}>Select Month</MenuItem>
+                        <MenuItem value={0}>All</MenuItem>
                         <MenuItem value={1}>Jan</MenuItem>
                         <MenuItem value={2}>Feb</MenuItem>
                         <MenuItem value={3}>Mar</MenuItem>
@@ -630,52 +630,60 @@ const Main = () => {
               <div className="all_lists_parent">
                 {formVisible === 0 && (
                   <>
-                    {arrayOfNeeds.length === 0 && (
+                    {arrayOfNeeds.length === 0 &&  (
                       <p className=" text-center text-sm pt-12 text-gray-600">
                         No data found
                       </p>
                     )}
-                                  {/* 
-                                  selectmonth -> filtered array -> filtered array
+                    {/* 
+                                  selectmonth -> filtered array -> filtered array -- done
                                   selectMonth -> filteredarray = 0 -> emptystate
-                                  clear filter -> all (month = 0 && filter = 0)
+                                  clear filter -> all (month = 0 && filter = 0) -- done
+                                  
+                                  
                                   */}
 
-                    {filteredNeedsArray.length > 0
-                      ? filteredNeedsArray?.map((e, ind) => {
-                          return (
-                            <div
-                              className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
-                              key={ind}
-                            >
-                              <p className="listed_item_name">{e.name}</p>
-                              <p className="listed_item_price">{e.price}</p>
-                              <p className="listed_item_edit">
-                                <i
-                                  className="ri-delete-bin-line"
-                                  onClick={() => deleteNeedsFromList(ind)}
-                                ></i>
-                              </p>
-                            </div>
-                          );
-                        })
-                      : arrayOfNeeds.map((e, ind) => {
-                          return (
-                            <div
-                              className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
-                              key={ind}
-                            >
-                              <p className="listed_item_name">{e.name}</p>
-                              <p className="listed_item_price">{e.price}</p>
-                              <p className="listed_item_edit">
-                                <i
-                                  className="ri-delete-bin-line"
-                                  onClick={() => deleteNeedsFromList(ind)}
-                                ></i>
-                              </p>
-                            </div>
-                          );
-                        })}
+                    {/* =========  Show all Data ====================== */}
+
+                    {selectedMonth === 0 &&
+                      arrayOfNeeds.map((e, ind) => {
+                        return (
+                          <div
+                            className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                            key={ind}
+                          >
+                            <p className="listed_item_name">{e.name}</p>
+                            <p className="listed_item_price">{e.price}</p>
+                            <p className="listed_item_edit">
+                              <i
+                                className="ri-delete-bin-line"
+                                onClick={() => deleteNeedsFromList(ind)}
+                              ></i>
+                            </p>
+                          </div>
+                        );
+                      })}
+
+                    {/* =========================== Filtered Array on select Month ========================== */}
+
+                    {selectedMonth > 0 && 
+                      filteredNeedsArray.map((e, ind) => {
+                        return (
+                          <div
+                            className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                            key={ind}
+                          >
+                            <p className="listed_item_name">{e.name}</p>
+                            <p className="listed_item_price">{e.price}</p>
+                            <p className="listed_item_edit">
+                              <i
+                                className="ri-delete-bin-line"
+                                onClick={() => deleteNeedsFromList(ind)}
+                              ></i>
+                            </p>
+                          </div>
+                        );
+                      })}
                   </>
                 )}
                 {formVisible === 1 && (
