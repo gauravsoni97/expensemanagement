@@ -18,20 +18,6 @@ const Main = () => {
 
   // ================================================================ Right side states
 
-  const monthsName = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
   const [formVisible, setFormVisible] = useState(-1);
   const [selectedMonth, setSelectedMonth] = useState(0);
 
@@ -51,16 +37,16 @@ const Main = () => {
   const [filteredNeedsArray, setFilteredNeedsArray] = useState([]);
 
   const handleMonthFilter = (e) => {
-    setSelectedMonth(e.target.value + 1);
+    setSelectedMonth(e.target.value);
 
-    let splitArrayOfNeeds = arrayOfNeeds.filter((ele) => {
-      let date = ele.pickedDate.split("-")[1];
+    const splitArrayOfNeeds = arrayOfNeeds.filter((ele) => {
+      let date = ele.pickedDate.split("-")[1].replace(/^0+/, '');
 
-      while (date.charAt(0) == "0") date = date.substring(1);
+      console.log(date + " splited Month Array Index");
 
-      console.log(date + " date from split Date");
 
       return date == selectedMonth;
+
     });
 
     console.log(splitArrayOfNeeds);
@@ -70,7 +56,7 @@ const Main = () => {
 
   console.log(filteredNeedsArray + " this is filtered array");
 
-  console.log(selectedMonth);
+  console.log(selectedMonth + " selected Month from dropdown");
 
   // ----------------------------------------------------------------------------------------------------
 
@@ -622,13 +608,18 @@ const Main = () => {
                         value={selectedMonth}
                         onChange={handleMonthFilter}
                       >
-                        {monthsName.map((name, index) => {
-                          return (
-                            <MenuItem value={index} key={index}>
-                              {name}
-                            </MenuItem>
-                          );
-                        })}
+                        <MenuItem value={0}>Jan</MenuItem>
+                        <MenuItem value={1}>Feb</MenuItem>
+                        <MenuItem value={2}>Mar</MenuItem>
+                        <MenuItem value={3}>Apr</MenuItem>
+                        <MenuItem value={4}>May</MenuItem>
+                        <MenuItem value={5}>Jun</MenuItem>
+                        <MenuItem value={6}>Jul</MenuItem>
+                        <MenuItem value={7}>Aug</MenuItem>
+                        <MenuItem value={8}>Sep</MenuItem>
+                        <MenuItem value={9}>Oct</MenuItem>
+                        <MenuItem value={10}>Nov</MenuItem>
+                        <MenuItem value={11}>Dec</MenuItem>
                       </Select>
                     </FormControl>
                   </div>
@@ -642,23 +633,41 @@ const Main = () => {
                         No data found
                       </p>
                     )}
-                    {arrayOfNeeds.map((e, ind) => {
-                      return (
-                        <div
-                          className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
-                          key={ind}
-                        >
-                          <p className="listed_item_name">{e.name}</p>
-                          <p className="listed_item_price">{e.price}</p>
-                          <p className="listed_item_edit">
-                            <i
-                              className="ri-delete-bin-line"
-                              onClick={() => deleteNeedsFromList(ind)}
-                            ></i>
-                          </p>
-                        </div>
-                      );
-                    })}
+                    {filteredNeedsArray.length > 0
+                      ? filteredNeedsArray.map((e, ind) => {
+                          return (
+                            <div
+                              className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                              key={ind}
+                            >
+                              <p className="listed_item_name">{e.name}</p>
+                              <p className="listed_item_price">{e.price}</p>
+                              <p className="listed_item_edit">
+                                <i
+                                  className="ri-delete-bin-line"
+                                  onClick={() => deleteNeedsFromList(ind)}
+                                ></i>
+                              </p>
+                            </div>
+                          );
+                        })
+                      : arrayOfNeeds.map((e, ind) => {
+                          return (
+                            <div
+                              className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                              key={ind}
+                            >
+                              <p className="listed_item_name">{e.name}</p>
+                              <p className="listed_item_price">{e.price}</p>
+                              <p className="listed_item_edit">
+                                <i
+                                  className="ri-delete-bin-line"
+                                  onClick={() => deleteNeedsFromList(ind)}
+                                ></i>
+                              </p>
+                            </div>
+                          );
+                        })}
                   </>
                 )}
                 {formVisible === 1 && (
