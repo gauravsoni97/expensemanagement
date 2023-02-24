@@ -2,7 +2,7 @@
     width: 100%;
     min-width: 45vw;
     flex-wrap: wrap;
-    border-radius: 2rem;
+    border-radius: 1.5rem;
 }
 
 
@@ -13,7 +13,7 @@
     padding: 2rem;
 }
 .mainBox-leftside{
-    border-radius: 2rem;
+    border-radius: 1.5rem;
 }
 
 @media screen and (max-width:600px) {
@@ -107,3 +107,41 @@
 }
 
 
+
+.rightForms{
+    position: relative;
+}
+.FormOf{
+position: absolute;
+top: 0px;
+right: 0%;
+color: rgb(21, 3, 3);
+border-bottom-left-radius: 1rem;
+border-top-right-radius: 1.5rem;
+padding: 0.3rem 1rem;
+font-size: .9rem;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: rgb(255, 241, 235);
+border: 1px solid rgba(138, 138, 138, 0.646);
+}
+
+
+@media screen and (max-width:600px) {
+    .FormOf{
+        position: absolute;
+        top: 0rem;
+        right: 2%;
+        border-radius: 1rem;
+        padding: 0.3rem 0rem;
+        width: 30%;
+        margin-top: .5rem;
+        }
+
+        .input_amount_form_section{
+            margin-top: .5rem;
+        }
+        
+    
+}

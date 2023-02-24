@@ -26,41 +26,12 @@ const RightSide = ({
   return (
     <>
       {splitAmounts.needs !== 0 && formVisible !== -1 ? (
-        <div className="mainBox-rightside p-3">
-          <div className="balence_left_box w-full ">
-            <p
-              className={`w-full ${
-                (formVisible === 0 &&
-                  splitAmounts.needs - needsTotalListSum < 0) ||
-                (formVisible === 1 &&
-                  splitAmounts.wants - wantsTotalListSum < 0) ||
-                (formVisible === 2 &&
-                  splitAmounts.invest - investTotalListSum < 0)
-                  ? "bg-red-200 text-gray-50"
-                  : "bg-green-50 text-gray-800"
-              }
-              
-                p-3 border rounded-lg text-gray-800 text-center mb-3 `}
-            >
-              {formVisible === 0
-                ? "Needs Balance:"
-                : formVisible === 1
-                ? "Wants Balance:"
-                : formVisible === 2
-                ? "Invest Balance:"
-                : "Balance Left"}
-              &nbsp;
-              {Math.round(
-                formVisible === 0
-                  ? splitAmounts.needs - needsTotalListSum
-                  : formVisible === 1
-                  ? splitAmounts.wants - wantsTotalListSum
-                  : formVisible === 2
-                  ? splitAmounts.invest - investTotalListSum
-                  : "-"
-              )}
-            </p>
-          </div>
+        <div className="mainBox-rightside p-3 rightForms shadow-3xl ">
+          <span className="FormOf ">
+            {formVisible === 0 && <span className="text-center ">Needs</span>}
+            {formVisible === 1 && <span className="text-center ">Wants</span>}
+            {formVisible === 2 && <span className="text-center ">Invest</span>}
+          </span>
 
           <div className="input_amount_form_section">
             {formVisible === 0 ? (
@@ -135,6 +106,20 @@ const RightSide = ({
                 >
                   Use Amount
                 </button>
+                <div className="balence_left_box w-full ">
+                  <p
+                    className={`w-full ${
+                      splitAmounts.needs - needsTotalListSum < 0
+                        ? "bg-red-200 text-gray-50"
+                        : "bg-green-50 text-gray-800"
+                    }
+              
+                p-3 mt-1 text-sm border rounded-lg text-gray-800 italic  text-center mb-2 `}
+                  >
+                    Balance Left : &nbsp;
+                    {Math.round(splitAmounts.needs - needsTotalListSum)}
+                  </p>
+                </div>
               </form>
             ) : formVisible === 1 ? (
               <form onSubmit={wantsForm.handleSubmit}>
@@ -208,6 +193,21 @@ const RightSide = ({
                 >
                   Use Amount
                 </button>
+
+                <div className="balence_left_box w-full ">
+                  <p
+                    className={`w-full ${
+                      splitAmounts.wants - wantsTotalListSum < 0
+                        ? "bg-red-200 text-gray-50"
+                        : "bg-green-50 text-gray-800"
+                    }
+              
+                p-3 border rounded-lg italic text-gray-800   text-sm text-center mb-2 `}
+                  >
+                    Balance Left : &nbsp;
+                    {Math.round(splitAmounts.wants - wantsTotalListSum)}
+                  </p>
+                </div>
               </form>
             ) : formVisible === 2 ? (
               <form onSubmit={investForm.handleSubmit}>
@@ -282,12 +282,26 @@ const RightSide = ({
                 >
                   Use Amount
                 </button>
+                <div className="balence_left_box w-full ">
+                  <p
+                    className={`w-full ${
+                      splitAmounts.invest - investTotalListSum < 0
+                        ? "bg-red-200 text-gray-50"
+                        : "bg-green-50 text-gray-800"
+                    }
+              
+                p-3 border rounded-lg italic text-gray-800   text-sm text-center mb-2 `}
+                  >
+                    Balance Left : &nbsp;
+                    {Math.round(splitAmounts.invest - investTotalListSum)}
+                  </p>
+                </div>
               </form>
             ) : (
               ""
             )}
             <div className="list_amount_parent">
-              <div className=" mt-5 list_by_filter flex align-center justify-between">
+              <div className=" mt-2 list_by_filter flex align-center justify-between">
                 <div className="filter_box w-full">
                   <div>Select Month</div>
                   <div className="flex align-center">

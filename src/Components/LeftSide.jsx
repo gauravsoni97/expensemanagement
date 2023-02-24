@@ -10,7 +10,7 @@ const LeftSide = ({
   return (
     <>
       <div className="mainBox-leftside bg-[#FFE0CA] rounded-xl  p-3  ">
-        <h2 className="mainheading_topleft">Income Management</h2>
+        <h2 className="mainheading_topleft">Money Management</h2>
 
         <form onSubmit={incomeForm.handleSubmit}>
           <div className="inputfield">
