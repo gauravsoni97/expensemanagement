@@ -22,29 +22,41 @@ const Main = () => {
   const [formVisible, setFormVisible] = useState(-1);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
-  const [arrayOfWants, setArrayOfWants] = useState(
-    JSON.parse(localStorage.getItem("wantsArray")) || []
-  );
-  const [arrayOfInvest, setArrayOfInvest] = useState(
-    JSON.parse(localStorage.getItem("investArray")) || []
-  );
-
   // --------------------------------------------------------------------
 
   const [arrayOfNeeds, setArrayOfNeeds] = useState(
     JSON.parse(localStorage.getItem("needsArray")) || []
   );
-
   const [filteredNeedsArray, setFilteredNeedsArray] = useState([]);
 
+  const [arrayOfWants, setArrayOfWants] = useState(
+    JSON.parse(localStorage.getItem("wantsArray")) || []
+  );
+  const [filteredWantsArray, setFilteredWantsArray] = useState([]);
+
+  const [arrayOfInvest, setArrayOfInvest] = useState(
+    JSON.parse(localStorage.getItem("investArray")) || []
+  );
+  const [filteredInvestArray, setFilteredInvestArray] = useState([]);
+  
   const handleMonthFilter = (e) => {
     setSelectedMonth(e.target.value);
     const splitArrayOfNeeds = arrayOfNeeds.filter((ele) => {
       const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
       return month === e.target.value;
     });
+    const splitArrayOfWants = arrayOfWants.filter((ele) => {
+      const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
+      return month === e.target.value;
+    });
+    const splitArrayOfInvest = arrayOfInvest.filter((ele) => {
+      const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
+      return month === e.target.value;
+    });
 
     setFilteredNeedsArray(splitArrayOfNeeds);
+    setFilteredWantsArray(splitArrayOfWants);
+    setFilteredInvestArray(splitArrayOfInvest);
   };
 
   console.log(filteredNeedsArray + " this is filtered array");
@@ -235,8 +247,18 @@ const Main = () => {
       const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
       return month === new Date().getMonth() + 1;
     });
+    const splitArrayOfWants = arrayOfWants.filter((ele) => {
+      const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
+      return month === new Date().getMonth() + 1;
+    });
+    const splitArrayOfInvest = arrayOfInvest.filter((ele) => {
+      const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
+      return month === new Date().getMonth() + 1;
+    });
 
     setFilteredNeedsArray(splitArrayOfNeeds);
+    setFilteredWantsArray(splitArrayOfWants);
+    setFilteredInvestArray(splitArrayOfInvest);
   }, []);
 
   return (
@@ -263,12 +285,13 @@ const Main = () => {
         arrayOfWants={arrayOfWants}
         arrayOfInvest={arrayOfInvest}
         filteredNeedsArray={filteredNeedsArray}
+        filteredWantsArray={filteredWantsArray}
+        filteredInvestArray={filteredInvestArray}
         deleteNeedsFromList={deleteNeedsFromList}
         deleteWantsFromList={deleteWantsFromList}
         deleteInvestFromList={deleteInvestFromList}
         emptystatehome={emptystatehome}
       />
-
     </div>
   );
 };

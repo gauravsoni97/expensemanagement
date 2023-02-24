@@ -10,17 +10,18 @@ const RightSide = ({
   needsForm,
   wantsForm,
   investForm,
-  selectedMonth, 
+  selectedMonth,
   handleMonthFilter,
   arrayOfNeeds,
   arrayOfWants,
   arrayOfInvest,
   filteredNeedsArray,
+  filteredInvestArray,
+  filteredWantsArray,
   deleteNeedsFromList,
   deleteWantsFromList,
   deleteInvestFromList,
   emptystatehome,
-
 }) => {
   return (
     <>
@@ -328,13 +329,6 @@ const RightSide = ({
                         No data found
                       </p>
                     )}
-                    {/* 
-                                  selectmonth -> filtered array -> filtered array -- done
-                                  selectMonth -> filteredarray = 0 -> emptystate
-                                  clear filter -> all (month = 0 && filter = 0) -- done
-                                  
-                                  
-                                  */}
 
                     {/* =========  Show all Data ====================== */}
 
@@ -380,56 +374,117 @@ const RightSide = ({
                       })}
                   </>
                 )}
+
+                {/* ============= Wants form =============== */}
                 {formVisible === 1 && (
                   <>
-                    {arrayOfWants.length === 0 && (
+                    {(arrayOfWants.length === 0 ||
+                      (filteredWantsArray.length === 0 &&
+                        selectedMonth !== 0)) && (
                       <p className=" text-center text-sm pt-12 text-gray-600">
                         No data found
                       </p>
                     )}
-                    {arrayOfWants?.map((e, ind) => {
-                      return (
-                        <div
-                          className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
-                          key={ind}
-                        >
-                          <p className="listed_item_name">{e.name}</p>
-                          <p className="listed_item_price">{e.price}</p>
-                          <p className="listed_item_edit">
-                            <i
-                              className="ri-delete-bin-line"
-                              onClick={() => deleteWantsFromList(ind)}
-                            ></i>
-                          </p>
-                        </div>
-                      );
-                    })}
+
+                    {/* =========  Show all Data ====================== */}
+
+                    {selectedMonth === 0 &&
+                      arrayOfWants.map((e, ind) => {
+                        return (
+                          <div
+                            className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                            key={ind}
+                          >
+                            <p className="listed_item_name">{e.name}</p>
+                            <p className="listed_item_price">{e.price}</p>
+                            <p className="listed_item_edit">
+                              <i
+                                className="ri-delete-bin-line"
+                                onClick={() => deleteNeedsFromList(ind)}
+                              ></i>
+                            </p>
+                          </div>
+                        );
+                      })}
+
+                    {/* =========================== Filtered Array on select Month ========================== */}
+
+                    {selectedMonth > 0 &&
+                      filteredWantsArray.length > 0 &&
+                      filteredWantsArray.map((e, ind) => {
+                        return (
+                          <div
+                            className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                            key={ind}
+                          >
+                            <p className="listed_item_name">{e.name}</p>
+                            <p className="listed_item_price">{e.price}</p>
+                            <p className="listed_item_edit">
+                              <i
+                                className="ri-delete-bin-line"
+                                onClick={() => deleteNeedsFromList(ind)}
+                              ></i>
+                            </p>
+                          </div>
+                        );
+                      })}
                   </>
                 )}
+
+                {/* ============= Invest form =============== */}
+
                 {formVisible === 2 && (
                   <>
-                    {arrayOfInvest.length === 0 && (
+                    {(arrayOfInvest.length === 0 ||
+                      (filteredInvestArray.length === 0 &&
+                        selectedMonth !== 0)) && (
                       <p className=" text-center text-sm pt-12 text-gray-600">
                         No data found
                       </p>
                     )}
-                    {arrayOfInvest?.map((e, ind) => {
-                      return (
-                        <div
-                          className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
-                          key={ind}
-                        >
-                          <p className="listed_item_name">{e.name}</p>
-                          <p className="listed_item_price">{e.price}</p>
-                          <p className="listed_item_edit">
-                            <i
-                              className="ri-delete-bin-line"
-                              onClick={() => deleteInvestFromList(ind)}
-                            ></i>
-                          </p>
-                        </div>
-                      );
-                    })}
+
+                    {/* =========  Show all Data ====================== */}
+
+                    {selectedMonth === 0 &&
+                      arrayOfInvest.map((e, ind) => {
+                        return (
+                          <div
+                            className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                            key={ind}
+                          >
+                            <p className="listed_item_name">{e.name}</p>
+                            <p className="listed_item_price">{e.price}</p>
+                            <p className="listed_item_edit">
+                              <i
+                                className="ri-delete-bin-line"
+                                onClick={() => deleteWantsFromList(ind)}
+                              ></i>
+                            </p>
+                          </div>
+                        );
+                      })}
+
+                    {/* =========================== Filtered Array on select Month ========================== */}
+
+                    {selectedMonth > 0 &&
+                      filteredInvestArray.length > 0 &&
+                      filteredInvestArray.map((e, ind) => {
+                        return (
+                          <div
+                            className="listed_item flex align-center justify-between my-2 py-1.5 px-2 rounded-lg bg-blue-50"
+                            key={ind}
+                          >
+                            <p className="listed_item_name">{e.name}</p>
+                            <p className="listed_item_price">{e.price}</p>
+                            <p className="listed_item_edit">
+                              <i
+                                className="ri-delete-bin-line"
+                                onClick={() => deleteInvestFromList(ind)}
+                              ></i>
+                            </p>
+                          </div>
+                        );
+                      })}
                   </>
                 )}
               </div>
