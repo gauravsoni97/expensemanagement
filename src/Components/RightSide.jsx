@@ -114,7 +114,7 @@ const RightSide = ({
                         : "bg-green-50 text-gray-800"
                     }
               
-                p-3 mt-1 text-sm border rounded-lg text-gray-800 italic  text-center mb-2 `}
+                p-3 text-sm border rounded-lg text-gray-800 italic  text-center mb-2 `}
                   >
                     Balance Left : &nbsp;
                     {Math.round(splitAmounts.needs - needsTotalListSum)}
@@ -303,7 +303,7 @@ const RightSide = ({
             <div className="list_amount_parent">
               <div className=" mt-2 list_by_filter flex align-center justify-between">
                 <div className="filter_box w-full">
-                  <div>Select Month</div>
+                  <p className="text-sm">Select Month</p>
                   <div className="flex align-center">
                     <FormControl
                       style={{ minWidth: "50px", fontSize: ".8rem" }}

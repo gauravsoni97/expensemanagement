@@ -14,7 +14,7 @@ const LeftSide = ({
 
         <form onSubmit={incomeForm.handleSubmit}>
           <div className="inputfield">
-            <label className="text-sm font-medium">Monthly Income</label>
+            <label className="text-sm font-medium">Enter Monthly Income</label>
             <input
               name="income"
               type="number"
@@ -75,7 +75,7 @@ const LeftSide = ({
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Invest (20%):&nbsp; {splitAmounts.invest}
+                Save / Invest (20%):&nbsp; {splitAmounts.invest}
               </p>
               <button
                 onClick={handleInvestForm}

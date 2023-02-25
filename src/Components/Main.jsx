@@ -81,6 +81,7 @@ const Main = () => {
         invest: values.income * 0.2,
       });
       incomeForm.resetForm();
+      setFormVisible(0)
     },
   });
 
