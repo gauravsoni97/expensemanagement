@@ -20,6 +20,7 @@ const Main = () => {
   // ================================================================ Right side states
 
   const [formVisible, setFormVisible] = useState(-1);
+ 
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   // --------------------------------------------------------------------
@@ -81,7 +82,6 @@ const Main = () => {
         invest: values.income * 0.2,
       });
       incomeForm.resetForm();
-      setFormVisible(0)
     },
   });
 
@@ -227,6 +227,7 @@ const Main = () => {
 
   useEffect(() => {
     localStorage.setItem("splitAmounts", JSON.stringify(splitAmounts));
+    setFormVisible(0)
   }, [splitAmounts]);
 
   // -------------- use effects for  right side forms -----------------
