@@ -28,99 +28,123 @@ const RightSide = ({
       {splitAmounts.needs !== 0 && formVisible !== -1 ? (
         <div className="mainBox-rightside p-3 rightForms shadow-3xl ">
           <span className="FormOf ">
-            {formVisible === 0 && <span className="text-center ">Needs</span>}
-            {formVisible === 1 && <span className="text-center ">Wants</span>}
-            {formVisible === 2 && <span className="text-center ">Invest</span>}
+            {formVisible === 0 && (
+              <span
+                className={`balenceLeft  ${
+                  splitAmounts.needs - needsTotalListSum < 0
+                    ? "bg-red-200 "
+                    : "bg-green-50 "
+                }`}
+              >
+                Balance Left : &nbsp;
+                {Math.round(splitAmounts.needs - needsTotalListSum)}
+              </span>
+            )}
+
+            {formVisible === 1 && (
+              <span
+                className={`balenceLeft ${
+                  splitAmounts.wants - wantsTotalListSum < 0
+                    ? "bg-red-200 "
+                    : "bg-green-50 "
+                }`}
+              >
+                Balance Left : &nbsp;
+                {Math.round(splitAmounts.wants - wantsTotalListSum)}
+              </span>
+            )}
+
+            {formVisible === 2 && (
+              <span
+                className={`balenceLeft ${
+                  splitAmounts.invest - investTotalListSum < 0
+                    ? "bg-red-200 "
+                    : "bg-green-50 "
+                }`}
+              >
+                Balance Left : &nbsp;
+                {Math.round(splitAmounts.invest - investTotalListSum)}
+              </span>
+            )}
           </span>
 
           <div className="input_amount_form_section">
             {formVisible === 0 ? (
-              <form onSubmit={needsForm.handleSubmit}>
-                <div className="inputfield inputfield_rightside">
-                  <label className="text-sm font-medium">Enter Date</label>
-                  <input
-                    name="itemDate"
-                    type="date"
-                    placeholder="MM"
-                    value={needsForm.values.itemDate}
-                    onChange={needsForm.handleChange}
-                  />
-                  <p
-                    className={
-                      needsForm.touched.itemDate && needsForm.errors.itemDate
-                        ? "text-red-600  text-xs  font-medium"
-                        : ""
-                    }
+              <>
+                <form onSubmit={needsForm.handleSubmit}>
+                  <div className="inputfield inputfield_rightside">
+                    <label className="text-sm font-medium">Enter Date</label>
+                    <input
+                      name="itemDate"
+                      type="date"
+                      placeholder="MM"
+                      value={needsForm.values.itemDate}
+                      onChange={needsForm.handleChange}
+                    />
+                    <p
+                      className={
+                        needsForm.touched.itemDate && needsForm.errors.itemDate
+                          ? "text-red-600  text-xs  font-medium"
+                          : ""
+                      }
+                    >
+                      {needsForm.touched.itemDate && needsForm.errors.itemDate
+                        ? needsForm.errors.itemDate
+                        : ""}
+                    </p>
+                  </div>
+                  <div className="inputfield inputfield_rightside">
+                    <label className="text-sm font-medium">Enter Name</label>
+                    <input
+                      name="itemName"
+                      type="text"
+                      placeholder="Sugar"
+                      value={needsForm.values.itemName}
+                      onChange={needsForm.handleChange}
+                    />
+                    <p
+                      className={
+                        needsForm.touched.itemName && needsForm.errors.itemName
+                          ? "text-red-600  text-xs  font-medium"
+                          : ""
+                      }
+                    >
+                      {needsForm.touched.itemName && needsForm.errors.itemName
+                        ? needsForm.errors.itemName
+                        : ""}
+                    </p>
+                  </div>
+                  <div className="inputfield inputfield_rightside">
+                    <label className="text-sm font-medium">Enter Amount</label>
+                    <input
+                      name="itemPrice"
+                      type="number"
+                      min="0"
+                      placeholder="10000"
+                      value={needsForm.values.itemPrice}
+                      onChange={needsForm.handleChange}
+                    />
+                    <p
+                      className={
+                        needsForm.touched.itemPrice &&
+                        needsForm.errors.itemPrice
+                          ? "text-red-600  text-xs  font-medium"
+                          : ""
+                      }
+                    >
+                      {needsForm.touched.itemPrice && needsForm.errors.itemPrice
+                        ? needsForm.errors.itemPrice
+                        : ""}
+                    </p>
+                  </div>
+                  <button
+                    type="submit"
+                    className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                   >
-                    {needsForm.touched.itemDate && needsForm.errors.itemDate
-                      ? needsForm.errors.itemDate
-                      : ""}
-                  </p>
-                </div>
-                <div className="inputfield inputfield_rightside">
-                  <label className="text-sm font-medium">Enter Name</label>
-                  <input
-                    name="itemName"
-                    type="text"
-                    placeholder="Sugar"
-                    value={needsForm.values.itemName}
-                    onChange={needsForm.handleChange}
-                  />
-                  <p
-                    className={
-                      needsForm.touched.itemName && needsForm.errors.itemName
-                        ? "text-red-600  text-xs  font-medium"
-                        : ""
-                    }
-                  >
-                    {needsForm.touched.itemName && needsForm.errors.itemName
-                      ? needsForm.errors.itemName
-                      : ""}
-                  </p>
-                </div>
-                <div className="inputfield inputfield_rightside">
-                  <label className="text-sm font-medium">Enter Amount</label>
-                  <input
-                    name="itemPrice"
-                    type="number"
-                    min="0"
-                    placeholder="10000"
-                    value={needsForm.values.itemPrice}
-                    onChange={needsForm.handleChange}
-                  />
-                  <p
-                    className={
-                      needsForm.touched.itemPrice && needsForm.errors.itemPrice
-                        ? "text-red-600  text-xs  font-medium"
-                        : ""
-                    }
-                  >
-                    {needsForm.touched.itemPrice && needsForm.errors.itemPrice
-                      ? needsForm.errors.itemPrice
-                      : ""}
-                  </p>
-                </div>
-                <button
-                  type="submit"
-                  className=" w-full text-white bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                >
-                  Use Amount
-                </button>
-                <div className="balence_left_box w-full ">
-                  <p
-                    className={`w-full ${
-                      splitAmounts.needs - needsTotalListSum < 0
-                        ? "bg-red-200 text-gray-50"
-                        : "bg-green-50 text-gray-800"
-                    }
-              
-                p-3 text-sm border rounded-lg text-gray-800 italic  text-center mb-2 `}
-                  >
-                    Balance Left : &nbsp;
-                    {Math.round(splitAmounts.needs - needsTotalListSum)}
-                  </p>
-                </div>
-              </form>
+                    Use Amount
+                  </button>
+                </form>
+              </>
             ) : formVisible === 1 ? (
               <form onSubmit={wantsForm.handleSubmit}>
                 <div className="inputfield inputfield_rightside">
@@ -193,21 +217,6 @@ const RightSide = ({
                 >
                   Use Amount
                 </button>
-
-                <div className="balence_left_box w-full ">
-                  <p
-                    className={`w-full ${
-                      splitAmounts.wants - wantsTotalListSum < 0
-                        ? "bg-red-200 text-gray-50"
-                        : "bg-green-50 text-gray-800"
-                    }
-              
-                p-3 border rounded-lg italic text-gray-800   text-sm text-center mb-2 `}
-                  >
-                    Balance Left : &nbsp;
-                    {Math.round(splitAmounts.wants - wantsTotalListSum)}
-                  </p>
-                </div>
               </form>
             ) : formVisible === 2 ? (
               <form onSubmit={investForm.handleSubmit}>
@@ -282,20 +291,6 @@ const RightSide = ({
                 >
                   Use Amount
                 </button>
-                <div className="balence_left_box w-full ">
-                  <p
-                    className={`w-full ${
-                      splitAmounts.invest - investTotalListSum < 0
-                        ? "bg-red-200 text-gray-50"
-                        : "bg-green-50 text-gray-800"
-                    }
-              
-                p-3 border rounded-lg italic text-gray-800   text-sm text-center mb-2 `}
-                  >
-                    Balance Left : &nbsp;
-                    {Math.round(splitAmounts.invest - investTotalListSum)}
-                  </p>
-                </div>
               </form>
             ) : (
               ""
@@ -514,10 +509,10 @@ const RightSide = ({
             loading="lazy"
           />
           <h2 className="empty-heading text-center text-lg font-medium">
-            Let's Manage your Income
+            Let's Manage your Money
           </h2>
           <p className="text-gray-400 text-sm text-center mt-3 max-w-sm	px-8">
-            Please fill your income first and then click on use amount.
+            Please fill your monthly income first in input field.
           </p>
         </div>
       )}

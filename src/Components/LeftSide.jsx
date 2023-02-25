@@ -9,7 +9,7 @@ const LeftSide = ({
 }) => {
   return (
     <>
-      <div className="mainBox-leftside bg-[#FFE0CA] rounded-xl  p-3  ">
+      <div className="mainBox-leftside bg-[#FFE0CA] rounded-xl  p-3 shadow-3xl  border border-[#FFE0CA]-300  ">
         <h2 className="mainheading_topleft">Money Management</h2>
 
         <form onSubmit={incomeForm.handleSubmit}>
@@ -49,7 +49,7 @@ const LeftSide = ({
           <div className="split_in_needs_wants_invest">
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Needs (50%):&nbsp; {splitAmounts.needs}
+                Needs (50%):&nbsp; {Math.round(splitAmounts.needs)}
               </p>
               <button
                 onClick={handleNeedsForm}
@@ -62,7 +62,7 @@ const LeftSide = ({
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Wants (30%):&nbsp; {splitAmounts.wants}
+                Wants (30%):&nbsp; {Math.round(splitAmounts.wants)}
               </p>
               <button
                 onClick={handleWantsForm}
@@ -75,7 +75,7 @@ const LeftSide = ({
 
             <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
               <p className="font-medium text-sm mb-3 ">
-                Save / Invest (20%):&nbsp; {splitAmounts.invest}
+                Save / Invest (20%):&nbsp; {Math.round(splitAmounts.invest)}
               </p>
               <button
                 onClick={handleInvestForm}

@@ -51,6 +51,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
+    margin-top: 1rem;
 
 }
 .inputfield label {
@@ -111,20 +112,22 @@
 .rightForms{
     position: relative;
 }
-.FormOf{
-position: absolute;
-top: 0px;
-right: 0%;
-color: rgb(21, 3, 3);
-border-bottom-left-radius: 1rem;
-border-top-right-radius: 1.5rem;
-padding: 0.3rem 1rem;
-font-size: .9rem;
-display: flex;
-align-items: center;
-justify-content: center;
-background-color: rgb(255, 241, 235);
-border: 1px solid rgba(142, 136, 136, 0.171);
+
+
+.balenceLeft{
+    position: absolute;
+    top: 0px;
+    right: 0%;
+    border-bottom-left-radius: 1rem;
+    border-top-right-radius: 1.5rem;
+    padding: 0.5rem 1rem;
+    font-size: .9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    border: 1px solid rgba(154, 127, 117, 0.326);
+
 }
 
 
