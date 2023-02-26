@@ -21,7 +21,7 @@ const Main = () => {
 
   const [formVisible, setFormVisible] = useState(-1);
  
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [selectedMonth, setSelectedMonth] = useState(0);
 
   // --------------------------------------------------------------------
 
@@ -118,6 +118,7 @@ const Main = () => {
           ...preval,
         ];
       });
+      setSelectedMonth(0)
       needsForm.resetForm();
     },
   });
@@ -151,6 +152,7 @@ const Main = () => {
           ...preval,
         ];
       });
+      selectedMonth(0)
       wantsForm.resetForm();
     },
   });
@@ -184,6 +186,7 @@ const Main = () => {
           ...preval,
         ];
       });
+      selectedMonth(0)
       investForm.resetForm();
     },
   });
@@ -247,15 +250,15 @@ const Main = () => {
   useEffect(() => {
     const splitArrayOfNeeds = arrayOfNeeds.filter((ele) => {
       const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
-      return month === new Date().getMonth() + 1;
+      return month === selectedMonth;
     });
     const splitArrayOfWants = arrayOfWants.filter((ele) => {
       const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
-      return month === new Date().getMonth() + 1;
+      return month === selectedMonth;
     });
     const splitArrayOfInvest = arrayOfInvest.filter((ele) => {
       const month = Math.floor(parseInt(ele.pickedDate.split("-")[1]));
-      return month === new Date().getMonth() + 1;
+      return month === selectedMonth;
     });
 
     setFilteredNeedsArray(splitArrayOfNeeds);
