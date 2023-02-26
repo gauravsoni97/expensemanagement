@@ -63,7 +63,7 @@ const LeftSide = ({
                 type="button"
                 className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
-                Use Amount
+               Spend On Needs
               </button>
             </div>
 
@@ -82,7 +82,7 @@ const LeftSide = ({
                 type="button"
                 className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
-                Use Amount
+                Spend On Wants
               </button>
             </div>
 
@@ -101,7 +101,7 @@ const LeftSide = ({
                 type="button"
                 className="w-full text-gray-900 border border-gray-800 hover:text-white hover:bg-gray-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2 text-center mb-2"
               >
-                Use Amount
+                Spend On Investments
               </button>
             </div>
           </div>

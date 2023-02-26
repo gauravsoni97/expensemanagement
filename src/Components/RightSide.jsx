@@ -409,7 +409,7 @@ const RightSide = ({
                             <p className="listed_item_edit">
                               <i
                                 className="ri-delete-bin-line"
-                                onClick={() => deleteNeedsFromList(ind)}
+                                onClick={() => deleteWantsFromList(ind)}
                               ></i>
                             </p>
                           </div>
@@ -431,7 +431,7 @@ const RightSide = ({
                             <p className="listed_item_edit">
                               <i
                                 className="ri-delete-bin-line"
-                                onClick={() => deleteNeedsFromList(ind)}
+                                onClick={() => deleteWantsFromList(ind)}
                               ></i>
                             </p>
                           </div>
@@ -466,7 +466,7 @@ const RightSide = ({
                             <p className="listed_item_edit">
                               <i
                                 className="ri-delete-bin-line"
-                                onClick={() => deleteWantsFromList(ind)}
+                                onClick={() => deleteInvestFromList(ind)}
                               ></i>
                             </p>
                           </div>
