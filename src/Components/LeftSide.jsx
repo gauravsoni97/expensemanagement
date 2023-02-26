@@ -2,6 +2,7 @@ import React from "react";
 
 const LeftSide = ({
   incomeForm,
+  formVisible,
   splitAmounts,
   handleNeedsForm,
   handleWantsForm,
@@ -47,7 +48,13 @@ const LeftSide = ({
         <div className="needs_wants_invest_parent mt-6 ">
           <p className="text-sm font-medium ">*50-30-20 Rule of Budgeting*</p>
           <div className="split_in_needs_wants_invest">
-            <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
+            <div
+              className={` ${
+                formVisible === 0
+                  ? "bg-gradient-to-tl from-orange-200 via-orange-50 to-orange-200  border-2 border-orange-200 shadow-xl"
+                  : "bg-[#FFFBEC]"
+              }    my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col`}
+            >
               <p className="font-medium text-sm mb-3 ">
                 Needs (50%):&nbsp; {Math.round(splitAmounts.needs)}
               </p>
@@ -60,7 +67,13 @@ const LeftSide = ({
               </button>
             </div>
 
-            <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
+            <div
+             className={` ${
+              formVisible === 1
+                ? "bg-gradient-to-tl from-orange-200 via-orange-50 to-orange-200  border-2 border-orange-200 shadow-xl"
+                : "bg-[#FFFBEC]"
+            }    my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col`}
+            >
               <p className="font-medium text-sm mb-3 ">
                 Wants (30%):&nbsp; {Math.round(splitAmounts.wants)}
               </p>
@@ -73,7 +86,13 @@ const LeftSide = ({
               </button>
             </div>
 
-            <div className="needs_from_income bg-[#FFFBEC] my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col">
+            <div
+             className={` ${
+              formVisible === 2
+                ? "bg-gradient-to-tl from-orange-200 via-orange-50 to-orange-200  border-2 border-orange-200 shadow-xl"
+                : "bg-[#FFFBEC]"
+            }    my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col`}
+            >
               <p className="font-medium text-sm mb-3 ">
                 Save / Invest (20%):&nbsp; {Math.round(splitAmounts.invest)}
               </p>

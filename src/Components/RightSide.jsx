@@ -32,8 +32,8 @@ const RightSide = ({
               <span
                 className={`balenceLeft  ${
                   splitAmounts.needs - needsTotalListSum < 0
-                    ? "bg-red-200 "
-                    : "bg-green-50 "
+                    ? "bg-gradient-to-r from-red-200 to-red-100"
+                    : "bg-gradient-to-r from-green-100 to-emerald-50"
                 }`}
               >
                 Balance Left : &nbsp;
@@ -45,8 +45,8 @@ const RightSide = ({
               <span
                 className={`balenceLeft ${
                   splitAmounts.wants - wantsTotalListSum < 0
-                    ? "bg-red-200 "
-                    : "bg-green-50 "
+                    ? "bg-gradient-to-r from-red-200 to-red-100"
+                    : "bg-gradient-to-r from-green-100 to-emerald-50"
                 }`}
               >
                 Balance Left : &nbsp;
@@ -58,8 +58,8 @@ const RightSide = ({
               <span
                 className={`balenceLeft ${
                   splitAmounts.invest - investTotalListSum < 0
-                    ? "bg-red-200 "
-                    : "bg-green-50 "
+                    ? "bg-gradient-to-r from-red-200 to-red-100"
+                    : "bg-gradient-to-r from-green-100 to-emerald-50"
                 }`}
               >
                 Balance Left : &nbsp;

@@ -270,6 +270,7 @@ const Main = () => {
     <div className="Main_Box flex align-start justify-start flex-wrap  bg-white rounded-xl">
       <LeftSide
         incomeForm={incomeForm}
+        formVisible={formVisible}
         splitAmounts={splitAmounts}
         handleNeedsForm={handleNeedsForm}
         handleWantsForm={handleWantsForm}
