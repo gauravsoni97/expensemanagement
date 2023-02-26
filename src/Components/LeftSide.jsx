@@ -94,7 +94,7 @@ const LeftSide = ({
             }    my-4 rounded-lg p-2 pt-3 px-4 flex align-center justify-between flex-col`}
             >
               <p className="font-medium text-sm mb-3 ">
-                Save / Invest (20%):&nbsp; {Math.round(splitAmounts.invest)}
+                Invest (20%):&nbsp; {Math.round(splitAmounts.invest)}
               </p>
               <button
                 onClick={handleInvestForm}
