@@ -60,9 +60,6 @@ const Main = () => {
     setFilteredInvestArray(splitArrayOfInvest);
   };
 
-  console.log(filteredNeedsArray + " this is filtered array");
-
-  console.log(selectedMonth + " selected Month from dropdown");
 
   // ----------------------------------------------------------------------------------------------------
 
