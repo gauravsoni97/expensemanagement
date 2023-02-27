@@ -173,7 +173,7 @@ const RightSide = ({
                   <input
                     name="itemName"
                     type="text"
-                    placeholder="Sugar"
+                    placeholder="Travel"
                     value={wantsForm.values.itemName}
                     onChange={wantsForm.handleChange}
                   />
@@ -246,7 +246,7 @@ const RightSide = ({
                   <input
                     name="itemName"
                     type="text"
-                    placeholder="Sugar"
+                    placeholder="Stocks"
                     value={investForm.values.itemName}
                     onChange={investForm.handleChange}
                   />
