@@ -100,7 +100,7 @@ const Main = () => {
         .required("Name is Required*"),
 
       itemPrice: Yup.number()
-        .max(1000000000000, "Enter income less than 1 Trillion*")
+        .max(1000000000000, "Enter amount less than 1 Trillion*")
         .required("Amount is Required*"),
     }),
 
@@ -134,7 +134,7 @@ const Main = () => {
         .required("Name is Required*"),
 
       itemPrice: Yup.number()
-        .max(1000000000000, "Enter income less than 1 Trillion*")
+        .max(1000000000000, "Enter amount less than 1 Trillion*")
         .required("Amount is Required*"),
     }),
 
@@ -168,7 +168,7 @@ const Main = () => {
         .required("Name is Required*"),
 
       itemPrice: Yup.number()
-        .max(1000000000000, "Enter income less than 1 Trillion*")
+        .max(1000000000000, "Enter amount less than 1 Trillion*")
         .required("Amount is Required*"),
     }),
 
